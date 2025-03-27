@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #88631E4; /* 보라색 */
+  --color-primary: #8863E4; /* 보라색 */
   --color-secondary: #03174D; /* 글자색 */
   --color-accent: #FF0303; /* 빨간색 */
   --color-background: #E2E3fC; /* 연보라색 */

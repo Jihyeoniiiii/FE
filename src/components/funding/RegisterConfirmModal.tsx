@@ -1,13 +1,18 @@
+'use client'
+
 import React from "react";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface RegisterConfirmModalProps {
   onClose: () => void;
 }
 
 const RegisterConfirmModal: React.FC<RegisterConfirmModalProps> = ({ onClose }) => {
+  const router = useRouter();
 
   const handleRegisterClick = () => {
+    router.push("/funding/register")
     onClose();
   }
 
