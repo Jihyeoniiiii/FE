@@ -1,0 +1,61 @@
+import React from "react";
+import { Badge } from "../ui/badge";
+import Link from "next/link";
+import Image from "next/image";
+import 공부 from "../../../public/assets/images/study.png";
+
+type transformedCampaigns = {
+  id: string;
+  currentPercent: number;
+  deadline: string;
+  photo: string;
+  title: string;
+};
+
+const CampaignCard = ({ campaign }: { campaign: transformedCampaigns }) => {
+  return (
+    <div className="flex flex-col">
+      <div className="relative flex items-center justify-between mb-3">
+        <div className="relative text-primary text-baseline px-0.5 py-0.5 rounded-md">
+          {campaign.currentPercent}% 달성
+        </div>
+        {campaign.deadline === "오늘 마감" ||
+        campaign.deadline === "마감 임박" ? (
+          <Badge
+            className=" bg-accent text-accent text-sm px-1"
+            style={{
+              backgroundColor: "rgba(255, 0, 0, 0.1)",
+              fontWeight: 600,
+            }}>
+            {campaign.deadline}
+          </Badge>
+        ) : (
+          <Badge
+            className=" bg-white text-secondary text-sm px-1"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              fontWeight: 600,
+            }}>
+            {campaign.deadline}
+          </Badge>
+        )}
+      </div>
+      <Link href={`/funding/${campaign.id}`}>
+        <Image
+          src={campaign.photo || 공부}
+          alt="펀딩 프로젝트"
+          width={150}
+          height={100}
+          className="w-full h-auto rounded-lg object-cover"
+        />
+        <p className="text-xs mt-2.5 text-left">
+          {campaign.title.length > 17
+            ? campaign.title.slice(0, 16) + ".."
+            : campaign.title}
+        </p>
+      </Link>
+    </div>
+  );
+};
+
+export default CampaignCard;

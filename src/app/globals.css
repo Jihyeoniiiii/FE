@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #8863E4; /* 보라색 */
-    --color-secondary: #03174D; /* 글자색 */
-    --color-accent: #FF0303; /* 빨간색 */
-    --color-background: #E2E3FC; /* 연보라색 */
-    --color-white: #FFFFFF;
+  --color-primary: #88631E4; /* 보라색 */
+  --color-secondary: #03174D; /* 글자색 */
+  --color-accent: #FF0303; /* 빨간색 */
+  --color-background: #E2E3fC; /* 연보라색 */
+  --color-white: #FFFFFF;
   --color-black: #000000;
-    --color-gray: #A39FB9;
-    --color-white-0: rgba(255, 255, 255, 0.1); /* 흰색 10% 투명도 */
-    --color-white-50: rgba(255, 255, 255, 0.5); /* 흰색 50% 투명도 */
-    --font-myfont: "Pretendard", sans-serif;
+  --color-gray: #A39FB9;
+  --color-white-0: rgba(255, 255, 255, 0.1); /* 흰색 10% 투명도 */
+  --color-white-50: rgba(255, 255, 255, 0.5); /* 흰색 50% 투명도 */
+  --font-myfont: "Pretendard", sans-serif;
 }
 
 @font-face {
@@ -51,5 +51,18 @@
 }
 
 .bg-white-gradient {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.8)
+  );
+}
+
+/* 스크롤바 숨기기 */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
 }
