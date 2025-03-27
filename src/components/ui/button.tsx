@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary opacity-80 text-white shadow-xs",
-        ghost: "bg-white-gradient",
-        soft: "bg-white",
+          "bg-primary opacity-80 text-white shadow-xs hover:bg-primary/80",
+        ghost: "bg-white-gradient hover:bg-gray-200",
+        soft: "bg-white hover:bg-gray-100",
       },
       size: {
         default: "h-9 px-10 py-3 rounded-2xl",

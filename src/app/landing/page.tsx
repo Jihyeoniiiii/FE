@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../../../public/assets/images/Chaeum.png";
+import logo from "@assets/images/Chaeum.png";
 import { Metadata } from "next";
 import LoginButtons from "./loginButton";
 import Paw from "@/components/ui/paw/paw";

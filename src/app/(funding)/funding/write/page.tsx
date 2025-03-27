@@ -27,7 +27,9 @@ const FundingWritePage = () => {
 
   const [isRegister, setIsRegister] = useState(false);
 
-  const handleFormChange = (e) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,

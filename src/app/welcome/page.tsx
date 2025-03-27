@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import cat from "../../../public/assets/images/cat.svg";
+import cat from "@assets/images/cat.svg";
 import { centerImageStyles, mainStyles } from "@/styles/styles";
 import { useRouter } from "next/navigation";
 

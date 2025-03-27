@@ -2,7 +2,7 @@ import React from "react";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import Image from "next/image";
-import 공부 from "../../../public/assets/images/study.png";
+import 공부 from "@assets/images/study.png";
 
 type transformedCampaigns = {
   id: string;

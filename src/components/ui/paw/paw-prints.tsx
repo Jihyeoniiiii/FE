@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import 발자국 from "../../../../public/assets/images/발자국.png";
+import 발자국 from "@assets/images/발자국.png";
 
 // 발자국 위치 데이터 (x, y 좌표와 회전 각도)
 const pawPositions = [

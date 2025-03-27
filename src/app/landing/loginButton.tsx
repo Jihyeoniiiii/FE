@@ -6,7 +6,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SiNaver } from "react-icons/si";
-import kakaoLogo from "../../../public/assets/images/카카오.png";
+import kakaoLogo from "@assets/images/카카오.png";
 
 export default function LoginButtons() {
   const [showButtons, setShowButtons] = useState(false);
