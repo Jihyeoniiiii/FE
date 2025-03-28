@@ -1,8 +1,8 @@
 import Image from "next/image";
-import logo from "@assets/images/Chaeum.png";
+import logo from "@assets/images/chaeum.png";
 import { Metadata } from "next";
 import LoginButtons from "./loginButton";
-import Paw from "@/components/ui/paw/paw";
+import Paw from "@/components/ui/paw/Paw";
 import { centerImageStyles, mainStyles } from "@/styles/styles";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function Randing() {
         © Copyright Chaeum Team
       </div>
 
-      {/* 카카오&네이버 로그인버튼 */}
+      {/* kakao-logo&네이버 로그인버튼 */}
       <LoginButtons />
     </main>
   );

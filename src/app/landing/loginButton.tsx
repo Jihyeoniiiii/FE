@@ -6,7 +6,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SiNaver } from "react-icons/si";
-import kakaoLogo from "@assets/images/카카오.png";
+import kakao from "@assets/images/kakao-logo.png";
 
 export default function LoginButtons() {
   const [showButtons, setShowButtons] = useState(false);
@@ -36,13 +36,13 @@ export default function LoginButtons() {
           "bg-yellow-300 hover:bg-yellow-600 text-black"
         )}>
         <Image
-          src={kakaoLogo}
-          width={25}
+          src={kakao}
+          width={27}
           height={35}
-          alt="카카오"
-          className="absolute left-3"
+          alt="kakao-logo"
+          className="absolute left-7"
         />
-        <span className="text-lg font-medium">카카오 로그인</span>
+        <span className="text-lg font-medium">kakao-logo 로그인</span>
       </Button>
 
       <Button
@@ -50,12 +50,11 @@ export default function LoginButtons() {
           loginButtonStyles,
           "bg-green-500 hover:bg-green-600 text-white"
         )}>
-        <SiNaver size={40} className="absolute left-4" />
+        <SiNaver size={50} className="absolute left-8" />
         <span className="text-lg font-medium">네이버 로그인</span>
       </Button>
     </div>
   );
 }
 
-const buttonWrapperStyle =
-  "absolute bottom-24 flex flex-col space-y-4 transition-opacity duration-1000 opacity-100";
+const buttonWrapperStyle = "absolute bottom-24 flex flex-col space-y-4 ";

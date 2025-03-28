@@ -20,7 +20,7 @@ const NavigationBar = () => {
   return (
     <div className="w-full h-[4rem] fixed bottom-0 bg-white">
       <div
-        className="absolute top-[5px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full flex items-center justify-center cursor-pointer bg-primary opacity-80"
+        className="absolute top-[5px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full flex items-center justify-center cursor-pointer bg-primary"
         onClick={() => handleMenuClick(0)}
       >
         <Image src="/assets/icons/home.svg" alt="Home" width={25} height={26} />

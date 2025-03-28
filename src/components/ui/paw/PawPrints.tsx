@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import 발자국 from "@assets/images/발자국.png";
+import paw from "@assets/images/paw.png";
 
 // 발자국 위치 데이터 (x, y 좌표와 회전 각도)
 const pawPositions = [
@@ -65,7 +65,7 @@ export default function PawPrints() {
         <div
           key={index}
           className={cn(
-            "absolute w-10 h-10 opacity-0 transition-opacity duration-500 ease-in-out",
+            "absolute w-12 h-10 opacity-0 transition-opacity duration-500 ease-in-out",
             visiblePaws.includes(index) && "opacity-100"
           )}
           style={{
@@ -74,8 +74,8 @@ export default function PawPrints() {
             transform: `rotate(${pos.rotate}deg)`,
           }}>
           <Image
-            src={발자국 || "/placeholder.svg"}
-            alt="발자국"
+            src={paw}
+            alt="paw"
             width={40}
             height={40}
             className="w-full h-full object-contain"
