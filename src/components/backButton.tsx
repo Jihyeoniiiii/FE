@@ -7,7 +7,7 @@ import React from "react";
 const BackButton = () => {
   const router = useRouter();
   return (
-    <div className="pl-6 pt-8 pb-3">
+    <div className="pl-6 pt-8">
       <button onClick={() => router.back()} className="cursor-pointer">
         {" "}
         <Image

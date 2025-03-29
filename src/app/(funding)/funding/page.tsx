@@ -5,7 +5,7 @@ import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";
 
 export default function FundingListPage() {
   return (
-    <div className="flex min-h-screen flex-col px-8 py-17">
+    <div className="flex min-h-screen flex-col px-8 py-17 relative">
       {/* Filter dropdown */}
       <FilterButtons />
 
@@ -15,7 +15,9 @@ export default function FundingListPage() {
           <CampaignCard key={campaign.id} campaign={campaign} />
         ))}
       </div>
-      <div className="fixed left-[59vw] top-[85vh] ">
+
+      {/* Floating Button */}
+      <div className="flex justify-end mt-30">
         <NavigateToWriteButton />
       </div>
     </div>

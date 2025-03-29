@@ -8,7 +8,7 @@ const NavigateToWriteButton = () => {
   const router = useRouter();
   return (
     <Button
-      className="text-white text-base font-semibold rounded-2xl"
+      className="text-white text-base font-semibold rounded-2xl relative"
       onClick={() => {
         router.push("/funding/write");
       }}>

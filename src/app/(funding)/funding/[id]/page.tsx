@@ -30,7 +30,7 @@ export default function FundingDetailCard() {
     <>
       <BackButton />
       <div className="flex flex-col px-2 ">
-        <div className=" p-6 space-y-3">
+        <div className=" p-6 space-y-2">
           {/* Header */}
           <h2
             className="text-xl font-medium text-secondary"
@@ -58,7 +58,7 @@ export default function FundingDetailCard() {
 
           {/* Funding Goal */}
           <div className="space-y-2">
-            <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center mb-3">
               <span className="text-secondary font-bold mr-2 text-2xl">
                 목표 :
               </span>
@@ -92,7 +92,7 @@ export default function FundingDetailCard() {
           </div>
 
           {/* Message */}
-          <div className="my-8 h-33 bg-white p-4 rounded-xl">
+          <div className="my-4 h-33 bg-white p-4 rounded-xl">
             <p className="text-secondary">
               뭐 이런저런 사정이 있어서 이런 용품이 필요합니다..!
             </p>

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import logo from "@assets/images/chaeum.png";
 import { Metadata } from "next";
 import LoginButtons from "./loginButton";
 import Paw from "@/components/ui/paw/Paw";
@@ -20,7 +19,12 @@ export default function Randing() {
 
       {/* Chaeum Logo */}
       <div className={centerImageStyles}>
-        <Image src={logo} alt="Chaeum logo" width={250} height={300} />
+        <Image
+          src={"/assets/images/chaeum.png"}
+          alt="Chaeum logo"
+          width={250}
+          height={300}
+        />
       </div>
 
       {/* Copyright */}

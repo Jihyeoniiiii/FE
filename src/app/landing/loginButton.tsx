@@ -42,7 +42,7 @@ export default function LoginButtons() {
           alt="kakao-logo"
           className="absolute left-7"
         />
-        <span className="text-lg font-medium">kakao-logo 로그인</span>
+        <span className="text-lg font-medium">카카오 로그인</span>
       </Button>
 
       <Button
