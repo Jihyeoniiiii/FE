@@ -1,4 +1,4 @@
-import FilterButtons from "@/components/funding/FilterButtons";
+import FilterButtons from "@/components/funding/FilterButton";
 import CampaignCard from "@/components/funding/CampaignCard";
 import { transformedCampaigns } from "@/utils/fundingPage";
 import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";

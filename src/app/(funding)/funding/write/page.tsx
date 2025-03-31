@@ -1,11 +1,11 @@
 "use client";
 
+import BackButton from "@/components/BackButton";
 import ImageUpload from "@/components/funding/ImageUpload";
 import RegisterConfirmModal from "@/components/funding/RegisterConfirmModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
 import React, { useState } from "react";
 
 const FundingWritePage = () => {
@@ -70,15 +70,7 @@ const FundingWritePage = () => {
 
   return (
     <>
-      <div className="pl-6 pt-8 pb-3">
-        <Image
-          src={"/assets/icons/back.svg"}
-          alt="Back"
-          width={30}
-          height={30}
-          className="cursor-pointer"
-        />
-      </div>
+      <BackButton />
       <div className="flex flex-col p-2 justify-center items-center gap-5">
         <Input
           type="text"
