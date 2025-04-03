@@ -14,9 +14,6 @@ export default function FundingListPage() {
         {transformedCampaigns.map((campaign) => (
           <CampaignCard key={campaign.id} campaign={campaign} />
         ))}
-        {transformedCampaigns.map((campaign) => (
-          <CampaignCard key={campaign.id} campaign={campaign} />
-        ))}
       </div>
 
       {/* Floating Button */}

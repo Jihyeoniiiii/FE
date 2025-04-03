@@ -1,18 +1,20 @@
-'use client';
+"use client";
 
-import NavigationBar from '@/components/ui/NavigationBar';
-import { usePathname } from 'next/navigation';
+import NavigationBar from "@/components/ui/NavigationBar";
+import { usePathname } from "next/navigation";
 
 const NavigationBarWrapper = () => {
   const pathname = usePathname();
-  const hidePaths = ["/landing", "/welcome", "/funding/register"];
+  const hidePaths = [
+    "/landing",
+    "/welcome",
+    "/funding/register",
+    "/donation/reward",
+    "/donation/reward/notify",
+  ];
   const shouldHideFooter = hidePaths.includes(pathname);
 
-  return (
-    <div>
-      {!shouldHideFooter && <NavigationBar />}
-    </div>
-  )
+  return <div>{!shouldHideFooter && <NavigationBar />}</div>;
 };
 
 export default NavigationBarWrapper;
