@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavigationBarWrapper from "@/components/NavigationBarWrapper";
+import "react-toastify/dist/ReactToastify.css";
+import {ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "채움",
@@ -16,6 +18,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         {children}
+        <ToastContainer position="top-right" autoClose={3000} />
         <NavigationBarWrapper />
       </body>
     </html>

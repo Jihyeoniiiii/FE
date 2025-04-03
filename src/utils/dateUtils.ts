@@ -21,3 +21,17 @@ export const transformedCampaigns = donationCampaigns.map((campaign) => ({
   photo: campaign.photo,
   title: campaign.title,
 }));
+
+export function timeAgo(date: Date):string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime(); // 밀리초 단위 차이
+  const diffSec = Math.floor(diffMs / 1000); // 초 단위
+  const diffMin = Math.floor(diffSec / 60); // 분 단위
+  const diffHour = Math.floor(diffMin / 60); // 시간 단위
+  const diffDay = Math.floor(diffHour / 24); // 일 단위
+
+  if (diffMin < 1) return "방금 전"; // 1분 미만이면 "방금 전"
+  if (diffMin < 60) return `${diffMin}분 전`; // 1시간 미만이면 "N분 전"
+  if (diffHour < 24) return `${diffHour}시간 전`; // 24시간 미만이면 "N시간 전"
+  return `${diffDay}일 전`; // 24시간 이상이면 "N일 전"
+}

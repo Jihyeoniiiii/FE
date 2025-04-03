@@ -3,7 +3,7 @@
 import { mainStyles } from "@/styles/styles";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function RewardPage() {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function RewardPage() {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [router]);
 
   return (
     <div className={mainStyles}>

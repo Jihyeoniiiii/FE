@@ -1,6 +1,6 @@
 import FilterButtons from "@/components/funding/FilterButton";
 import CampaignCard from "@/components/funding/CampaignCard";
-import { transformedCampaigns } from "@/utils/fundingPage";
+import { transformedCampaigns } from "@/utils/dateUtils";
 import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";
 
 export default function FundingListPage() {
