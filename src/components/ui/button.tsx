@@ -13,12 +13,14 @@ const buttonVariants = cva(
           "bg-primary opacity-80 text-white shadow-xs hover:bg-primary/80 ",
         ghost: "bg-white-gradient hover:bg-gray-200",
         soft: "bg-white hover:bg-gray-100",
+        gray: "bg-[#F1F1F1] hover:shadow-xs"
       },
       size: {
         default: "h-9 px-10 py-3",
         sm: "w-[65px] h-[65px] rounded-[1.8rem]",
         lg: "w-[100px] h-[105px] rounded-3xl has-[>svg]:px-4",
         xl: "w-[85%] h-[50px] rounded-3xl has-[>svg]:px-4",
+        none: "",
         icon: "size-9",
       },
     },

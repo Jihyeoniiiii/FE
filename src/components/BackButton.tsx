@@ -2,22 +2,25 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { ReactNode } from "react";
 
-const BackButton = () => {
+interface BackButtonProps {
+  children?: ReactNode;
+}
+
+const BackButton: React.FC<BackButtonProps> = ({ children }) => {
   const router = useRouter();
   return (
-    <div className="pl-6 pt-8">
+    <div className="pl-6 pt-8 flex items-center space-x-2">
       <button onClick={() => router.back()} className="cursor-pointer">
-        {" "}
         <Image
           src={"/assets/icons/back.svg"}
           alt="Back"
           width={30}
           height={30}
-          className="cursor-pointer"
         />
       </button>
+        <span className="text-secondary font-semibold text-lg opacity-80">{children}</span>
     </div>
   );
 };
