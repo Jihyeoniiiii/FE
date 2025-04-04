@@ -20,7 +20,7 @@ export default function Randing() {
       {/* Chaeum Logo */}
       <div className={centerImageStyles}>
         <Image
-          src={"/assets/images/chaeum.png"}
+          src={"/assets/images/chaeum.svg"}
           alt="Chaeum logo"
           width={250}
           height={300}
