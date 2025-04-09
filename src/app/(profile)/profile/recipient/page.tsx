@@ -1,5 +1,5 @@
-import MyFundList from "@/components/recipient/MyFundList";
-import UserInform from "@/components/recipient/UserInform";
+import MyFundList from "@/components/profile/recipient/MyFundList";
+import UserInform from "@/components/profile/recipient/UserInform";
 import React from "react";
 
 const RecipientProfilePage = () => {

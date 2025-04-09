@@ -103,7 +103,7 @@ const FundingWritePage = () => {
         />
         <Textarea
           placeholder="내용"
-          className="bg-white rounded-xl text-sm w-[85%] h-50"
+          className="bg-white rounded-xl text-sm w-[85%] h-50 border-none"
           name="content"
           value={formData.content}
           onChange={handleFormChange}

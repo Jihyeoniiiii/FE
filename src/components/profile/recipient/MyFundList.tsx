@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import MyFundItem from "./MyFundItem";
 import { reviewData } from "@/lib/reviewData";
+import ListContainer from "../ListContainer";
 
 const MyFundList = () => {
   const [activeTab, setActiveTab] = useState("ongoing");
@@ -12,7 +13,7 @@ const MyFundList = () => {
   };
 
   return (
-    <div className="absolute w-full px-9 py-6 bg-white rounded-2xl top-70 bottom-0 overflow-y-auto">
+    <ListContainer>
       <div className="flex justify-around border-b border-gray-300">
         <button
           className={`py-2 px-4 focus:outline-none ${
@@ -52,7 +53,7 @@ const MyFundList = () => {
         </div>
         )}
       </div>
-    </div>
+    </ListContainer>
   );
 };
 

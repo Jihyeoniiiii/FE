@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react'
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation';
 
 interface ReviewDataItem {
     id: string;
@@ -14,6 +15,12 @@ interface MyFundItemProps {
 }
 
 const MyFundItem: React.FC<MyFundItemProps> = ({type, reviewItem}) => {
+    const router = useRouter();
+
+    const handleReviewWrite = (id: string) => {
+        router.push(`/review/write/${id}`);
+    }
+
   return (
     <>
         {type === "ongoing" &&
@@ -24,7 +31,7 @@ const MyFundItem: React.FC<MyFundItemProps> = ({type, reviewItem}) => {
                     <span className='text-gray text-[10px]'>2025.04.08</span>
                 </div>
                 <span className=''>40,000원</span>
-                <Button variant="soft" className='p-2.5 border-1 border-primary text-primary text-[11px]'>후기<br />작성</Button>
+                <Button variant="soft" className='p-2.5 border-1 border-primary text-primary text-[11px]' onClick={() => handleReviewWrite(reviewItem.id)}>후기<br />작성</Button>
             </div>
         }
         {type === "completed" &&
