@@ -22,7 +22,7 @@ export const transformedCampaigns = donationCampaigns.map((campaign) => ({
   title: campaign.title,
 }));
 
-export function timeAgo(date: Date):string {
+export function timeAgo(date: Date): string {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime(); // 밀리초 단위 차이
   const diffSec = Math.floor(diffMs / 1000); // 초 단위
@@ -34,4 +34,22 @@ export function timeAgo(date: Date):string {
   if (diffMin < 60) return `${diffMin}분 전`; // 1시간 미만이면 "N분 전"
   if (diffHour < 24) return `${diffHour}시간 전`; // 24시간 미만이면 "N시간 전"
   return `${diffDay}일 전`; // 24시간 이상이면 "N일 전"
+}
+export function formatDonationDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 0-based
+  const day = String(date.getDate()).padStart(2, "0");
+
+  let hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const period = hours >= 12 ? "PM" : "AM";
+
+  if (hours > 12) {
+    hours -= 12;
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  const formattedTime = `${hours}:${minutes} ${period}`;
+  return `${year}.${month}.${day} , ${formattedTime}`;
 }

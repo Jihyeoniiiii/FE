@@ -11,7 +11,7 @@ interface BackButtonProps {
 const BackButton: React.FC<BackButtonProps> = ({ children }) => {
   const router = useRouter();
   return (
-    <div className="pl-6 pt-8 flex items-center space-x-2">
+    <div className="pl-3 pt-8 flex items-center space-x-2">
       <button onClick={() => router.back()} className="cursor-pointer">
         <Image
           src={"/assets/icons/back.svg"}
@@ -20,7 +20,9 @@ const BackButton: React.FC<BackButtonProps> = ({ children }) => {
           height={30}
         />
       </button>
-        <span className="text-secondary font-semibold text-lg opacity-80">{children}</span>
+      <span className="text-secondary font-semibold text-lg opacity-80">
+        {children}
+      </span>
     </div>
   );
 };
