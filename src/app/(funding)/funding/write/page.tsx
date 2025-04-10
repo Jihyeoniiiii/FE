@@ -84,6 +84,7 @@ const FundingWritePage = () => {
           setImageUrl={(url: string) =>
             setFormData((prev) => ({ ...prev, imageUrl: url }))
           }
+          text="사진 첨부"
         />
         <Input
           type="text"

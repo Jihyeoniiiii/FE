@@ -16,7 +16,7 @@ const buttonVariants = cva(
         gray: "bg-gray-200 shadow-xs hover:bg-gray/80",
       },
       size: {
-        default: "h-9 px-10 py-3",
+        default: "h-9 px-10 py-3 rounded-xl",
         sm: "w-[65px] h-[65px] rounded-[1.8rem]",
         lg: "w-[100px] h-[105px] rounded-3xl has-[>svg]:px-4",
         xl: "w-[85%] h-[50px] rounded-3xl has-[>svg]:px-4",

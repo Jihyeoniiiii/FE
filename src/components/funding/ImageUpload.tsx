@@ -4,9 +4,11 @@ import { Input } from "../ui/input";
 
 interface ImageUploadProps {
   setImageUrl: (url: string) => void;
+  type?: "primary" | "soft";
+  text?: string;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ setImageUrl }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ setImageUrl, type = "primary", text }) => {
   const [imageUrl, setLocalImageUrl] = useState("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +27,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageUrl }) => {
 
   return (
     <div className="flex items-center gap-8">
-      <span className="text-sm text-secondary opacity-80">사진 첨부</span>
+      {text && (
+        <span className="text-sm text-secondary opacity-80">{text}</span>
+      )}
       {imageUrl ? (
         <div className="w-45 h-30 overflow-hidden">
           <Image
@@ -41,8 +45,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageUrl }) => {
           htmlFor="picture"
           className="flex inline-flex items-center cursor-pointer"
         >
+          { type === "primary" &&
           <div className="flex w-45 h-30 bg-background rounded-2xl justify-center items-center">
-            <div className="flex w-13 h-13 bg-primary rounded-4xl justify-center items-center">
+            <div className="flex w-13 h-13 bg-primary rounded-4xl justify-center items-center opacity-90">
               <Image
                 src="/assets/icons/union.svg"
                 alt="Union"
@@ -51,6 +56,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImageUrl }) => {
               />
             </div>
           </div>
+           }
+           { type === "soft" &&
+          <div className="flex w-45 h-30 bg-white border-2 border-primary/70 rounded-2xl justify-center items-center">
+            <div className="flex w-13 h-13 bg-primary rounded-4xl justify-center items-center opacity-70">
+              <Image
+                src="/assets/icons/union.svg"
+                alt="Union"
+                width={25}
+                height={25}
+              />
+            </div>
+          </div>
+           }
           <Input
             id="picture"
             type="file"
