@@ -30,7 +30,6 @@ const MyDonationList = ({ donation }: DonationProps) => {
             {donation.title}
           </h4>
           <p className="text-xs text-gray">
-            {" "}
             {formatDonationDate(donation.date)}
           </p>
         </div>

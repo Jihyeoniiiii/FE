@@ -53,7 +53,7 @@ const DateSearchModal = ({
       }`}
       onClick={handleClose}>
       <div className="relative max-w-[90vw] ">
-        <div className="rounded-3xl bg-white border border-transparent  mt-[58vh] overflow-hidden">
+        <div className="rounded-3xl bg-white border border-transparent mt-[58vh] overflow-hidden">
           <div
             className={`p-6 h-[34vh] transition-all duration-500 transform ${
               isDateModalOpen ? "scale-100" : "scale-95"

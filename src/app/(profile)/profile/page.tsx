@@ -11,7 +11,7 @@ export default function DonatorProfilePage() {
   return (
     <>
       <div className="flex pl-6">
-        <Link href={"/profile/recipient"}>
+        <Link href={"/profile/recipient/register"}>
           <Button
             variant="ghost"
             className="w-33 h-9 rounded-2xl text-base text-secondary opacity-80 mt-8 ">

@@ -7,6 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import DateSearchModal from "@/components/donationhistory/DateSearchModal";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import clsx from "clsx";
 
 export default function DonationHistorypage() {
   const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false);
@@ -21,7 +22,9 @@ export default function DonationHistorypage() {
         </div>
         {/* Filter */}
         <div className=" py-2">
-          <button className={StButton} onClick={() => setIsDateModalOpen(true)}>
+          <button
+            className={clsx(StButton, "cursor-pointer")}
+            onClick={() => setIsDateModalOpen(true)}>
             최신순 <ChevronDown className="h-4 w-4" />
           </button>
         </div>
