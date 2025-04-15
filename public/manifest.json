@@ -1,6 +1,6 @@
 {
-  "name": "Chaeum",
-  "short_name": "chaeum",
+  "name": "채움(Chaeum)",
+  "short_name": "채움",
   "theme_color": "#E2E3FC",
   "background_color": "#E2E3FC",
   "display": "standalone",
@@ -10,8 +10,28 @@
   "icons": [
     {
       "src": "/assets/images/chaeum.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/chaeum.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/chaeum.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/chaeum.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/chaeum.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
