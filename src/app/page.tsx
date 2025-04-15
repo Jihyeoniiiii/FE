@@ -1,3 +1,4 @@
+import InstallPromptHandler from "@/components/InstallPromptHandlet";
 import BottomMenu from "@/components/main/BottomMenu";
 import ProgressBar from "@/components/main/ProgressBar";
 import TopMenu from "@/components/main/TopMenu";
@@ -12,6 +13,7 @@ export default function Home() {
       <div className="flex flex-col py-6">
       <ProgressBar now={35} />
       </div>
+      <InstallPromptHandler />
      
       <div className="flex justify-center py-20 sm:py-15 md:py-12">
         <Image

@@ -1,0 +1,17 @@
+{
+  "name": "Chaeum",
+  "short_name": "chaeum",
+  "theme_color": "#E2E3FC",
+  "background_color": "#E2E3FC",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/images/chaeum.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
