@@ -8,13 +8,15 @@ const TopMenu = () => {
   return (
     <>
       <div className="flex justify-end pt-6 pr-5">
-        <Image
-          className="cursor-pointer"
-          src={"/assets/icons/info.svg"}
-          alt="Inform"
-          width={20}
-          height={20}
-        />
+        <Link href={"/about"}>
+          <Image
+            className="cursor-pointer"
+            src={"/assets/icons/info.svg"}
+            alt="Inform"
+            width={20}
+            height={20}
+          />
+        </Link>
       </div>
       <div className="flex pt-3 px-7 sm:pt-3 sm:px-10 md:pt-5 md:px-16 justify-between">
         {menuItems.map((item) => (

@@ -53,3 +53,24 @@ export function formatDonationDate(date: Date): string {
   const formattedTime = `${hours}:${minutes} ${period}`;
   return `${year}.${month}.${day} , ${formattedTime}`;
 }
+
+export function generateCalendarDays(currentDate: Date) {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const firstDayOfWeek = firstDay.getDay();
+  const daysInMonth = lastDay.getDate();
+
+  const days: (Date | null)[] = [];
+
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    days.push(null);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    days.push(new Date(year, month, day));
+  }
+
+  return days;
+}
