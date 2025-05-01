@@ -8,7 +8,7 @@ const RecipientCompletePage = () => {
     const router = useRouter();
 
   return (
-    <div className='flex flex-col h-screen justify-center items-center text-secondary gap-6'>
+    <div className='flex flex-col min-h-[calc(100vh-8rem)] justify-center items-center text-secondary gap-6'>
         <div className="flex flex-col justify-center items-center">
             <p>수혜자 등록이 완료되었습니다.</p>
             <p>서류 검토가 완료되면</p>

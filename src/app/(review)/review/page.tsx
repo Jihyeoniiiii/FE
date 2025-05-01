@@ -4,8 +4,8 @@ import ReviewCard from "@/components/funding/ReviewCard";
 
 export default function ReviewListPage() {
   return (
-    <div className="flex min-h-screen flex-col px-8 py-12 relative">
-      <div className="absolute top-[4vh] flex">
+    <div className="flex min-h-screen flex-col px-8 py-10 relative">
+      <div className="absolute top-[3vh] flex">
         <button className={StButton}>
           최신순 <ChevronDown className="h-4 w-4" />
         </button>

@@ -7,7 +7,7 @@ import Link from "next/link";
 const TopMenu = () => {
   return (
     <div className="flex-none">
-      <div className="flex justify-end h-[2.5rem] pt-2 pr-5">
+      <div className="flex justify-end h-[2.5rem] pt-1 pr-5">
         <Link href={"/about"}>
           <Image
             className="cursor-pointer"

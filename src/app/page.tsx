@@ -8,11 +8,11 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen">
       <TopMenu />
-      <div className="flex flex-col justify-between flex-grow min-h-[calc(100vh - 8rem)] pb-[8rem]">
-        <div className="flex flex-col py-8">
+      <div className="flex flex-col justify-between flex-grow pb-[8rem]">
+        <div className="flex flex-col py-6">
           <ProgressBar now={35} />
         </div>
-        <div className="flex justify-center py-20 sm:py-15 md:py-12">
+        <div className="flex justify-center py-12 sm:py-15 md:py-12">
           <Image
             src={"/assets/images/cat.svg"}
             alt="Cat"
