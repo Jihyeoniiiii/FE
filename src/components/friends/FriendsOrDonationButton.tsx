@@ -16,7 +16,7 @@ const FriendsOrDonationButton = ({
   setIsCommonDonationListOpen,
 }: FriendsOrDonationButtonProps) => {
   return (
-    <div className="px-4 py-6 md:px-12 mb-6">
+    <div className="px-4 py-3 md:px-12 mb-6">
       <div className="h-[6vh] bg-white rounded-full flex overflow-hidden w-full max-w-md mx-auto">
         <Button
           className={`h-[5vh] flex-1 rounded-full text-md border-none m-1 py-2 px-4 ${

@@ -71,7 +71,7 @@ const FundingWritePage = () => {
   return (
     <div className="h-screen">
       <BackButton />
-      <div className="flex flex-col p-2 justify-center items-center gap-5 pb-[8rem]">
+      <div className="flex flex-col p-2 justify-center items-center gap-5 py-4">
         <Input
           type="text"
           size="lg"
