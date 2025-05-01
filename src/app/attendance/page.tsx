@@ -12,14 +12,25 @@ import AttendanceModal from "@/components/AttendanceModal";
 export default function AttendancePage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [attendanceRecords, setAttendanceRecords] = useState<
-    { date: string }[]
-  >(getSavedAttendance());
+    { date: string }[] | null
+  >(null);
+
   const [isOpenModal, setIsOpenModal] = useState(false);
 
+  useEffect(() => {
+    const saved = getSavedAttendance();
+    setAttendanceRecords(saved);
+  }, []);
 
   useEffect(() => {
-    saveAttendance(attendanceRecords);
+    if (attendanceRecords !== null) {
+      saveAttendance(attendanceRecords);
+    }
   }, [attendanceRecords]);
+
+  if (attendanceRecords === null) {
+    return <div>불러오는 중...</div>; // 혹은 return null;
+  }
 
   const changeMonth = (offset: number) => {
     setCurrentDate(
@@ -28,6 +39,8 @@ export default function AttendancePage() {
   };
 
   const handleAttendance = () => {
+    if (!attendanceRecords) return; // null이면 조기 리턴
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayStr = today.toISOString().split("T")[0];
@@ -37,7 +50,11 @@ export default function AttendancePage() {
     );
 
     if (!alreadyChecked) {
-      setAttendanceRecords((prev) => [...prev, { date: today.toISOString() }]);
+      setAttendanceRecords((prev) =>
+        prev
+          ? [...prev, { date: today.toISOString() }]
+          : [{ date: today.toISOString() }]
+      );
       setIsOpenModal(true);
     }
   };

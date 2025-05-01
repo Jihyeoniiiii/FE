@@ -4,7 +4,7 @@ import BackButton from "@/components/BackButton";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 
-const page = () => {
+const Aboutpage = () => {
   const [clickedItems, setClickedItems] = useState<number[]>([]);
   const questionList = [
     { question: "채움이란?", answer: "" },
@@ -68,4 +68,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Aboutpage;

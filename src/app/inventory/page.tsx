@@ -5,9 +5,9 @@ import React from "react";
 
 const InventoryPage = () => {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <BackButton>인벤토리</BackButton>
-      <div className="flex justify-center py-14">
+      <div className="flex h-[calc(100vh-550px)] justify-center items-center">
         <Image
           src="/assets/images/cat.svg"
           alt="Cat"

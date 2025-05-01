@@ -2,10 +2,24 @@
 
 import BackButton from "@/components/BackButton";
 import ConfirmButton from "@/components/ConfirmButton";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
-const RefundResultPage = () => {
+function LoadingRefundResult() {
+  return (
+    <div>
+      <Image
+        src="/assets/images/load.gif"
+        alt="Loading"
+        width="100"
+        height="100"
+      />
+    </div>
+  );
+}
+
+const RefundResultContent = () => {
   const params = useSearchParams();
   const deduction = params.get("deduction");
 
@@ -41,5 +55,12 @@ const RefundResultPage = () => {
     </>
   );
 };
+const RefundResultPageWithSuspense = () => {
+  return (
+    <Suspense fallback={<LoadingRefundResult />}>
+      <RefundResultContent />
+    </Suspense>
+  );
+};
 
-export default RefundResultPage;
+export default RefundResultPageWithSuspense;

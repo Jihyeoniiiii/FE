@@ -1,5 +1,6 @@
 "use client"
 
+import BackButton from "@/components/BackButton";
 import ImageUpload from "@/components/funding/ImageUpload";
 import RecipientConfirmModal from "@/components/profile/recipient/RecipientConfirmModal";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,8 @@ const RecipientRegisterPage = () => {
 
   return (
     <>
-    <div className="flex flex-col h-screen items-center gap-11 py-25 text-secondary">
+    <BackButton />
+    <div className="flex flex-col h-screen items-center gap-11 py-15 text-secondary">
       <span className="text-[26px]">수혜자 등록</span>
       <div className="flex flex-col w-[80%] h-[50vh] rounded-2xl bg-white gap-8 p-12 text-sm">
         <div>

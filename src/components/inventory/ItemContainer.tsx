@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const ItemContainer = () => {
   return (
-    <div className="flex flex-col w-full h-105 p-8 bg-white rounded-2xl gap-4">
+    <div className="flex flex-col fixed bottom-[3rem] w-full h-110 p-8 bg-white rounded-2xl gap-4">
       <div className="flex flex-col">
         <span className="text-secondary font-semibold text-lg">장식</span>
         <div className="flex py-3 gap-4 overflow-hidden overflow-x-auto touch-manipulation">
