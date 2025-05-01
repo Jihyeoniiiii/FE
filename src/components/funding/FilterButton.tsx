@@ -3,7 +3,7 @@ import React from "react";
 
 const FilterButtons = () => {
   return (
-    <div className="absolute top-[8vh] flex gap-2">
+    <div className="absolute top-[4vh] flex gap-2">
       <button className={StButton}>
         최신순 <ChevronDown className="h-4 w-4" />
       </button>

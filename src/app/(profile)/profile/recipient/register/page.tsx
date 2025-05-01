@@ -31,7 +31,7 @@ const RecipientRegisterPage = () => {
   return (
     <>
     <BackButton />
-    <div className="flex flex-col h-screen items-center gap-11 py-15 text-secondary">
+    <div className="flex flex-col h-screen items-center gap-11 py-10 text-secondary">
       <span className="text-[26px]">수혜자 등록</span>
       <div className="flex flex-col w-[80%] h-[50vh] rounded-2xl bg-white gap-8 p-12 text-sm">
         <div>

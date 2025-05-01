@@ -7,7 +7,7 @@ import Link from "next/link";
 const TopMenu = () => {
   return (
     <div className="flex-none">
-      <div className="flex justify-end h-[2.5rem] pt-6 pr-5">
+      <div className="flex justify-end h-[2.5rem] pt-2 pr-5">
         <Link href={"/about"}>
           <Image
             className="cursor-pointer"
@@ -18,7 +18,7 @@ const TopMenu = () => {
           />
         </Link>
       </div>
-      <div className="flex pt-3 px-7 sm:pt-3 sm:px-10 md:pt-5 md:px-16 justify-between">
+      <div className="flex px-7 sm:pt-3 sm:px-10 md:pt-5 md:px-16 justify-between">
         {menuItems.map((item) => (
           <Link key={item.id} href={`/${item.alt.toLowerCase()}`}>
             <div className="flex flex-col items-center gap-2" key={item.id}>

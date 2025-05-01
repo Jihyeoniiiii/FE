@@ -35,11 +35,6 @@
   html,
   body {
     background-color: var(--color-background);
-    background-image: linear-gradient(
-      to right,
-      var(--color-white-50),
-      var(--color-white-0)
-    );
   }
 
   body {

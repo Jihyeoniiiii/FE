@@ -5,7 +5,7 @@ import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";
 
 export default function FundingListPage() {
   return (
-    <div className="flex min-h-screen flex-col px-8 py-17 relative">
+    <div className="flex min-h-screen flex-col px-8 py-10 relative">
       {/* Filter dropdown */}
       <FilterButtons />
 

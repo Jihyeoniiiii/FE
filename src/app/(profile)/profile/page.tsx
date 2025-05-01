@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
@@ -6,8 +8,11 @@ import Link from "next/link";
 import PaymentCard from "@/components/profile/PaymentCard";
 import { myDonationList } from "@/lib/myDonationList";
 import MyDonationList from "@/components/profile/MyDonationList";
+import { useRouter } from "next/navigation";
 
 export default function DonatorProfilePage() {
+  const router = useRouter();
+
   return (
     <>
       <div className="flex pl-6">
@@ -35,7 +40,7 @@ export default function DonatorProfilePage() {
           <PaymentCard text="올해 총 기부 금액" payment={258105} />
         </div>
         <div className="flex justify-end m-4">
-          <Button className="w-34 h-7 rounded-2xl text-white">
+          <Button className="w-34 h-7 rounded-2xl text-white" onClick={() => router.push("/refund")}>
             환급액 계산하기
             <ChevronDown className="h-4 w-4 rotate-[-90deg]" />
           </Button>
