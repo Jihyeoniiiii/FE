@@ -40,7 +40,7 @@ export const alarmList: Alarm[] = [
   {
     id: uuidv4(),
     type: "missionAlarm",
-    message: "미션을 완료하였습니다. 아이템을 수령하세요!",
+    message: "아이템을 획득하였습니다!",
     created_At: new Date("2025-04-02T21:30:25"),
     image: "/assets/icons/mission.svg",
   },

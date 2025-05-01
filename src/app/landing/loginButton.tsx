@@ -7,10 +7,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SiNaver } from "react-icons/si";
 import kakao from "@assets/images/kakao-logo.png";
+import { useRouter } from "next/navigation";
 
 export default function LoginButtons() {
   const [showButtons, setShowButtons] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -34,7 +35,10 @@ export default function LoginButtons() {
         className={clsx(
           loginButtonStyles,
           "bg-yellow-300 hover:bg-yellow-600 text-black"
-        )}>
+        )}
+        onClick={() =>
+          router.push("https://api.chaeum.site/oauth2/authorization/kakao")
+        }>
         <Image
           src={kakao}
           width={27}
@@ -49,7 +53,10 @@ export default function LoginButtons() {
         className={clsx(
           loginButtonStyles,
           "bg-green-500 hover:bg-green-600 text-white"
-        )}>
+        )}
+        onClick={() =>
+          router.push("https://api.chaeum.site/oauth2/authorization/naver")
+        }>
         <SiNaver size={50} className="absolute left-8" />
         <span className="text-lg font-medium">네이버 로그인</span>
       </Button>
