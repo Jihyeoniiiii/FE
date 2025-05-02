@@ -68,7 +68,7 @@ export default function AttendancePage() {
       </div>
 
       <div className="w-full max-h-full space-y-24 md:space-y-6 px-12 mt-21 md:mt-3">
-      <div className="w-full mx-auto bg-white p-6 sm:p-5 md:p-3 rounded-xl shadow-sm">
+        <div className="w-full mx-auto bg-white p-6 sm:p-5 md:p-3 rounded-xl shadow-sm">
           <CalendarHeader
             currentDate={currentDate}
             onPrev={() => changeMonth(-1)}

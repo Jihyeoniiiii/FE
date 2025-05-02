@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { rewardList } from "@/lib/donationReward";
 import ConfirmButton from "@/components/ConfirmButton";
-import useToast from "@/hook/useToast";
+import useToast from "@/hooks/useToast";
 
 export default function NotifyPage() {
   const [showBomb, setShowBomb] = useState(true); // 1초 후 숨길 상태

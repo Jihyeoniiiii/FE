@@ -10,6 +10,8 @@ import kakao from "@assets/images/kakao-logo.png";
 import { useRouter } from "next/navigation";
 
 export default function LoginButtons() {
+  const kakaoLoginUrl = process.env.NEXT_PUBLIC_KAKAO_LOGIN_URL!;
+  const naverLoginUrl = process.env.NEXT_PUBLIC_NAVER_LOGIN_URL!;
   const [showButtons, setShowButtons] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -36,9 +38,7 @@ export default function LoginButtons() {
           loginButtonStyles,
           "bg-yellow-300 hover:bg-yellow-600 text-black"
         )}
-        onClick={() =>
-          router.push("https://api.chaeum.site/oauth2/authorization/kakao")
-        }>
+        onClick={() => router.push(kakaoLoginUrl)}>
         <Image
           src={kakao}
           width={27}
@@ -54,9 +54,7 @@ export default function LoginButtons() {
           loginButtonStyles,
           "bg-green-500 hover:bg-green-600 text-white"
         )}
-        onClick={() =>
-          router.push("https://api.chaeum.site/oauth2/authorization/naver")
-        }>
+        onClick={() => router.push(naverLoginUrl)}>
         <SiNaver size={50} className="absolute left-8" />
         <span className="text-lg font-medium">네이버 로그인</span>
       </Button>
