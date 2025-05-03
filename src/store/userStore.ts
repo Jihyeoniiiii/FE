@@ -1,17 +1,28 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, PersistOptions } from "zustand/middleware";
 
-type userDataProps = {
-  name: string;
+type UserDataProps = {
+  name: string | undefined;
   email: string;
-  profileImage: string;
+  profileImage: string | null;
+  donations: string[] | null;
+  monthlyAmount: number;
+  yearlyAmount: number;
 };
 
-export const userStore = create(
-  persist(
+type UserStore = {
+  userData: UserDataProps | null;
+  setUserData: (userData: UserDataProps) => void;
+  clearUserData: () => void;
+};
+
+type UserStorePersist = PersistOptions<UserStore>;
+
+export const userStore = create<UserStore>()(
+  persist<UserStore, [], [], UserStorePersist>(
     (set) => ({
       userData: null,
-      setUserData: (userData: userDataProps) => set({ userData }),
+      setUserData: (userData) => set({ userData }),
       clearUserData: () => set({ userData: null }),
     }),
     {
