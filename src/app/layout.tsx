@@ -3,18 +3,22 @@ import "./globals.css";
 import NavigationBarWrapper from "@/components/NavigationBarWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Providers from "@/components/Providers";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="ko">
       <body>
-        {children}
-        <ToastContainer position="top-right" autoClose={3000} />
-        <NavigationBarWrapper />
+        <Providers>
+          {children}
+          <ToastContainer position="top-right" autoClose={3000} />
+          <NavigationBarWrapper />
+        </Providers>
       </body>
     </html>
   );
@@ -34,8 +38,8 @@ export const metadata: Metadata = {
   description: "채움 애플리케이션입니다!",
   manifest: "/manifest.json",
   icons: {
-      icon: "/assets/images/chaeum.png",
-      shortcut: "/assets/images/chaeum.png",
-      apple: "/assets/images/chaeum.png",
+    icon: "/assets/images/chaeum.png",
+    shortcut: "/assets/images/chaeum.png",
+    apple: "/assets/images/chaeum.png",
   },
 };

@@ -7,7 +7,7 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-white focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        default: "bg-white",
         picture: "bg-background focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         error: "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
       },
