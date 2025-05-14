@@ -1,7 +1,7 @@
 import withPWAInit from "next-pwa";
 
 const withPWA = withPWAInit({
-    dest: "public",
+  dest: "public",
 });
 
 /** @type {import('next').NextConfig} */
