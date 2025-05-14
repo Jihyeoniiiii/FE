@@ -26,7 +26,8 @@ export default function WelcomePage() {
     };
 
     getUser();
-  }, []);
+  }, [setUserData
+  ]);
 
   return <ClientWelcome />;
 }
