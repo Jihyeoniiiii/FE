@@ -12,6 +12,7 @@ import { userStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
 import { patchUserProfile, uploadProfileImage } from "@/lib/profile";
 import EditProfileModal from "@/components/profile/EditProfileModal";
+import { debounce } from "@/lib/debounce";
 
 export default function DonatorProfilePage() {
   const userData = userStore((state) => state.userData);
@@ -78,7 +79,13 @@ export default function DonatorProfilePage() {
 
   const handleTempNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempForm((prev) => ({ ...prev, name: e.target.value }));
-    debounce(2000);
+    debounce(
+      () => {
+        console.log("Debounced input:", e.target.value);
+      },
+      2000,
+      timerIdRef
+    );
   };
 
   const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,14 +131,7 @@ export default function DonatorProfilePage() {
     setIsOpen(false);
   };
 
-  const debounce = (delay: number): void => {
-    if (timerIdRef.current) {
-      clearTimeout(timerIdRef.current);
-    }
-    timerIdRef.current = setTimeout(() => {
-      timerIdRef.current = null;
-    }, delay);
-  };
+
 
   useEffect(() => {
     return () => {

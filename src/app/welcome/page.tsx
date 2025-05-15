@@ -10,7 +10,6 @@ export default function WelcomePage() {
   const fetchMemberInfo = async () => {
     const response = await axiosInstance.get("/api/v1/member", {
       withCredentials: true, // HttpOnly 쿠키를 전송하려면 필수
-  
     });
     return response.data;
   };
@@ -26,8 +25,7 @@ export default function WelcomePage() {
     };
 
     getUser();
-  }, [setUserData
-  ]);
+  }, [setUserData]);
 
   return <ClientWelcome />;
 }
