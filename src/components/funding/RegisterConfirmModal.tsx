@@ -3,12 +3,12 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { FundingData } from "@/lib/api/funding";
-import { useFunding } from "@/hooks/useCreateFunding";
+import { CreateFundingData } from "@/lib/api/funding";
+import { useFunding } from "@/hooks/useFunding";
 
 interface RegisterConfirmModalProps {
   onClose: () => void;
-  formData: FundingData;
+  formData: CreateFundingData;
 }
 
 const RegisterConfirmModal: React.FC<RegisterConfirmModalProps> = ({

@@ -7,7 +7,7 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-    domains: ['chaeum-bucket.s3.ap-northeast-2.amazonaws.com'],
+    domains: ['chaeum-bucket.s3.ap-northeast-2.amazonaws.com', 'k.kakaocdn.net'],
   },
 };
 

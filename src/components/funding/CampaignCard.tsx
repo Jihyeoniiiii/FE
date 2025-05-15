@@ -1,33 +1,47 @@
-import React from "react";
+"use client"
+
+import React, { useEffect } from "react";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import Image from "next/image";
 import 공부 from "@assets/images/study.png";
+import { useFunding } from "@/hooks/useFunding";
+import { FundingData } from "@/lib/api/funding";
 
-type transformedCampaigns = {
-  id: string;
-  currentPercent: number;
-  deadline: string;
-  photo: string;
-  title: string;
-};
+const CampaignCard = ({ campaign }: { campaign: FundingData }) => {
+  const { fundingQuery, refetchFunding } = useFunding(campaign.id ? Number(campaign.id) : undefined);
+  const { isLoading, isError, error } = fundingQuery;
 
-const CampaignCard = ({ campaign }: { campaign: transformedCampaigns }) => {
+  useEffect(() => {
+    if (campaign.id) {
+      refetchFunding();
+      console.log(campaign.id)
+    }
+  }, [campaign.id, refetchFunding]);
+
+  if (isLoading) {
+    console.log(`Campaign ID ${campaign.id} 상세 정보 로딩 중...`);
+  }
+
+  if (isError) {
+    console.error(`Campaign ID ${campaign.id} 상세 정보 로딩 실패:`, error);
+  }
+
   return (
     <div className="flex flex-col">
       <div className="relative flex items-center justify-between mb-3">
         <div className="relative text-primary text-baseline px-0.5 py-0.5 rounded-md">
-          {campaign.currentPercent}% 달성
+          {campaign.currentAmount}% 달성
         </div>
-        {campaign.deadline === "오늘 마감" ||
-        campaign.deadline === "마감 임박" ? (
+        {campaign.endDate === "오늘 마감" ||
+        campaign.endDate === "마감 임박" ? (
           <Badge
             className=" bg-accent text-accent text-sm px-1"
             style={{
               backgroundColor: "rgba(255, 0, 0, 0.1)",
               fontWeight: 600,
             }}>
-            {campaign.deadline}
+            {campaign.endDate}
           </Badge>
         ) : (
           <Badge
@@ -36,13 +50,13 @@ const CampaignCard = ({ campaign }: { campaign: transformedCampaigns }) => {
               backgroundColor: "rgba(255, 255, 255, 0.6)",
               fontWeight: 600,
             }}>
-            {campaign.deadline}
+            {campaign.endDate}
           </Badge>
         )}
       </div>
       <Link href={`/funding/${campaign.id}`}>
         <Image
-          src={campaign.photo || 공부}
+          src={campaign.fundingImages?.[0]?.fileUrl || 공부}
           alt="펀딩 프로젝트"
           width={150}
           height={100}

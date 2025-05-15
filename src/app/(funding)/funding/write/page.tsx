@@ -6,11 +6,11 @@ import RegisterConfirmModal from "@/components/funding/RegisterConfirmModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FundingData } from "@/lib/api/funding";
+import { CreateFundingData } from "@/lib/api/funding";
 import React, { useState } from "react";
 
 const FundingWritePage = () => {
-  const [formData, setFormData] = useState<FundingData>({
+  const [formData, setFormData] = useState<CreateFundingData>({
     title: "",
     content: "",
     imageUrls: [],
@@ -43,7 +43,9 @@ const FundingWritePage = () => {
   const handleImageUploadSuccess = (imageUrl: string) => {
     setFormData((prevData) => ({
       ...prevData,
-      imageUrls: [...prevData.imageUrls, imageUrl],
+      imageUrls: prevData.imageUrls
+        ? [...prevData.imageUrls, imageUrl]
+        : [imageUrl],
     }));
   };
 
@@ -60,7 +62,7 @@ const FundingWritePage = () => {
       alert("모든 입력칸을 채워주세요!");
       return;
     }
-    
+
     setIsRegister(true);
   };
 
@@ -154,7 +156,12 @@ const FundingWritePage = () => {
             마음 나눠받기
           </span>
         </Button>
-        {isRegister && <RegisterConfirmModal onClose={handleCloseModal} formData={formData} />}
+        {isRegister && (
+          <RegisterConfirmModal
+            onClose={handleCloseModal}
+            formData={formData}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import axiosInstance from "./api/axios";
+import axiosInstance from "./axios";
 
 // lib/profile.ts
 export const uploadProfileImage = async (file: File) => {

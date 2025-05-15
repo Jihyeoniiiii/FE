@@ -1,3 +1,7 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { Avatar } from "@/components/ui/avatar";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
@@ -6,26 +10,28 @@ import 프로필 from "@assets/icons/profile.svg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
+import { useFunding } from "@/hooks/useFunding";
+import { userStore } from "@/store/userStore";
 
-export const generateMetadata = () => {
-  return {
-    title: `채움 - 공부해서 사회에 보답하겠습니다.`,
-    description: `채움 - 뭐 이런저런 사정이 있어서 이런 용품이 필요합니다..!`,
-    openGraph: {
-      title: `채움 - 공부해서 사회에 보답하겠습니다.`,
-      description: `채움 - 뭐 이런저런 사정이 있어서 이런 용품이 필요합니다..!`,
-      images: [
-        {
-          src: { 공부 },
-          width: 100,
-          height: 100,
-          alt: "study",
-        },
-      ],
-    },
-  };
-};
 export default function FundingDetailCard() {
+  const { id } = useParams();
+  const fundingId = Number(id);
+  const { fundingQuery } = useFunding(fundingId);
+  const { data: fundingDetail, isLoading, isError, error } = fundingQuery;
+  const userData = userStore((state) => state.userData);
+
+  if (isLoading) {
+    return <div>Loading funding details...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading funding details: {error?.message}</div>;
+  }
+
+  if (!fundingDetail) {
+    return <div>Funding not found.</div>;
+  }
+
   return (
     <>
       <BackButton />
@@ -34,8 +40,9 @@ export default function FundingDetailCard() {
           {/* Header */}
           <h2
             className="text-xl font-medium text-secondary"
-            style={{ fontWeight: 500 }}>
-            공부해서 사회에 보답하겠습니다.
+            style={{ fontWeight: 500 }}
+          >
+            {fundingDetail.title}
           </h2>
 
           {/* Profile */}
@@ -43,16 +50,36 @@ export default function FundingDetailCard() {
             <div className="flex items-center gap-2">
               <Avatar className="h-13 w-13 bg-[#d8e6ff]">
                 <div className="flex items-center justify-center h-full ">
-                  <Image width="50" height="50" src={프로필} alt="프로필" />
+                  {userData?.profileImage ? (
+                    <Image
+                      width="50"
+                      height="50"
+                      src={userData.profileImage}
+                      alt="프로필"
+                    />
+                  ) : (
+                    <Image
+                      width="50"
+                      height="50"
+                      src={프로필}
+                      alt="기본 프로필"
+                    />
+                  )}
                 </div>
               </Avatar>
-              <span className="font-medium text-secondary">김**</span>
+              <span className="font-medium text-secondary">
+                {userData?.name}
+              </span>{" "}
+              {/* TODO: 작성자 정보 연결 */}
             </div>
             <div
               className="flex items-center text-sm text-secondary"
-              style={{ fontWeight: 300 }}>
+              style={{ fontWeight: 300 }}
+            >
               <CheckCircle className="h-4 w-4 mr-1 text-secondary" />
-              <span>10 Feb</span>
+              <span>
+                {new Date(fundingDetail.createdAt).toLocaleDateString()}
+              </span>
             </div>
           </div>
 
@@ -62,20 +89,24 @@ export default function FundingDetailCard() {
               <span className="text-secondary font-bold mr-2 text-2xl">
                 목표 :
               </span>
-              <span className="text-primary font-bold text-2xl">100,000원</span>
+              <span className="text-primary font-bold text-2xl">
+                {fundingDetail.goalAmount?.toLocaleString()}원
+              </span>
             </div>
 
             <div className="flex items-center justify-center gap-2">
               <div className="font-medium text-secondary text-2xl">
-                총 90,000원 모금
+                총 {fundingDetail.currentAmount?.toLocaleString()}원 모금
               </div>
+              {/* TODO: 마감일 처리 */}
               <Badge
                 className=" bg-accent text-accent text-sm px-1"
                 style={{
                   backgroundColor: "rgba(255, 0, 0, 0.1)",
                   fontWeight: 600,
-                }}>
-                오늘 마감
+                }}
+              >
+                {fundingDetail?.endDate}
               </Badge>
             </div>
           </div>
@@ -83,8 +114,8 @@ export default function FundingDetailCard() {
           {/* Image */}
           <div className="rounded-xl overflow-hidden">
             <Image
-              src={공부}
-              alt="Student studying"
+              src={fundingDetail?.fundingImages?.[0]?.fileUrl || 공부}
+              alt={fundingDetail?.title}
               width={350}
               height={200}
               className="w-full h-48 object-cover"
@@ -93,9 +124,7 @@ export default function FundingDetailCard() {
 
           {/* Message */}
           <div className="my-4 h-33 bg-white p-4 rounded-xl">
-            <p className="text-secondary">
-              뭐 이런저런 사정이 있어서 이런 용품이 필요합니다..!
-            </p>
+            <p className="text-secondary">{fundingDetail?.content}</p>
           </div>
 
           <div className="flex items-center justify-center">

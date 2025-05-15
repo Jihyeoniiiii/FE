@@ -10,7 +10,7 @@ import MyDonationList from "@/components/profile/MyDonationList";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
-import { patchUserProfile, uploadProfileImage } from "@/lib/profile";
+import { patchUserProfile, uploadProfileImage } from "@/lib/api/profile";
 import EditProfileModal from "@/components/profile/EditProfileModal";
 import { debounce } from "@/lib/debounce";
 
