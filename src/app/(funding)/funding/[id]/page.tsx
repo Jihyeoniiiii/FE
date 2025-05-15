@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "next/navigation";
 import { Avatar } from "@/components/ui/avatar";
 import { CheckCircle } from "lucide-react";

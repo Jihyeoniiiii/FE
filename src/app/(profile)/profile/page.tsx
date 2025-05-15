@@ -131,15 +131,15 @@ export default function DonatorProfilePage() {
     setIsOpen(false);
   };
 
-
-
   useEffect(() => {
+    const currentTimerId = timerIdRef.current; // 현재 값 복사
+
     return () => {
-      if (timerIdRef.current) {
-        clearTimeout(timerIdRef.current);
+      if (currentTimerId) {
+        clearTimeout(currentTimerId);
       }
     };
-  }, [setUserData]); // setUserData 의존성 추가
+  }, []);
 
   if (!userData) {
     return <div>페이지 정보를 불러오는 중입니다.</div>;

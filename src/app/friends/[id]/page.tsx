@@ -24,6 +24,7 @@ export const generateMetadata = () => {
 };
 
 export default function FriendCatPage() {
+  const catInfo = { id: 7, level: 1, experiencePoint: 0, levelUpPercentage: 0 };
   return (
     <div className="flex flex-col min-h-screen">
       <BackButton />
@@ -31,7 +32,7 @@ export default function FriendCatPage() {
         <h1 className="flex justify-center text-secondary text-2xl font-semibold opacity-80 ">
           김민상님의 고양이
         </h1>
-        <ProgressBar now={35} />
+        {catInfo && <ProgressBar catData={catInfo} />}
       </div>
 
       <div className="flex justify-center mt-6 py-20 sm:py-15 md:py-12">
