@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useParams } from "next/navigation";
 import { Avatar } from "@/components/ui/avatar";
 import { CheckCircle } from "lucide-react";
@@ -12,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
 import { useFunding } from "@/hooks/useFunding";
 import { userStore } from "@/store/userStore";
+import { getRemainingDays } from "@/utils/dateUtils";
 
 export default function FundingDetailCard() {
   const { id } = useParams();
@@ -19,6 +19,12 @@ export default function FundingDetailCard() {
   const { fundingQuery } = useFunding(fundingId);
   const { data: fundingDetail, isLoading, isError, error } = fundingQuery;
   const userData = userStore((state) => state.userData);
+
+  const remainingDaysText = fundingDetail?.endDate
+    ? getRemainingDays(fundingDetail.endDate)
+    : "";
+  const isClosingSoon =
+    remainingDaysText === "오늘 마감" || remainingDaysText === "마감 임박";
 
   if (isLoading) {
     return <div>Loading funding details...</div>;
@@ -94,20 +100,28 @@ export default function FundingDetailCard() {
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-3">
               <div className="font-medium text-secondary text-2xl">
                 총 {fundingDetail.currentAmount?.toLocaleString()}원 모금
               </div>
               {/* TODO: 마감일 처리 */}
-              <Badge
-                className=" bg-accent text-accent text-sm px-1"
-                style={{
-                  backgroundColor: "rgba(255, 0, 0, 0.1)",
-                  fontWeight: 600,
-                }}
-              >
-                {fundingDetail?.endDate}
-              </Badge>
+              {fundingDetail?.endDate && (
+                <Badge
+                  className={`text-sm px-2 ${
+                    isClosingSoon
+                      ? "bg-accent text-accent"
+                      : "bg-white text-secondary"
+                  }`}
+                  style={{
+                    backgroundColor: isClosingSoon
+                      ? "rgba(255, 0, 0, 0.1)"
+                      : "rgba(255, 255, 255, 0.6)",
+                    fontWeight: 600,
+                  }}
+                >
+                  {remainingDaysText}
+                </Badge>
+              )}
             </div>
           </div>
 
@@ -118,7 +132,7 @@ export default function FundingDetailCard() {
               alt={fundingDetail?.title}
               width={350}
               height={200}
-              className="w-full h-48 object-cover"
+              className="w-full h-50 object-contain"
             />
           </div>
 
