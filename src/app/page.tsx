@@ -3,22 +3,13 @@
 import BottomMenu from "@/components/main/BottomMenu";
 import ProgressBar from "@/components/main/ProgressBar";
 import TopMenu from "@/components/main/TopMenu";
-import NavigationBar from "@/components/ui/NavigationBar";
-import axiosInstance from "@/lib/api/axios";
-import { useQuery } from "@tanstack/react-query";
+import { catStore } from "@/store/catStore";
 import Image from "next/image";
 
 export default function Home() {
-  const fetchCatInfo = async () => {
-    const { data } = await axiosInstance.get("/api/v1/cat");
-    console.log(data.data);
-    return data.data;
-  };
+  const catInfo = catStore((state)=>state.catData)
 
-  const { data: catInfo } = useQuery({
-    queryKey: ["cat"],
-    queryFn: fetchCatInfo,
-  });
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -27,17 +18,24 @@ export default function Home() {
         <div className="flex flex-col py-5">
           {catInfo && <ProgressBar catData={catInfo} />}
         </div>
-        <div className="flex justify-center">
-          <Image
-            src={"/assets/images/cat.svg"}
-            alt="Cat"
-            width={180}
-            height={180}
-          />
+
+        <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center w-[220px] h-[220px]">
+
+            <Image
+              src="/assets/images/cat.svg"
+              alt="Cat"
+              width={180}
+              height={180}
+              className="relative z-10"
+            />
+
+
+          </div>
         </div>
+
         <BottomMenu />
       </div>
-      <NavigationBar />
     </div>
   );
 }
