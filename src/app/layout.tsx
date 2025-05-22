@@ -4,6 +4,7 @@ import NavigationBarWrapper from "@/components/NavigationBarWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Providers from "@/components/Providers";
+import IamportSDKLoader from "@/components/IamportSDKLoader";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Providers>
+          <IamportSDKLoader />
           {children}
           <ToastContainer position="top-right" autoClose={3000} />
           <NavigationBarWrapper />

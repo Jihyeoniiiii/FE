@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const NavigationBar = () => {
   const [isActiveMenu, setIsActiveMenu] = useState<number>(0);
   const router = useRouter();
+  const pathname = usePathname();
   const navItems = [
     {
       id: 1,
@@ -46,8 +47,17 @@ const NavigationBar = () => {
     },
   ];
 
+  useEffect(() => {
+    const currentActiveItem = navItems.find(item => item.address === pathname);
+    
+    if (currentActiveItem) {
+      setIsActiveMenu(currentActiveItem.id);
+    } else {
+      setIsActiveMenu(0); 
+    }
+  }, [pathname, navItems]);
+
   const handleMenuClick = (id: number, address: string) => {
-    setIsActiveMenu(id);
     router.push(address);
   };
 

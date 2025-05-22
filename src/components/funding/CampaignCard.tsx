@@ -13,6 +13,7 @@ interface CampaignCardProps {
 }
 
 const CampaignCard = ({ campaign }: CampaignCardProps) => {
+  const progressPercentage = Math.round((campaign.currentAmount / campaign.goalAmount) * 100);
   const remainingDaysText = campaign.endDate ? getRemainingDays(campaign.endDate) : "";
   const isClosingSoon = remainingDaysText === "오늘 마감" || remainingDaysText === "마감 임박";
 
@@ -20,7 +21,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
     <div className="flex flex-col">
       <div className="relative flex items-center justify-between mb-3">
         <div className="relative text-primary font-semibold text-baseline px-0.5 py-0.5 rounded-md">
-          {campaign.currentAmount}% 달성
+          {progressPercentage}% 달성
         </div>
         {remainingDaysText && (
           <Badge
