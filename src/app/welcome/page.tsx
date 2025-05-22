@@ -12,9 +12,7 @@ export default function WelcomePage() {
   const setCatData = catStore((state) => state.setCatData);
   const { data: catInfo } = useCat();
   const fetchMemberInfo = async () => {
-    const response = await axiosInstance.get("/api/v1/member", {
-      withCredentials: true, // HttpOnly 쿠키를 전송하려면 필수
-          });
+    const response = await axiosInstance.get("/api/v1/member");
     return response.data;
   };
 

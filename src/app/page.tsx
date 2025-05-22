@@ -7,9 +7,7 @@ import { catStore } from "@/store/catStore";
 import Image from "next/image";
 
 export default function Home() {
-  const catInfo = catStore((state)=>state.catData)
-
-
+  const catInfo = catStore((state) => state.catData);
 
   return (
     <div className="flex flex-col h-screen">
@@ -21,7 +19,6 @@ export default function Home() {
 
         <div className="relative flex justify-center items-center">
           <div className="relative flex justify-center items-center w-[220px] h-[220px]">
-
             <Image
               src="/assets/images/cat.svg"
               alt="Cat"
@@ -29,7 +26,6 @@ export default function Home() {
               height={180}
               className="relative z-10"
             />
-
 
           </div>
         </div>
