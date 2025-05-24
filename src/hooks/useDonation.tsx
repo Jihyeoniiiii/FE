@@ -3,9 +3,7 @@ import { useMutation, UseMutationResult, useQuery, UseQueryResult } from "@tanst
 
 interface UseDonationResult {
     donationRewardQuery: UseQueryResult<DonationRewardData | null, Error>;
-}
 
-interface UseDonationResult {
     createDonationMutation: UseMutationResult<
     DonationCreateResponse,
     Error,
@@ -34,9 +32,9 @@ export const useDonation = (): UseDonationResult => {
     })
 
     const donationRewardQuery: UseQueryResult<DonationRewardData | null, Error> = useQuery({
-        queryKey: ["doantionReward"],
+        queryKey: ["donationReward"],
         queryFn: async () => {
-            return await fetchDonationReward();
+            return await fetchDonationReward;
         }
     });
 
