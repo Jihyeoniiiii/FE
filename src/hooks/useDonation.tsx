@@ -1,5 +1,9 @@
-import { createDonation, DonationCreateData, DonationCreateResponse } from "@/lib/api/donation";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { createDonation, DonationCreateData, DonationCreateResponse, DonationRewardData, fetchDonationReward } from "@/lib/api/donation";
+import { useMutation, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
+
+interface UseDonationResult {
+    donationRewardQuery: UseQueryResult<DonationRewardData | null, Error>;
+}
 
 interface UseDonationResult {
     createDonationMutation: UseMutationResult<
@@ -29,7 +33,15 @@ export const useDonation = (): UseDonationResult => {
             },
     })
 
+    const donationRewardQuery: UseQueryResult<DonationRewardData | null, Error> = useQuery({
+        queryKey: ["doantionReward"],
+        queryFn: async () => {
+            return await fetchDonationReward();
+        }
+    });
+
     return {
-        createDonationMutation
+        createDonationMutation,
+        donationRewardQuery,
     }
 }

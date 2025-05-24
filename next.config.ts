@@ -2,13 +2,27 @@ import withPWAInit from "next-pwa";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
-    domains: ["chaeum-bucket.s3.ap-northeast-2.amazonaws.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   async rewrites() {
     return [
       {
-        source: "/api/ocr", // 프론트에서 사용할 경로
+        source: "/api/ocr",
         destination: "http://211.188.50.163:8080/ocr", // 실제 외부 서버
       },
     ];

@@ -59,7 +59,7 @@ const DonationCompletePage = () => {
         <Button
           variant="soft"
           className="w-[77%] text-md p-6.5 mt-5 rounded-xl"
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/donation/reward')}
         >
           확인
         </Button>
