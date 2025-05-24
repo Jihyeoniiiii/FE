@@ -24,14 +24,27 @@ export const fetchInventoryByCategory = async (
 
     const values = response?.data?.values; // 응답 데이터에서 values 속성 추출
 
-    if (Array.isArray(values) && values.length > 0) { // values가 배열이고 비어있지 않은 경우
+    if (Array.isArray(values) && values.length > 0) {
+      // values가 배열이고 비어있지 않은 경우
       return values;
-    } else { // values가 배열이 아니거나 비어있는 경우
+    } else {
+      // values가 배열이 아니거나 비어있는 경우
       console.warn("유효하지 않은 응답 데이터:", response.data);
       return [];
     }
   } catch (error) {
     console.error("인벤토리 카테고리 조회 실패:", error);
     return [];
+  }
+};
+
+export const toggleInventory = async (id: number) => {
+  try {
+    const response = await axiosInstance.post(`/api/v1/inventory/${id}/toggle`);
+
+    return response.data;
+  } catch (error) {
+    console.error("인벤토리 아이템 토글 실패:", error);
+    return null;
   }
 };
