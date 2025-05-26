@@ -33,9 +33,7 @@ export const useDonation = (): UseDonationResult => {
 
     const donationRewardQuery: UseQueryResult<DonationRewardData | null, Error> = useQuery({
         queryKey: ["donationReward"],
-        queryFn: async () => {
-            return await fetchDonationReward;
-        }
+        queryFn: fetchDonationReward,
     });
 
     return {

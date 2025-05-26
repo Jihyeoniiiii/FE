@@ -6,7 +6,7 @@ import Image from "next/image";
 import {
   useDecorationSearch,
   useInteriorSearch,
-  usetoggleInventory,
+  useToggleInventory,
 } from "@/hooks/useInventory";
 
 const SkeletonBox = () => (
@@ -26,7 +26,7 @@ const ItemContainer = () => {
     isError: isInteriorError,
   } = useInteriorSearch();  // 인테리어 아이템 조회
 
-  const { mutate: toggleInventory } = usetoggleInventory(); // 인벤토리 아이템 토글
+  const { mutate: toggleInventory } = useToggleInventory(); // 인벤토리 아이템 토글
 
   if (isDecorationPending || isInteriorPending) { // 로딩 처리
     return (

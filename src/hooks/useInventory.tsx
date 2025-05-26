@@ -16,7 +16,7 @@ export const useInteriorSearch = () => {
   });
 };
 
-export const usetoggleInventory = () => {
+export const useToggleInventory = () => {
   return useMutation({
     mutationFn: (id: number) => toggleInventory(id),
     onSuccess: (data) => {
