@@ -2,15 +2,48 @@
 
 import React, { useState } from "react";
 import MyFundItem from "./MyFundItem";
-import { reviewData } from "@/lib/reviewData";
 import ListContainer from "../ListContainer";
+import { useFunding } from "@/hooks/useFunding";
 
 const MyFundList = () => {
-  const [activeTab, setActiveTab] = useState("ongoing");
+  const [activeTab, setActiveTab] = useState<"ongoing" | "completed">("ongoing");
 
-  const handleTabClick = (tab: string) => {
+  const {
+    data: ongoingFundsData,
+    isPending: isLoadingOngoing,
+    isError: isErrorOngoing,
+  } = useFunding({ listOptions: { status: "ONGOING" } }).fundingListQuery;
+
+  const {
+    data: completedFundsData,
+    isPending: isLoadingCompleted,
+    isError: isErrorCompleted,
+  } = useFunding({ listOptions: { status: "COMPLETED" } }).fundingListQuery;
+
+  const handleTabClick = (tab: "ongoing" | "completed") => {
     setActiveTab(tab);
   };
+
+  if (isLoadingOngoing || isLoadingCompleted) {
+    return (
+      <ListContainer>
+        <div className="flex justify-center items-center h-40">로딩 중...</div>
+      </ListContainer>
+    );
+  }
+
+  if (isErrorOngoing || isErrorCompleted) {
+    return (
+      <ListContainer>
+        <div className="flex justify-center items-center h-40 text-red-500">
+          펀딩 정보를 불러오는데 실패했습니다.
+        </div>
+      </ListContainer>
+    );
+  }
+
+  const ongoingCampaigns = ongoingFundsData?.data?.values || [];;
+  const completedCampaigns = completedFundsData?.data?.values || [];;
 
   return (
     <ListContainer>
@@ -40,16 +73,24 @@ const MyFundList = () => {
       <div className="mt-8">
         {activeTab === "ongoing" && (
             <div className="flex flex-col gap-5 max-h-[45vh] overflow-y-scroll scrollbar-none">
-              {reviewData.map((item) => (
-                <MyFundItem key={item.id} type="ongoing" reviewItem={item} />
-              ))}
+              {ongoingCampaigns.length > 0 ? (
+                ongoingCampaigns.map((item) => (
+                  <MyFundItem key={item.id} type="ongoing" fundingItem={item} />
+                ))
+              ) : (
+                <p className="text-center text-gray-500">진행중인 펀드가 없습니다.</p>
+              )}
             </div>
         )}
         {activeTab === "completed" && (
           <div className="flex flex-col gap-5 max-h-[45vh] overflow-y-scroll scrollbar-none">
-          {reviewData.slice().reverse().map((item) => (
-            <MyFundItem key={item.id} type="completed" reviewItem={item} />
-          ))}
+          {completedCampaigns.length > 0 ? (
+            completedCampaigns.slice().reverse().map((item) => (
+              <MyFundItem key={item.id} type="completed" fundingItem={item} />
+            ))
+          ) : (
+            <p className="text-center text-gray-500">완료된 펀드가 없습니다.</p>
+          )}
         </div>
         )}
       </div>

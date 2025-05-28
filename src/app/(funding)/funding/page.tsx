@@ -9,7 +9,9 @@ import { FundingData } from "@/lib/api/funding";
 
 export default function FundingListPage() {
   // const [statusFilter, setStatusFilter] = useState<"ONGOING" | "COMPLETED" | "FAILED" | undefined>(undefined);
-  const { fundingListQuery } = useFunding(undefined, { limit: 8 });
+  const { fundingListQuery } = useFunding({
+    listOptions: { limit: 8 }
+  });
   const { data: FundingByConditionData, isPending, isError } = fundingListQuery;
 
   const campaigns: FundingData[] | undefined =

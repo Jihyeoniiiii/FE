@@ -7,26 +7,22 @@ import ListContainer from "@/components/profile/ListContainer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
+import { useReview } from "@/hooks/useReview";
+import { CreateReviewData } from "@/lib/api/review";
+import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const cardData = {
-  title: "공부해서 사회에 보답하겠습니다.",
-  photo: "/assets/images/study.png",
-  id: "1",
-};
-
 const ReviewWritePage = () => {
-  const [formData, setFormData] = useState<{
-    title: string;
-    imageUrl: string;
-    content: string;
-  }>({
+  const [formData, setFormData] = useState<CreateReviewData>({
     title: "",
-    imageUrl: "",
+    imageUrls: [],
     content: "",
   });
   const router = useRouter();
+  const { createReviewMutation } = useReview();
+  const params = useParams();
+  const fundingIdString = typeof params.id === 'string' ? params.id : undefined;
+  const fundingId = fundingIdString ? parseInt(fundingIdString, 10) : undefined;
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,18 +35,41 @@ const ReviewWritePage = () => {
   };
 
   const handleSubmit = () => {
-    if (!formData.title || !formData.imageUrl || !formData.content) {
+    if (!formData.title || !formData.imageUrls || !formData.content) {
       alert("모든 입력칸을 채워주세요!");
       return;
     }
-    router.push("/profile/recipient");
+
+    createReviewMutation.mutate({ fundingId: fundingId, reviewData: formData }, {
+      onSuccess: () => {
+        try {
+          router.push("/profile/recipient");
+          console.log(formData)
+        } catch (error) {
+          console.error("리뷰 생성 데이터 갱신 중 오류 발생:", error);
+        }
+      },
+      onError: (error) => {
+        console.log(formData);
+        console.error("리뷰 생성 중 오류 발생:", error);
+      },
+    });
+  };
+
+  const handleImageUploadSuccess = (imageUrl: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrls: prevData.imageUrls
+        ? [...prevData.imageUrls, imageUrl]
+        : [imageUrl],
+    }));
   };
 
   return (
     <>
       <BackButton>후기 작성</BackButton>
       <div className="justify-center px-25 sm:px-35 md:px-55 py-1">
-        <ReviewCard reviewData={cardData} />
+        <ReviewCard reviewData={formData} fundingId={fundingId} />
       </div>
 
       <ListContainer>
@@ -68,9 +87,8 @@ const ReviewWritePage = () => {
           </div>
           <div className="flex justify-center px-10">
             <ImageUpload
-              setImageUrl={(url: string) =>
-                setFormData((prev) => ({ ...prev, imageUrl: url }))
-              }
+              setImageUrl={handleImageUploadSuccess}
+              module="review"
               text="사진 첨부"
             />
           </div>

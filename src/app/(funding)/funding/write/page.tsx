@@ -96,7 +96,8 @@ const FundingWritePage = () => {
           onChange={handleFormChange}
         />
         <ImageUpload
-          setImageUrl={handleImageUploadSuccess} // 콜백 함수 변경
+          setImageUrl={handleImageUploadSuccess}
+          module="funding"
           text="사진 첨부"
         />
         <Input

@@ -39,12 +39,11 @@ const PaymentPage = () => {
     }
 
     const getPayMethod = (method: string): string => {
-
-    if (method === "TOSS_PAY") {
+      if (method === "TOSS_PAY") {
         return "tosspay";
-    }
-    return "card";
-};
+      }
+      return "card";
+    };
 
     setIsProcessing(true);
     setButtonMessage("결제 준비 중...");
@@ -72,14 +71,16 @@ const PaymentPage = () => {
         amount: selectedAmount,
         name: "마음 나누기",
         buyer_name: "후원자",
-        m_redirect_url: `${window.location.origin}/payment/result`,
+        m_redirect_url:
+          process.env.NEXT_PUBLIC_PORTONE_REDIRECT_URL ??
+          "https://chaeum.site/payment/result",
       });
 
       setButtonMessage("결제 처리 중...");
 
       const donationData = {
         fundingId: selectedFundingId,
-        amount: impResponse.paid_amount as number, 
+        amount: impResponse.paid_amount as number,
         point: 0,
       };
 

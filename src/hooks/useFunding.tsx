@@ -32,10 +32,13 @@ interface UseFundingResult {
   refetchFunding: () => void;
 }
 
-export const useFunding = (
-  fundingId?: number,
-  listOptions: UseFundingListOptions = {}
-): UseFundingResult => {
+interface UseFundingParams {
+  fundingId?: number;
+  listOptions?: UseFundingListOptions;
+}
+
+export const useFunding = (params: UseFundingParams = {}): UseFundingResult => {
+  const { fundingId, listOptions = {} } = params;
   const fundingQuery: UseQueryResult<FundingData | null, Error> = useQuery({
     queryKey: ["funding", fundingId],
     queryFn: async () => {

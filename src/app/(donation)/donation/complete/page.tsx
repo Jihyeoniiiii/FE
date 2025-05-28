@@ -10,9 +10,9 @@ import React from "react";
 
 const DonationCompletePage = () => {
   const selectedFundingId = usePaymentStore((state) => state.selectedFundingId);
-  const { fundingQuery } = useFunding(
-    selectedFundingId !== null ? selectedFundingId : undefined
-  );
+  const fundingParams = selectedFundingId !== null ? { fundingId: selectedFundingId } : undefined;
+
+  const { fundingQuery } = useFunding(fundingParams);
   const { data: fundingDetail, isPending, isError, error } = fundingQuery;
   const router = useRouter();
 

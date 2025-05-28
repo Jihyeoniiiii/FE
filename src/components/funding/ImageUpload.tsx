@@ -7,12 +7,14 @@ interface ImageUploadProps {
   setImageUrl: (url: string) => void;
   type?: "primary" | "soft";
   text?: string;
+  module: "funding" | "review";
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   setImageUrl,
   type = "primary",
   text,
+  module,
 }) => {
   const [localImageUrl, setLocalImageUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
@@ -23,11 +25,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       const formData = new FormData();
       formData.append("multipartFile", file);
 
-      const response = await axiosInstance.post(
-        "/api/v1/file/funding",
-        formData
-      );
+      const endpoint = `/api/v1/file/${module}`;
 
+      const response = await axiosInstance.post(endpoint, formData);
+      
       if (response.status === 200) {
         return response.data.data[0].fileUrl;
       } else {

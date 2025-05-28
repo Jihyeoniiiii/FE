@@ -18,7 +18,7 @@ import { usePaymentStore } from "@/store/paymentStore";
 export default function FundingDetailCard() {
   const { id } = useParams();
   const fundingId = Number(id);
-  const { fundingQuery } = useFunding(fundingId);
+  const { fundingQuery } = useFunding({ fundingId: fundingId });
   const { data: fundingDetail, isPending, isError, error } = fundingQuery;
   const userData = userStore((state) => state.userData);
   const router = useRouter();
