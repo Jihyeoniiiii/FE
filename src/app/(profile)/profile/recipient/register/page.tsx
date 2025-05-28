@@ -55,7 +55,7 @@ const RecipientRegisterPage = () => {
           </div>
         </RadioGroup>
         <div className="flex justify-center items-center py-1">
-          <ImageUpload type="soft" setImageUrl={(url: string) => setImage(url)}/>
+         <ImageUpload type="soft" setImageUrl={(url: string) => setImage(url)} module="recipient" />
         </div>
       </div>
       <Button onClick={handleSubmit} disabled={!selectedDocument || !image} size="none" className="w-[80%] text-md py-3 rounded-2xl">

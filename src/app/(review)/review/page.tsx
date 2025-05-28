@@ -13,7 +13,7 @@ export default function ReviewListPage() {
       {/* Projects grid */}
       <div className="relative top-[2vh] mt-[6px] grid grid-cols-2 gap-5 max-h-[calc(100vh-8vh-4rem)] overflow-y-scroll scrollbar-none">
         {reviewData.map((review) => (
-          <ReviewCard key={review.id} reviewData={review} />
+          <ReviewCard key={review.id} />
         ))}
       </div>
     </div>

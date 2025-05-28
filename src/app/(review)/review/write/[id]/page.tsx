@@ -69,7 +69,7 @@ const ReviewWritePage = () => {
     <>
       <BackButton>후기 작성</BackButton>
       <div className="justify-center px-25 sm:px-35 md:px-55 py-1">
-        <ReviewCard reviewData={formData} fundingId={fundingId} />
+        <ReviewCard fundingId={fundingId} />
       </div>
 
       <ListContainer>

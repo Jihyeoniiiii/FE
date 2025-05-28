@@ -7,7 +7,7 @@ interface ImageUploadProps {
   setImageUrl: (url: string) => void;
   type?: "primary" | "soft";
   text?: string;
-  module: "funding" | "review";
+  module: "funding" | "review" | "recipient";
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
