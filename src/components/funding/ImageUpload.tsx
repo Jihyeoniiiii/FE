@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import axiosInstance from "@/lib/api/axios";
+import imageCompression from "browser-image-compression";
 
 interface ImageUploadProps {
   setImageUrl: (url: string) => void;
@@ -22,17 +23,56 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const uploadFile = async (file: File): Promise<string | null> => {
     setIsUploading(true);
     try {
+      const options = {
+        maxSizeMB: 1, // 최대 파일 크기 (메가바이트) 예: 1MB
+        maxWidthOrHeight: 1920, // 최대 너비 또는 높이 (픽셀)
+        useWebWorker: true, // 웹 워커를 사용하여 성능 향상
+      };
+
+      const compressedFile: File = await (async () => {
+        try {
+          if (file.size / (1024 * 1024) > options.maxSizeMB) {
+            const compressed = await imageCompression(file, options);
+            console.log("원본 파일 크기:", file.size / 1024 / 1024, "MB");
+            console.log(
+              "압축된 파일 크기:",
+              compressed.size / 1024 / 1024,
+              "MB"
+            );
+            const fileNameParts = compressed.name.split('.');
+      const fileExtension = fileNameParts[fileNameParts.length - 1];
+            console.log("압축된 파일 확장자:", fileExtension);
+            return compressed; // 압축된 파일 반환
+          } else {
+            return file; // 압축 불필요 시 원본 파일 반환
+          }
+        } catch (error) {
+          console.error("이미지 압축 중 오류 발생:", error);
+          return file; // 오류 발생 시 원본 파일 반환 (폴백)
+        }
+      })(); // 즉시 함수 실행
+
       const formData = new FormData();
-      formData.append("multipartFile", file);
+      formData.append("multipartFile", compressedFile);
 
       const endpoint = `/api/v1/file/${module}`;
 
       const response = await axiosInstance.post(endpoint, formData);
-      
+
       if (response.status === 200) {
-        return response.data.data[0].fileUrl;
+        if (
+          response.data &&
+          response.data.data &&
+          Array.isArray(response.data.data) &&
+          response.data.data.length > 0
+        ) {
+          return response.data.data[0].fileUrl;
+        } else {
+          console.error("데이터 형식이 다릅니다:", response.data);
+          return null;
+        }
       } else {
-        console.error("파일 업로드 실패:", response.statusText);
+        console.error("파일 업로드 실패:", response.statusText, response.data);
         return null;
       }
     } catch (error: unknown) {
