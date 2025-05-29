@@ -1,9 +1,11 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 async function isValidToken(token: string): Promise<boolean> {
   try {
-    const decoded = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+    const decoded = JSON.parse(
+      Buffer.from(token.split(".")[1], "base64").toString()
+    );
     const currentTime = Math.floor(Date.now() / 1000);
 
     return decoded.exp > currentTime;
@@ -15,14 +17,14 @@ async function isValidToken(token: string): Promise<boolean> {
 
 async function reissueTokensViaBackend(): Promise<NextResponse | null> {
   try {
-    const reissueApiUrl = 'https://api.chaeum.site/api/v1/reissue';
+    const reissueApiUrl = "https://api.chaeum.site/api/v1/reissue";
 
     const response = await fetch(reissueApiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (response.ok) {
@@ -39,13 +41,17 @@ async function reissueTokensViaBackend(): Promise<NextResponse | null> {
 }
 
 export async function middleware(request: NextRequest) {
+  if (process.env.NODE_ENV === "development") {
+    console.log("미들웨어: 로컬 개발 환경이므로 인증 로직을 건너뜁니다.");
+    return NextResponse.next(); // 바로 다음으로 진행
+  }
   const pathname = request.nextUrl.pathname;
 
-  const loginPage = '/landing';
-  const mainPage = '/';
+  const loginPage = "/landing";
+  const mainPage = "/";
 
-  const accessToken = request.cookies.get('AccessToken')?.value;
-  const refreshToken = request.cookies.get('refresh')?.value;
+  const accessToken = request.cookies.get("AccessToken")?.value;
+  const refreshToken = request.cookies.get("refresh")?.value;
 
   let hasValidAccessToken = false;
   let hasValidRefreshToken = false;
@@ -65,8 +71,8 @@ export async function middleware(request: NextRequest) {
   if (pathname !== loginPage) {
     if (!isAuthenticated) {
       const response = NextResponse.redirect(new URL(loginPage, request.url));
-      response.cookies.delete('AccessToken');
-      response.cookies.delete('refresh');
+      response.cookies.delete("AccessToken");
+      response.cookies.delete("refresh");
       return response;
     }
 
@@ -77,8 +83,8 @@ export async function middleware(request: NextRequest) {
         return reissueResponse;
       } else {
         const response = NextResponse.redirect(new URL(loginPage, request.url));
-        response.cookies.delete('AccessToken');
-        response.cookies.delete('refresh');
+        response.cookies.delete("AccessToken");
+        response.cookies.delete("refresh");
         return response;
       }
     }
@@ -89,6 +95,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|assets|landing|oauth/redirect|.*\\..*).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico|assets|landing|oauth/redirect|.*\\..*).*)",
   ],
 };

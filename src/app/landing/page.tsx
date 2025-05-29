@@ -5,8 +5,8 @@ import Paw from "@/components/ui/paw/Paw";
 import { centerImageStyles, mainStyles } from "@/styles/styles";
 
 export const metadata: Metadata = {
-  title: "randing - Chaeum",
-  description: "채움 앱의 randing page 입니다. ",
+  title: "landing - Chaeum",
+  description: "채움 앱의 landing page 입니다. ",
 };
 
 export default function Randing() {

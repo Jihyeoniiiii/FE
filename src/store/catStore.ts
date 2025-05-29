@@ -1,4 +1,15 @@
+import { decorationItems, interiorItems } from "@/lib/inventoryItems";
 import { create } from "zustand";
+
+type ItemType = {
+  id: number;
+  itemId?: number;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className: string;
+};
 
 type CatDataProps = {
   id: number;
@@ -8,16 +19,66 @@ type CatDataProps = {
 };
 
 type CatStore = {
-  catData: CatDataProps
+  catData: CatDataProps;
   setCatData: (catData: CatDataProps) => void;
+
+  inventory: number[]; // 아이템 ID 배열
+  setInventory: (inventory: number[]) => void;
+
+  combinedInventoryList: ItemType[];
+  toggleItemInDisplay: (id: number) => void;
 };
 
-export const catStore = create<CatStore>()((set) => ({
+export const catStore = create<CatStore>()((set, get) => ({
   catData: {
     id: 0,
     level: 0,
     experiencePoint: 0,
     levelUpPercentage: 0,
   },
-  setCatData: (catData) => set({ catData }),
+  inventory: [],
+  combinedInventoryList: [],
+
+  setCatData: (newCatData) => {
+    set({ catData: newCatData });
+  },
+
+  setInventory: (newBackendInventory: number[]) => {
+    set({ inventory: newBackendInventory });
+    // 백엔드 데이터 기준으로 combinedInventoryList를 올바르게 설정
+    const newCombinedListFromBackend = [
+      ...decorationItems,
+      ...interiorItems,
+    ].filter((item) => newBackendInventory.includes(item.itemId!));
+    set({ combinedInventoryList: newCombinedListFromBackend });
+  },
+  toggleItemInDisplay: (itemIdToToggle: number) => {
+    const currentCombinedList = get().combinedInventoryList;
+    const itemIdsInCurrentList = currentCombinedList.map((item) => item.itemId);
+
+    let newCombinedList;
+
+    if (itemIdsInCurrentList.includes(itemIdToToggle)) {
+      // 아이템이 이미 리스트에 있으면 제거 (착용 해제)
+      newCombinedList = currentCombinedList.filter(
+        (item) => item.itemId !== itemIdToToggle
+      );
+    } else {
+      // 아이템이 리스트에 없으면 추가 (착용)
+      const itemObjectToAdd = [...decorationItems, ...interiorItems].find(
+        (item) => item.itemId === itemIdToToggle
+      );
+
+      if (itemObjectToAdd) {
+        newCombinedList = [...currentCombinedList, itemObjectToAdd];
+      } else {
+        // decorationItems나 interiorItems에 해당 itemId를 가진 아이템이 없는 경우
+        console.warn(
+          `_updateCombinedInventoryList: Item with itemId ${itemIdToToggle} not found in master lists.`
+        );
+        newCombinedList = currentCombinedList; // 변경 없음
+      }
+    }
+    set({ combinedInventoryList: newCombinedList });
+  },
 }));

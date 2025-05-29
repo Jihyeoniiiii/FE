@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -8,52 +8,57 @@ const NavigationBar = () => {
   const [isActiveMenu, setIsActiveMenu] = useState<number>(0);
   const router = useRouter();
   const pathname = usePathname();
-  const navItems = [
-    {
-      id: 1,
-      src: "/assets/icons/funding.svg",
-      alt: "Funding",
-      label: "펀딩",
-      width: 24,
-      height: 25,
-      address: "/funding",
-    },
-    {
-      id: 2,
-      src: "/assets/icons/review.svg",
-      alt: "Review",
-      label: "후기",
-      width: 25,
-      height: 25,
-      address: "/review",
-    },
-    {
-      id: 3,
-      src: "/assets/icons/friend.svg",
-      alt: "Friend",
-      label: "친구",
-      width: 23,
-      height: 23,
-      address: "/friends",
-    },
-    {
-      id: 4,
-      src: "/assets/icons/profile.svg",
-      alt: "Profile",
-      label: "내 계정",
-      width: 25,
-      height: 25,
-      address: "/profile",
-    },
-  ];
+  const navItems = useMemo(
+    () => [
+      {
+        id: 1,
+        src: "/assets/icons/funding.svg",
+        alt: "Funding",
+        label: "펀딩",
+        width: 24,
+        height: 25,
+        address: "/funding",
+      },
+      {
+        id: 2,
+        src: "/assets/icons/review.svg",
+        alt: "Review",
+        label: "후기",
+        width: 25,
+        height: 25,
+        address: "/review",
+      },
+      {
+        id: 3,
+        src: "/assets/icons/friend.svg",
+        alt: "Friend",
+        label: "친구",
+        width: 23,
+        height: 23,
+        address: "/friends",
+      },
+      {
+        id: 4,
+        src: "/assets/icons/profile.svg",
+        alt: "Profile",
+        label: "내 계정",
+        width: 25,
+        height: 25,
+        address: "/profile",
+      },
+    ],
+    []
+  ); // 의존성 배열이 비어있으므로 컴포넌트 마운트 시 한 번만 생성
 
   useEffect(() => {
-    const currentActiveItem = navItems.find(item => item.address === pathname);
-    
+    const currentActiveItem = navItems.find(
+      (item) => item.address === pathname
+    );
+
     if (currentActiveItem) {
       setIsActiveMenu(currentActiveItem.id);
     } else {
-      setIsActiveMenu(0); 
+      setIsActiveMenu(0);
     }
   }, [pathname, navItems]);
 
