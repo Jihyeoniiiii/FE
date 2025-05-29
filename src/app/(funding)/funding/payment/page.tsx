@@ -73,7 +73,7 @@ const PaymentPage = () => {
         buyer_name: "후원자",
         m_redirect_url:
           process.env.NEXT_PUBLIC_PORTONE_REDIRECT_URL ??
-          "https://chaeum.site/donation/loading",
+          "https://chaeum.site/funding/payment",
       });
 
       setButtonMessage("결제 처리 중...");
