@@ -49,7 +49,7 @@ const DonationLoadingPage = () => {
 
      alert(location.href)
      alert(document.referrer)
-     
+
     if (
       !selectedFundingId ||
       selectedAmount === null ||
