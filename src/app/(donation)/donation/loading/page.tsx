@@ -28,6 +28,7 @@ const DonationLoadingPage = () => {
 
   useEffect(() => {
     if (!impUid || !merchantUid || hasProcessed || donationId) {
+      alert(`문제가 발생: ${impUid}, ${merchantUid}, ${hasProcessed}, ${donationId}`)
       return;
     }
 
@@ -47,6 +48,8 @@ const DonationLoadingPage = () => {
           amount: selectedAmount,
           point: 0,
         });
+
+        alert(`문제가 발생: ${donationResponse}`)
 
         if (donationResponse?.data?.id) {
           setDonationId(donationResponse.data.id);
@@ -94,12 +97,14 @@ const DonationLoadingPage = () => {
           paymentCreateData
         );
 
+        alert(`문제가 발생: ${paymentResponse}`)
+
         if (paymentResponse) {
           setHasProcessed(true);
           resetPaymentStore();
-          setTimeout(() =>
-            router.push(`/donation/complete/${selectedFundingId}`)
-          );
+          setTimeout(() => {
+            router.push(`/donation/complete/${selectedFundingId}`);
+          }, 2000);
         } else {
           console.error("결제 생성 실패");
         }
