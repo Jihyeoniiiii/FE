@@ -47,6 +47,9 @@ const DonationLoadingPage = () => {
 
     alert(`문제가 발생: ${impUid}, ${merchantUid}, ${effectiveImpUid}, ${effectiveMerchantUid}, ${impUidFromQuery}, ${merchantUidFromQuery}, ${hasProcessed}, ${donationId}`)
 
+     alert(location.href)
+     alert(document.referrer)
+     
     if (
       !selectedFundingId ||
       selectedAmount === null ||
