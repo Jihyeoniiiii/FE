@@ -35,8 +35,13 @@ export const fetchDonationReward = async (): Promise<DonationRewardData> => {
 };
 
 export const createDonation = async (
-    donationData: DonationCreateData
-) : Promise<DonationCreateResponse> => {
-  const response = await axiosInstance.post("/api/v1/donation", donationData);
-  return response.data;
+  donationData: DonationCreateData
+): Promise<DonationCreateResponse> => {
+  try {
+    const response = await axiosInstance.post("/api/v1/donation", donationData);
+    return response.data;
+  } catch (error) {
+    console.error("기부 생성 중 에러 발생");
+    throw error;
+  }
 };

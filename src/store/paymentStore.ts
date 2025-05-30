@@ -1,21 +1,37 @@
-import { create } from 'zustand';
+// store/paymentStore.ts
+import { create } from "zustand";
 
 interface PaymentState {
-  selectedAmount: number | null;
   selectedFundingId: number | null;
+  selectedAmount: number | null;
   selectedPaymentMethod: string | null;
-  
-  setSelectedAmount: (amount: number | null) => void;
-  setSelectedFundingId: (fundingId: number | null) => void;
+  impUid: string | null;
+  merchantUid: string | null;
+  setSelectedFundingId: (id: number) => void;
+  setSelectedAmount: (amount: number) => void;
   setSelectedPaymentMethod: (method: string | null) => void;
+  setImpUid: (uid: string) => void; 
+  setMerchantUid: (uid: string) => void;
+  resetPaymentState: () => void; 
 }
 
 export const usePaymentStore = create<PaymentState>((set) => ({
-  selectedAmount: null,
   selectedFundingId: null,
+  selectedAmount: null,
   selectedPaymentMethod: null,
-
+  impUid: null,
+  merchantUid: null,
+  setSelectedFundingId: (id) => set({ selectedFundingId: id }),
   setSelectedAmount: (amount) => set({ selectedAmount: amount }),
-  setSelectedFundingId: (fundingId) => set({ selectedFundingId: fundingId }),
   setSelectedPaymentMethod: (method) => set({ selectedPaymentMethod: method }),
+  setImpUid: (uid) => set({ impUid: uid }), // Implement
+  setMerchantUid: (uid) => set({ merchantUid: uid }), // Implement
+  resetPaymentState: () =>
+    set({
+      selectedFundingId: null,
+      selectedAmount: null,
+      selectedPaymentMethod: null,
+      impUid: null,
+      merchantUid: null,
+    }),
 }));

@@ -1,20 +1,125 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import { useRouter } from "next/navigation";
+import { useDonation } from "@/hooks/useDonation";
+import { usePayment } from "@/hooks/usePayment";
+import { usePaymentStore } from "@/store/paymentStore";
 
 const DonationLoadingPage = () => {
   const router = useRouter();
+  const impUid = usePaymentStore((state) => state.impUid);
+  const merchantUid = usePaymentStore((state) => state.merchantUid);
+  const { createDonationMutation } = useDonation();
+  const { createPaymentMutation } = usePayment();
+  const selectedAmount = usePaymentStore((state) => state.selectedAmount);
+  const selectedFundingId = usePaymentStore((state) => state.selectedFundingId);
+  const selectedPaymentMethod = usePaymentStore(
+    (state) => state.selectedPaymentMethod
+  );
+  const resetPaymentStore = usePaymentStore((state) => state.resetPaymentState);
+  const [donationId, setDonationId] = useState<number | null>(null);
+  const [hasProcessed, setHasProcessed] = useState(false);
+
+  const createDonationFnRef = useRef(createDonationMutation);
+  const createPaymentFnRef = useRef(createPaymentMutation);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push("/donation/complete");
-    }, 2000);
+    if (!impUid || !merchantUid || hasProcessed || donationId) {
+      return;
+    }
 
-    return () => clearTimeout(timer);
-  }, [router]);
+    if (
+      !selectedFundingId ||
+      selectedAmount === null ||
+      !selectedPaymentMethod
+    ) {
+      console.error("결제 정보가 누락되었습니다.");
+      return;
+    }
+
+    const createDonation = async () => {
+      try {
+        const donationResponse = await createDonationFnRef.current.mutateAsync({
+          fundingId: selectedFundingId,
+          amount: selectedAmount,
+          point: 0,
+        });
+
+        if (donationResponse?.data?.id) {
+          setDonationId(donationResponse.data.id);
+        } else {
+          console.error("기부 생성 실패");
+        }
+      } catch (error) {
+        console.error("기부 생성 중 오류", error);
+        setHasProcessed(false);
+      }
+    };
+
+    createDonation();
+  }, [
+    impUid,
+    merchantUid,
+    selectedFundingId,
+    selectedAmount,
+    selectedPaymentMethod,
+    donationId,
+    hasProcessed,
+  ]);
+
+  useEffect(() => {
+    if (!donationId || hasProcessed) return;
+
+    const createPayment = async () => {
+      try {
+        await new Promise((r) => setTimeout(r, 500));
+
+        const paymentCreateData = {
+          donationId,
+          amount: selectedAmount!,
+          points: 0,
+          transactionId: impUid ?? "",
+          paymentMethod: selectedPaymentMethod!,
+          status: "COMPLETED",
+          merchantUid: merchantUid ?? "",
+          gatewayProvider:
+            selectedPaymentMethod === "KAKAO_PAY" ? "kakaopay" : "tosspay",
+          impUid: impUid ?? "",
+        };
+
+        const paymentResponse = await createPaymentFnRef.current.mutateAsync(
+          paymentCreateData
+        );
+
+        if (paymentResponse) {
+          setHasProcessed(true);
+          resetPaymentStore();
+          setTimeout(() =>
+            router.push(`/donation/complete/${selectedFundingId}`)
+          );
+        } else {
+          console.error("결제 생성 실패");
+        }
+      } catch (error) {
+        console.error("결제 저장 중 에러 발생:", error);
+      }
+    };
+
+    createPayment();
+  }, [
+    donationId,
+    hasProcessed,
+    selectedAmount,
+    impUid,
+    merchantUid,
+    selectedPaymentMethod,
+    resetPaymentStore,
+    router,
+    selectedFundingId,
+  ]);
 
   return (
     <>

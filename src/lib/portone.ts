@@ -46,8 +46,6 @@ export const requestPortonePayment = (
       return reject(new Error("아임포트 SDK를 사용할 수 없습니다."));
     }
 
-    console.log("IMP.request_pay에 전달될 데이터:", data);
-
     window.IMP.request_pay(data, (response: PortoneResponse) => {
       if (response.success) {
         resolve(response);
