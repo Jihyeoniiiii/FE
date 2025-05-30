@@ -1,4 +1,3 @@
-// app/(donation)/donation/loading/page.tsx
 import React, { Suspense } from "react";
 import DonationLoadingClient from "@/components/DonationLodaingClient";
 

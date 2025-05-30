@@ -45,11 +45,6 @@ const DonationLoadingPage = () => {
     if (!effectiveImpUid || !effectiveMerchantUid || hasProcessed || donationId)
       return;
 
-    alert(`문제가 발생: ${impUid}, ${merchantUid}, ${effectiveImpUid}, ${effectiveMerchantUid}, ${impUidFromQuery}, ${merchantUidFromQuery}, ${hasProcessed}, ${donationId}`)
-
-     alert(location.href)
-     alert(document.referrer)
-
     if (
       !selectedFundingId ||
       selectedAmount === null ||
@@ -67,18 +62,13 @@ const DonationLoadingPage = () => {
           point: 0,
         });
 
-        alert(`문제가 발생: ${donationResponse}`)
-
         if (donationResponse?.data?.id) {
           setDonationId(donationResponse.data.id);
-          alert(donationResponse)
         } else {
           console.error("기부 생성 실패");
-          alert(`기부 생성 실패: ${donationResponse}`);
         }
       } catch (error) {
         console.error("기부 생성 중 오류", error);
-        alert(`기부 생성 중 오류: ${error}`);
         setHasProcessed(false);
       }
     };
@@ -122,25 +112,17 @@ const DonationLoadingPage = () => {
           paymentCreateData
         );
 
-        alert(`문제가 발생: ${paymentResponse}`)
-
         if (paymentResponse) {
-          alert(paymentResponse);
           setHasProcessed(true);
           resetPaymentStore();
           setTimeout(() => {
             router.push(`/donation/complete/${selectedFundingId}`);
           }, 2000);
-          setTimeout(() => {
-            router.push(`/donation/complete/${selectedFundingId}`);
-          }, 2000);
         } else {
           console.error("결제 생성 실패");
-          alert(`결제 생성 실패: ${paymentResponse}`);
         }
       } catch (error) {
         console.error("결제 저장 중 에러 발생:", error);
-        alert(`결제 저장 중 에러 발생: ${error}`);
       }
     };
 

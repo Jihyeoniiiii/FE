@@ -1,4 +1,3 @@
-// store/paymentStore.ts
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -8,7 +7,6 @@ interface PaymentState {
   selectedPaymentMethod: string | null;
   impUid: string | null;
   merchantUid: string | null;
-  // 액션 함수들은 persist 미들웨어에 의해 자동으로 저장되지 않습니다.
   setSelectedFundingId: (id: number) => void;
   setSelectedAmount: (amount: number) => void;
   setSelectedPaymentMethod: (method: string | null) => void;
@@ -40,9 +38,8 @@ export const usePaymentStore = create<PaymentState>()(
         }),
     }),
     {
-      name: "payment-storage", // sessionStorage에 저장될 키 이름
-      storage: createJSONStorage(() => sessionStorage), // sessionStorage 사용 (탭 닫히면 사라짐)
-      // partialize 옵션을 완전히 제거합니다.
+      name: "payment-storage",
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );
