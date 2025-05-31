@@ -3,19 +3,43 @@
 import FilterButtons from "@/components/funding/FilterButton";
 import CampaignCard from "@/components/funding/CampaignCard";
 import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";
-// import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useFunding } from "@/hooks/useFunding";
 import { FundingData } from "@/lib/api/funding";
 
 export default function FundingListPage() {
-  // const [statusFilter, setStatusFilter] = useState<"ONGOING" | "COMPLETED" | "FAILED" | undefined>(undefined);
-  const { fundingListQuery } = useFunding({
-    listOptions: { limit: 8 }
-  });
-  const { data: FundingByConditionData, isPending, isError } = fundingListQuery;
+  const [statusFilter, setStatusFilter] = useState<
+    "ONGOING" | "COMPLETED" | "FAILED" | undefined
+  >(undefined);
+  const [sortCondition, setSortCondition] = useState<"최신순" | "추천순">(
+    "최신순"
+  );
 
-  const campaigns: FundingData[] | undefined =
-    FundingByConditionData?.data?.values;
+  const handleSortConditionChange = useCallback(
+    (newCondition: "최신순" | "추천순") => {
+      setSortCondition(newCondition);
+      setStatusFilter(undefined);
+    },
+    []
+  );
+
+  const { fundingListQuery, fundingRecommendListQuery } = useFunding({
+    listOptions: {
+      status: statusFilter,
+      limit: 8,
+      cursor: undefined,
+      title: undefined,
+    },
+  });
+
+  const result =
+    sortCondition === "추천순" ? fundingRecommendListQuery : fundingListQuery;
+
+  const fundingData = result?.data;
+  const isPending = result?.isPending ?? false;
+  const isError = result?.isError ?? false;
+
+  const campaigns: FundingData[] | undefined = fundingData?.data?.values;
 
   if (isPending) return <div>Loading campaigns...</div>;
   if (isError) return <div>Error loading campaigns</div>;
@@ -24,7 +48,10 @@ export default function FundingListPage() {
     <div className="flex min-h-screen flex-col px-8 py-8 relative">
       <div className="flex w-full justify-between">
         <div>
-          <FilterButtons />
+          <FilterButtons
+            onSortConditionChange={handleSortConditionChange}
+            currentSortCondition={sortCondition}
+          />
         </div>
         <div className="absolute top-[2.8vh] right-8">
           <NavigateToWriteButton />

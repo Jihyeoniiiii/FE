@@ -1,19 +1,31 @@
-import { ChevronDown } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import Dropdown from "../ui/Dropdown";
 
-const FilterButtons = () => {
+interface FilterButtonsProps {
+  onSortConditionChange: (condition: "최신순" | "추천순") => void;
+  currentSortCondition?: "최신순" | "추천순";
+}
+
+const FilterButtons: React.FC<FilterButtonsProps> = ({ onSortConditionChange, currentSortCondition }) => {
+  const [conditionType, setConditionType] = useState<"최신순" | "추천순">(currentSortCondition || "최신순"); // 초기값을 "최신순"으로 설정
+  const conditionOptions: ("최신순" | "추천순")[] = ["최신순", "추천순"];
+
+  const handleConditionTypeSelect = (value: string) => {
+    const selectedCondition = value as "최신순" | "추천순";
+    setConditionType(selectedCondition);
+    onSortConditionChange(selectedCondition);
+  };
+
   return (
     <div className="absolute top-[3vh] flex gap-2">
-      <button className={StButton}>
-        최신순 <ChevronDown className="h-4 w-4" />
-      </button>
-      <button className={StButton}>
-        추천순 <ChevronDown className="h-4 w-4" />
-      </button>
+      <Dropdown
+        options={conditionOptions}
+        onSelect={handleConditionTypeSelect}
+      >
+        {conditionType}
+      </Dropdown>
     </div>
   );
 };
-const StButton =
-  "flex items-center gap-1 bg-white text-sm rounded-lg px-2 py-1.5 shadow-sm";
 
 export default FilterButtons;

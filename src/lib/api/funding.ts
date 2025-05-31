@@ -65,6 +65,20 @@ export const fetchFundingByCondition = async (
   return response.data;
 };
 
+export const fetchFundingByRecommend = async (
+  cursor?: number,
+  limit: number = 3
+): Promise<FundingByConditionData> => {
+  const params = new URLSearchParams();
+  if (cursor) params.append("cursor", String(cursor));
+  params.append("limit", String(limit));
+
+  const response = await axiosInstance.get(
+    `/api/v1/funding/recommend?${params.toString()}`
+  );
+  return response.data;
+};
+
 export const fetchFunding = async (
   fundingId: number
 ): Promise<FundingData | null> => {

@@ -11,6 +11,7 @@ import {
   CreateFundingData,
   fetchFundingByCondition,
   FundingByConditionData,
+  fetchFundingByRecommend,
 } from "@/lib/api/funding";
 
 interface UseFundingListOptions {
@@ -29,6 +30,10 @@ interface UseFundingResult {
     unknown
   >;
   fundingListQuery: UseQueryResult<FundingByConditionData | undefined, Error>;
+  fundingRecommendListQuery?: UseQueryResult<
+    FundingByConditionData | undefined,
+    Error
+  >;
   refetchFunding: () => void;
 }
 
@@ -78,6 +83,16 @@ export const useFunding = (params: UseFundingParams = {}): UseFundingResult => {
     enabled: true,
   });
 
+  const fundingRecommendListQuery: UseQueryResult<
+    FundingByConditionData | undefined,
+    Error
+  > = useQuery({
+    queryKey: ["fundingRecommendList", listOptions],
+    queryFn: () =>
+      fetchFundingByRecommend(listOptions.cursor, listOptions.limit),
+    enabled: true,
+  });
+
   const refetchFunding = () => {
     fundingQuery.refetch();
   };
@@ -86,6 +101,7 @@ export const useFunding = (params: UseFundingParams = {}): UseFundingResult => {
     fundingQuery,
     createFundingMutation,
     fundingListQuery,
+    fundingRecommendListQuery,
     refetchFunding,
   };
 };
