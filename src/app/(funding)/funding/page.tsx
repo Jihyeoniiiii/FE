@@ -4,8 +4,11 @@ import FilterButtons from "@/components/funding/FilterButton";
 import CampaignCard from "@/components/funding/CampaignCard";
 import NavigateToWriteButton from "@/components/funding/NavigateToWriteButton";
 import { useState, useCallback } from "react";
-import { useFunding } from "@/hooks/useFunding";
 import { FundingData } from "@/lib/api/funding";
+import {
+  useFundingList,
+  useFundingRecommendList,
+} from "@/hooks/useFunding";
 
 export default function FundingListPage() {
   const [statusFilter, setStatusFilter] = useState<
@@ -23,26 +26,38 @@ export default function FundingListPage() {
     []
   );
 
-  const { fundingListQuery, fundingRecommendListQuery } = useFunding({
-    listOptions: {
-      status: statusFilter,
-      limit: 8,
-      cursor: undefined,
-      title: undefined,
-    },
-  });
+  const {
+    data: fundingListData,
+    isPending: isFundingListPending,
+    isError: isFundingListError,
+  } = useFundingList({ status: statusFilter, limit: 8 });
 
-  const result =
-    sortCondition === "추천순" ? fundingRecommendListQuery : fundingListQuery;
+  const {
+    data: fundingRecommendData,
+    isPending: isFundingRecommendPending,
+    isError: isFundingRecommendError,
+  } = useFundingRecommendList({ limit: 8 });
 
-  const fundingData = result?.data;
-  const isPending = result?.isPending ?? false;
-  const isError = result?.isError ?? false;
+  const currentFundingData =
+    sortCondition === "추천순" ? fundingRecommendData : fundingListData;
+  const areCampaignsPending =
+    sortCondition === "추천순"
+      ? isFundingRecommendPending
+      : isFundingListPending;
+  const areCampaignsError =
+    sortCondition === "추천순"
+      ? isFundingRecommendError
+      : isFundingListError;
 
-  const campaigns: FundingData[] | undefined = fundingData?.data?.values;
+  const campaigns: FundingData[] | undefined = currentFundingData?.data?.values;
 
-  if (isPending) return <div>Loading campaigns...</div>;
-  if (isError) return <div>Error loading campaigns</div>;
+  if (areCampaignsPending) {
+    return <div>캠페인을 불러오는 중...</div>;
+  }
+
+  if (areCampaignsError) {
+    return <div>캠페인을 불러오는데 오류가 발생했습니다.</div>;
+  }
 
   return (
     <div className="flex min-h-screen flex-col px-8 py-8 relative">
@@ -58,11 +73,16 @@ export default function FundingListPage() {
         </div>
       </div>
 
-      {/* Projects grid */}
       <div className="relative top-[6vh] mt-[10px] grid grid-cols-2 gap-5 max-h-[78vh] overflow-y-scroll scrollbar-none">
-        {campaigns?.map((campaign) => (
-          <CampaignCard key={campaign.id} campaign={campaign} />
-        ))}
+        {!campaigns || campaigns.length === 0 ? (
+          <div className="col-span-2 text-center text-gray-500">
+            표시할 캠페인이 없습니다.
+          </div>
+        ) : (
+          campaigns.map((campaign) => (
+            <CampaignCard key={campaign.id} campaign={campaign} />
+          ))
+        )}
       </div>
     </div>
   );

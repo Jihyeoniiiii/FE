@@ -3,20 +3,22 @@
 import React from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
-import { useFunding } from "@/hooks/useFunding";
+import { useFundingDetail } from "@/hooks/useFunding";
 import BackButton from "@/components/BackButton";
 import { Button } from "@/components/ui/button";
 
 const DonationCompletePage = () => {
   const params = useParams();
   const fundingIdFromQuery = params.id;
+  const fundingId = fundingIdFromQuery ? Number(fundingIdFromQuery) : undefined;
 
-  const fundingParams = fundingIdFromQuery
-    ? { fundingId: Number(fundingIdFromQuery) }
-    : undefined;
+  const {
+    data: fundingDetail,
+    isPending,
+    isError,
+    error,
+  } = useFundingDetail(fundingId);
 
-  const { fundingQuery } = useFunding(fundingParams);
-  const { data: fundingDetail, isPending, isError, error } = fundingQuery;
   const router = useRouter();
 
   if (isPending) return <div>로딩 중...</div>;

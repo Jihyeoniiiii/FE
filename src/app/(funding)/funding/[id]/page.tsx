@@ -9,20 +9,19 @@ import 프로필 from "@assets/icons/profile.svg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
-import { useFunding } from "@/hooks/useFunding";
 import { userStore } from "@/store/userStore";
 import { getRemainingDays } from "@/utils/dateUtils";
 import { useRouter } from "next/navigation";
 import { usePaymentStore } from "@/store/paymentStore";
+import { useFundingDetail } from "@/hooks/useFunding";
 
 export default function FundingDetailCard() {
   const { id } = useParams();
   const fundingId = Number(id);
-  const { fundingQuery } = useFunding({ fundingId: fundingId });
-  const { data: fundingDetail, isPending, isError, error } = fundingQuery;
+  const { data: fundingDetail, isPending, isError, error } = useFundingDetail(fundingId);
   const userData = userStore((state) => state.userData);
+  const setSelectedFundingId = usePaymentStore((state) => state.setSelectedFundingId);
   const router = useRouter();
-    const setSelectedFundingId = usePaymentStore((state) => state.setSelectedFundingId);
 
   const handlePaymentButtonClick = () => {
     setSelectedFundingId(fundingId);

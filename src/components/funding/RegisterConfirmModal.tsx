@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { CreateFundingData } from "@/lib/api/funding";
-import { useFunding } from "@/hooks/useFunding";
+import { useCreateFunding } from "@/hooks/useFunding";
 
 interface RegisterConfirmModalProps {
   onClose: () => void;
@@ -16,7 +16,7 @@ const RegisterConfirmModal: React.FC<RegisterConfirmModalProps> = ({
   formData,
 }) => {
   const router = useRouter();
-  const { createFundingMutation } = useFunding();
+  const { mutate } = useCreateFunding();
 
   const handleRegisterClick = () => {
     const payload = {
@@ -24,11 +24,11 @@ const RegisterConfirmModal: React.FC<RegisterConfirmModalProps> = ({
       endDate: formData.endDate + "T23:59:59",
     };
 
-    createFundingMutation.mutate(payload, {
+    mutate(payload, {
       onSuccess: () => {
         try {
-          router.push("/funding/register");
           onClose();
+          router.push("/funding/register");
         } catch (error) {
           console.error("펀딩 생성 데이터 갱신 중 오류 발생:", error);
         }

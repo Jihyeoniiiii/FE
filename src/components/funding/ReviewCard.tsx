@@ -2,20 +2,20 @@
 
 import React from "react";
 import Image from "next/image";
-import { useFunding } from "@/hooks/useFunding";
+import { useFundingDetail } from "@/hooks/useFunding";
 
 type ReviewCardProps = {
   fundingId?: number;
 };
 
 const ReviewCard = ({ fundingId }: ReviewCardProps) => {
-  const { fundingQuery } = useFunding({ fundingId: fundingId });
+
   const {
-    data: fundingDetail,
-    isPending: isFundingPending,
-    isError: isFundingError,
-    error: fundingError,
-  } = fundingQuery;
+  data: fundingDetail,
+  isPending,
+  isError,
+  error,
+} = useFundingDetail(fundingId);
 
   const displayImageUrl: string | null =
     fundingDetail?.fundingImages && fundingDetail.fundingImages.length > 0
@@ -24,7 +24,7 @@ const ReviewCard = ({ fundingId }: ReviewCardProps) => {
 
   const displayTitle = fundingDetail?.title;
 
-  if (isFundingPending) {
+  if (isPending) {
     return (
       <div className="flex flex-col pt-6 animate-pulse">
         <div className="w-full h-[100px] bg-gray-200 rounded-lg object-cover" />
@@ -33,8 +33,8 @@ const ReviewCard = ({ fundingId }: ReviewCardProps) => {
     );
   }
 
-  if (isFundingError) {
-    console.error("펀딩 상세 정보 로딩 오류:", fundingError);
+  if (isError) {
+    console.error("펀딩 상세 정보 로딩 오류:", error);
   }
 
   return (

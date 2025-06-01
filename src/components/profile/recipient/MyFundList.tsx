@@ -3,22 +3,21 @@
 import React, { useState } from "react";
 import MyFundItem from "./MyFundItem";
 import ListContainer from "../ListContainer";
-import { useFunding } from "@/hooks/useFunding";
+import { useFundingList } from "@/hooks/useFunding";
 
 const MyFundList = () => {
   const [activeTab, setActiveTab] = useState<"ongoing" | "completed">("ongoing");
-
   const {
-    data: ongoingFundsData,
+      data: ongoingFundsData,
     isPending: isLoadingOngoing,
     isError: isErrorOngoing,
-  } = useFunding({ listOptions: { status: "ONGOING" } }).fundingListQuery;
+    } = useFundingList({ status: "ONGOING", limit: 8 });
 
   const {
     data: completedFundsData,
     isPending: isLoadingCompleted,
     isError: isErrorCompleted,
-  } = useFunding({ listOptions: { status: "COMPLETED" } }).fundingListQuery;
+  }= useFundingList({ status: "COMPLETED", limit: 8 });
 
   const handleTabClick = (tab: "ongoing" | "completed") => {
     setActiveTab(tab);
