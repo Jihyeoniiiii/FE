@@ -28,13 +28,17 @@ export function timeAgo(date: Date): string {
   if (diffHour < 24) return `${diffHour}시간 전`; // 24시간 미만이면 "N시간 전"
   return `${diffDay}일 전`; // 24시간 이상이면 "N일 전"
 }
-export function formatDonationDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // 0-based
-  const day = String(date.getDate()).padStart(2, "0");
+export function formatDonationDateFromString(dateString: string): string {
+  if (!dateString || dateString.length < 19) {
+    return "유효하지 않은 날짜 문자열";
+  }
 
-  let hours = date.getHours();
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(5, 7);
+  const day = dateString.substring(8, 10);
+
+  let hours = parseInt(dateString.substring(11, 13), 10);
+  const minutes = dateString.substring(14, 16);
   const period = hours >= 12 ? "PM" : "AM";
 
   if (hours > 12) {

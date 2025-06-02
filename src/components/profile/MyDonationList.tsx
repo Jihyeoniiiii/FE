@@ -1,18 +1,23 @@
-import { formatDonationDate } from "@/utils/dateUtils";
+import { formatDonationDateFromString } from "@/utils/dateUtils";
 import Image from "next/image";
 import React from "react";
 
-type Donation = {
-  id: string;
+interface ImageDetails {
+  fileUrl: string;
+  fileSize: number;
+  contentType: string;
+}
+export interface Donation {
+  id: number;
   title: string;
-  date: Date;
-  fundingPayment: number;
-  photo: string;
-};
+  createdAt: string;
+  amount: number;
+  image: ImageDetails;
+}
 
-type DonationProps = {
+interface DonationProps {
   donation: Donation;
-};
+}
 
 const MyDonationList = ({ donation }: DonationProps) => {
   return (
@@ -20,8 +25,9 @@ const MyDonationList = ({ donation }: DonationProps) => {
       <Image
         height={30}
         width={60}
-        alt="studying"
-        src="/assets/images/study.png"
+        alt={`donation-${donation.title}`}
+        src={donation.image.fileUrl}
+        style={{ objectFit: "cover" }}
         className="rounded-xl flex-shrink-0"
       />
       <div className="flex justify-between w-full items-center">
@@ -30,18 +36,16 @@ const MyDonationList = ({ donation }: DonationProps) => {
             {donation.title}
           </h4>
           <p className="text-xs text-gray">
-            {formatDonationDate(donation.date)}
+            {formatDonationDateFromString(donation.createdAt)}
           </p>
         </div>
         <p className="text-sm text-secondary whitespace-nowrap">
-          {donation.fundingPayment.toLocaleString("ko-KR")}
+          {donation.amount.toLocaleString("ko-KR")}
           <span>원</span>
         </p>
       </div>
     </div>
   );
 };
-
-
 
 export default MyDonationList;

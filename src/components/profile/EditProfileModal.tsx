@@ -1,7 +1,7 @@
 // components/profile/EditProfileModal.tsx
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -34,6 +34,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
+
+  useEffect(() => {
+  }, [tempForm, isPending, errorMessage, onClose]);
   if (errorMessage) {
     return (
       <div className="absolute inset-0 bg-black/30 z-50 flex items-center justify-center transition-opacity duration-300 ">
@@ -55,6 +58,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           className="w-[100px] h-[100px] cursor-pointer relative"
           onClick={handleImageClick}>
           <Image
+            key={tempForm.preview}
             src={tempForm.preview || "/assets/icons/man-profile.png"}
             alt="프로필"
             width={100}

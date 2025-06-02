@@ -5,23 +5,29 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import PaymentCard from "@/components/profile/PaymentCard";
-import { myDonationList } from "@/lib/myDonationList";
-import MyDonationList from "@/components/profile/MyDonationList";
+import MyDonationList, { Donation } from "@/components/profile/MyDonationList";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
 import { patchUserProfile, uploadProfileImage } from "@/lib/api/profile";
 import EditProfileModal from "@/components/profile/EditProfileModal";
 import { debounce } from "@/lib/debounce";
+import { useMemberData } from "@/lib/userData";
 
 export default function DonatorProfilePage() {
-  const userData = userStore((state) => state.userData);
   const setUserData = userStore((state) => state.setUserData);
   const router = useRouter();
   const timerIdRef = useRef<NodeJS.Timeout | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isErrorOpen, setIsErrorOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const {
+    data: userInfo,
+    isPending: isUserDataPending,
+    isError: isUserDataError,
+  } = useMemberData();
 
   const [profileForm, setProfileForm] = useState<{
     name: string;
@@ -31,27 +37,26 @@ export default function DonatorProfilePage() {
     selectedFile: "",
   });
 
-  const [tempForm, setTempForm] = useState({
-    name: "",
-    preview: "",
-    file: "" as File | "",
+  const [tempForm, setTempForm] = useState<{
+    name: string;
+    preview: string;
+    file: File | "";
+  }>({
+    name: userInfo?.name || "",
+    preview:
+      userInfo?.profileImage && userInfo.profileImage !== "null"
+        ? userInfo.profileImage
+        : "/assets/icons/woman-profile.png",
+    file: "",
   });
 
   const handleOpenModal = () => {
-    setTempForm({
-      name: userData?.name || "",
-      preview:
-        userData?.profileImage && userData.profileImage !== "null"
-          ? userData.profileImage
-          : "/assets/icons/woman-profile.png",
-      file: "",
-    });
     setIsOpen(true);
   };
 
   const { mutate: UploadImage, isPending } = useMutation({
     mutationFn: async (file: File | string) => {
-      const uploadname = profileForm.name || userData?.name || "";
+      const uploadname = profileForm.name || userInfo?.name || "";
 
       if (file instanceof File) {
         // 새 이미지 업로드가 필요한 경우
@@ -65,7 +70,7 @@ export default function DonatorProfilePage() {
       // 기존 이미지 URL만 사용하는 경우
       return await patchUserProfile({
         name: uploadname,
-        profileImage: userData?.profileImage, // 이 경우 file은 string
+        profileImage: userInfo?.profileImage, // 이 경우 file은 string
       });
     },
     onError: (error) => {
@@ -74,18 +79,19 @@ export default function DonatorProfilePage() {
     },
     onSuccess: () => {
       setErrorMessage("");
+
+      setTempForm((prev) => ({
+        ...prev,
+        name: tempForm.name,
+        file: tempForm.file,
+      }));
     },
   });
 
   const handleTempNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempForm((prev) => ({ ...prev, name: e.target.value }));
-    debounce(
-      () => {
-        console.log("Debounced input:", e.target.value);
-      },
-      2000,
-      timerIdRef
-    );
+
+    debounce(() => {}, 2000, timerIdRef);
   };
 
   const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,11 +101,11 @@ export default function DonatorProfilePage() {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
-        setTempForm((prev) => ({
-          ...prev,
+        setTempForm({
+          name: tempForm.name,
           preview: reader.result as string,
           file,
-        }));
+        });
       }
     };
     reader.readAsDataURL(file);
@@ -109,7 +115,7 @@ export default function DonatorProfilePage() {
     UploadImage(tempForm.file);
 
     setUserData({
-      ...userData!,
+      ...userInfo!,
       name: tempForm.name,
       profileImage: tempForm.preview,
     });
@@ -130,7 +136,10 @@ export default function DonatorProfilePage() {
     });
     setIsOpen(false);
   };
-
+  const handleErrorCancel = () => {
+    setIsErrorOpen(false);
+    router.back();
+  };
   useEffect(() => {
     const currentTimerId = timerIdRef.current; // 현재 값 복사
 
@@ -141,13 +150,32 @@ export default function DonatorProfilePage() {
     };
   }, []);
 
-  if (!userData) {
+  if (isUserDataPending) {
     return <div>페이지 정보를 불러오는 중입니다.</div>;
+  }
+  if (isUserDataError) {
+    return (
+      isErrorOpen && (
+        <div className="absolute inset-0 bg-black/30 z-50 flex items-center justify-center transition-opacity duration-300 ">
+          <div className="flex flex-col justify-center items-center bg-white rounded-2xl space-y-6 p-6 ">
+            <div className=" flex text-center text-red-500 text-baseline ">
+              회원정보를 불러오는데 실패했습니다.
+              <br /> 다시 접속해주세요.
+            </div>
+            <Button
+              className="w-34 h-7 rounded-2xl text-black"
+              onClick={handleErrorCancel}>
+              닫기
+            </Button>
+          </div>
+        </div>
+      )
+    );
   }
 
   return (
     <>
-      <div className="flex pl-6">
+      <div className="flex pl-6 mb-5">
         <Link href={"/profile/recipient/register"}>
           <Button
             variant="ghost"
@@ -165,8 +193,8 @@ export default function DonatorProfilePage() {
               height={100}
               src={
                 preview ||
-                (userData.profileImage && userData.profileImage !== "null"
-                  ? userData.profileImage
+                (userInfo.profileImage && userInfo.profileImage !== "null"
+                  ? userInfo.profileImage
                   : "/assets/icons/woman-profile.png")
               }
               alt="프로필"
@@ -174,11 +202,11 @@ export default function DonatorProfilePage() {
             />
           </div>
           <h3 className="text-baseline text-secondary pt-2">
-            {profileForm.name === "" ? userData.name : profileForm.name}
+            {profileForm.name === "" ? userInfo.name : profileForm.name}
           </h3>
-          <p className="text-sm text-secondary">{userData.email}</p>
+          <p className="text-sm text-secondary">{userInfo.email}</p>
         </div>
-        <div className="flex justify-between m-2">
+        <div className="flex justify-between my-3">
           <Button
             className="w-34 h-7 bg-gray-100 rounded-2xl text-black ml-5"
             onClick={handleOpenModal}>
@@ -190,18 +218,18 @@ export default function DonatorProfilePage() {
             환급액 계산
           </Button>
         </div>
-        <div className="space-y-5">
+        <div className="space-y-5 my-2">
           <PaymentCard
             text="이번 달 총 기부 금액"
-            payment={userData.monthlyAmount}
+            payment={userInfo.monthlyAmount }
           />
           <PaymentCard
             text="올해 총 기부 금액"
-            payment={userData.yearlyAmount}
+            payment={userInfo.yearlyAmount }
           />
         </div>
 
-        <div className="mx-4 ">
+        <div className="my-3 mx-5 ">
           <div className="flex justify-between items-center pb-6">
             <h1 className="text-lg font-semibold opacity-80">전체 기부내역</h1>
             <Link href={"/profile/donationhistory"}>
@@ -210,13 +238,14 @@ export default function DonatorProfilePage() {
                 width={20}
                 alt="돋보기"
                 src="/assets/icons/search.svg"
+                className="hidden" // 지금은 안보이도록 하고 나중을 위해 남겨둠
               />
             </Link>
           </div>
           <div className="space-y-3">
-            {myDonationList.map((myDonation) => (
-              <MyDonationList donation={myDonation} key={myDonation.id} />
-            ))}
+            {userInfo.donations.map((myDonation: Donation) => (
+                <MyDonationList donation={myDonation} key={myDonation.id} />
+              ))}
           </div>
         </div>
       </div>

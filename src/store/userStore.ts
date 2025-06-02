@@ -1,13 +1,14 @@
+import { Donation } from "@/components/profile/MyDonationList";
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 
-type UserDataProps = {
-  name: string | undefined;
+export type UserDataProps = {
+  name: string;
   email: string;
   profileImage: string | null;
-  donations: string[] | null;
   monthlyAmount: number;
   yearlyAmount: number;
+  donations: Donation[];
 };
 
 type UserStore = {

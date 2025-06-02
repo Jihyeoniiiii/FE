@@ -1,15 +1,16 @@
 "use client";
 
 import BackButton from "@/components/BackButton";
-import { myDonationList } from "@/lib/myDonationList";
-import MyDonationList from "@/components/profile/MyDonationList";
 import SearchBar from "@/components/SearchBar";
 import DateSearchModal from "@/components/donationhistory/DateSearchModal";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
+import { userStore } from "@/store/userStore";
+import MyDonationList from "@/components/profile/MyDonationList";
 
 export default function DonationHistorypage() {
+  const myDonationList = userStore((state) => state.userData?.donations);
   const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false);
 
   return (
@@ -31,7 +32,7 @@ export default function DonationHistorypage() {
         {/* Donation List */}
         <div className="flex-1 max-h-[79vh] overflow-y-scroll scrollbar-none py-4">
           <div className="space-y-7">
-            {myDonationList.map((myDonation) => (
+            {myDonationList?.map((myDonation) => (
               <MyDonationList donation={myDonation} key={myDonation.id} />
             ))}
           </div>
