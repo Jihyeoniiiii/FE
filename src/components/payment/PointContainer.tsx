@@ -31,7 +31,6 @@ const PointContainer = () => {
     setUsePoints(value === "" ? "" : parseInt(value));
     debounce(
       () => {
-        console.log("Debounced input:", e.target.value);
       },
       2000,
       timerIdRef

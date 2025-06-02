@@ -26,7 +26,6 @@ const Cat = () => {
     isError: inventoryError,
   } = useWearingInventory();
 
-  // 데이터가 성공적으로 로드되어 스토어에 설정되었는지 추적
   useEffect(() => {
     if (
       !isInventoryPending &&

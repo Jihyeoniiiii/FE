@@ -3,8 +3,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { userStore } from "@/store/userStore";
 
 const NavigationBar = () => {
+  const userData = userStore((state) => state.recipientData);
+  const profileAddress = userData ? "/profile/recipient" : "/profile";
   const [isActiveMenu, setIsActiveMenu] = useState<number>(0);
   const router = useRouter();
   const pathname = usePathname();
@@ -44,10 +47,10 @@ const NavigationBar = () => {
         label: "내 계정",
         width: 25,
         height: 25,
-        address: "/profile",
+        address: `${profileAddress}`,
       },
     ],
-    []
+    [profileAddress]
   ); // 의존성 배열이 비어있으므로 컴포넌트 마운트 시 한 번만 생성
 
   useEffect(() => {

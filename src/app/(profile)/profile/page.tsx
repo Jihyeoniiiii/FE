@@ -16,6 +16,7 @@ import { useMemberData } from "@/lib/userData";
 
 export default function DonatorProfilePage() {
   const setUserData = userStore((state) => state.setUserData);
+  const waiting = userStore((state) => state.waiting);
   const router = useRouter();
   const timerIdRef = useRef<NodeJS.Timeout | null>(null);
   const [preview, setPreview] = useState<string>("");
@@ -89,12 +90,13 @@ export default function DonatorProfilePage() {
   });
 
   const handleTempNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 이름 입력 받을때 2초에 1번씩만 저장하기
     setTempForm((prev) => ({ ...prev, name: e.target.value }));
 
     debounce(() => {}, 2000, timerIdRef);
   };
 
-  const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => { // 사진 받아서 상태관리리하는 함수 
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -111,7 +113,7 @@ export default function DonatorProfilePage() {
     reader.readAsDataURL(file);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = () => { //모달 안에 있는 전송 버튼누르면 api 통신하는 함수수
     UploadImage(tempForm.file);
 
     setUserData({
@@ -129,7 +131,7 @@ export default function DonatorProfilePage() {
     setIsOpen(false);
   };
 
-  const handleCancel = () => {
+  const handleCancel = () => { // 모달안에 있는 취소 버튼 
     setProfileForm({
       name: "",
       selectedFile: "",
@@ -149,6 +151,14 @@ export default function DonatorProfilePage() {
       }
     };
   }, []);
+
+  const handleToRecipientButton = () => {// 수혜자 권한 허가를 기다리는 중인지 체크
+    if (!waiting) {  // 아니라면 원래대로 수혜자 등록하는 페이지로 이동
+      router.push("/profile/recipient/register");
+    } else { // 기다리는 중이라면 수혜자 등록 완료 페이지로 이동하도록 
+      router.push("/profile/recipient/complete");
+    }
+  };
 
   if (isUserDataPending) {
     return <div>페이지 정보를 불러오는 중입니다.</div>;
@@ -176,13 +186,12 @@ export default function DonatorProfilePage() {
   return (
     <>
       <div className="flex pl-6 mb-5">
-        <Link href={"/profile/recipient/register"}>
-          <Button
-            variant="ghost"
-            className="w-33 h-9 rounded-2xl text-base text-secondary opacity-80 mt-8 ">
-            수혜자 등록
-          </Button>
-        </Link>
+        <Button
+          variant="ghost"
+          onClick={handleToRecipientButton}
+          className="w-33 h-9 rounded-2xl text-base text-secondary opacity-80 mt-8 ">
+          수혜자 등록
+        </Button>
       </div>
 
       <div className="flex flex-col px-4 max-h-[90vh] overflow-y-scroll scrollbar-none">
@@ -221,11 +230,11 @@ export default function DonatorProfilePage() {
         <div className="space-y-5 my-2">
           <PaymentCard
             text="이번 달 총 기부 금액"
-            payment={userInfo.monthlyAmount }
+            payment={userInfo.monthlyAmount || 0}
           />
           <PaymentCard
             text="올해 총 기부 금액"
-            payment={userInfo.yearlyAmount }
+            payment={userInfo.yearlyAmount || 0}
           />
         </div>
 
@@ -243,7 +252,8 @@ export default function DonatorProfilePage() {
             </Link>
           </div>
           <div className="space-y-3">
-            {userInfo.donations.map((myDonation: Donation) => (
+            {userInfo.donations &&
+              userInfo.donations.map((myDonation: Donation) => (
                 <MyDonationList donation={myDonation} key={myDonation.id} />
               ))}
           </div>

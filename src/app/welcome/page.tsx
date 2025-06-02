@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 export default function WelcomePage() {
   const setUserData = userStore((state) => state.setUserData);
+  const setRecipientData = userStore((state) => state.setRecipientData);
   const setCatData = catStore((state) => state.setCatData);
   const setInventory = catStore((state) => state.setInventory);
 
@@ -33,7 +34,11 @@ export default function WelcomePage() {
 
   useEffect(() => {
     if (!isUserDataPending && userInfo && !isUserDataError) {
-      setUserData(userInfo);
+      if ("donations" in userInfo) {
+        setUserData(userInfo);
+      } else if (userInfo.fundings) {
+        setRecipientData(userInfo);
+      }
     } else if (isUserDataError) {
       console.error("WelcomePage: Failed to load userInfo", isUserDataError);
     }
@@ -63,6 +68,7 @@ export default function WelcomePage() {
     }
   }, [
     setUserData,
+    setRecipientData,
     setCatData,
     setInventory,
     userInfo,
