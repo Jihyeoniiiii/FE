@@ -23,7 +23,7 @@ export const fetchInventoryByCategory = async (
     });
 
     const values = response?.data?.data.values; // 응답 데이터에서 values 속성 추출
-    alert(`/api/v1/inventory/category 에 대한 결과 : ${values}`);
+    console.log("/api/v1/inventory/${id}/toggle에 대한 결과: ", values);
 
     if (Array.isArray(values) && values.length > 0) {
       // values가 배열이고 비어있지 않은 경우
@@ -42,7 +42,7 @@ export const fetchInventoryByCategory = async (
 export const toggleInventory = async (id: number) => {
   try {
     const response = await axiosInstance.post(`/api/v1/inventory/${id}/toggle`);
-    alert(`/api/v1/inventory/{id}/toggle 에 대한 결과 : ${response.data}`);
+    console.log("/api/v1/inventory/${id}/toggle에 대한 결과과", response.data);
 
     return response.data;
   } catch (error) {
@@ -54,7 +54,7 @@ export const toggleInventory = async (id: number) => {
 export const wearingInventory = async () => {
   try {
     const response = await axiosInstance.get("/api/v1/inventory/wearing");
-    alert(`/api/v1/inventory/wearing에 대한 조회: ${response.data.data}`);
+    console.log("/api/v1/inventory/wearing 조회에 대한 결과: ", response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("인벤토리 착용 아이템 조회 실패:", error);
