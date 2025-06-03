@@ -1,7 +1,7 @@
 export const decorationItems = [
   // 4~9 inventoryId
   {
-    id: 26,
+    id: 27,
     itemId: 4,
     src: "/assets/inventory/sunglasses.svg",
     alt: "Sunglasses",
@@ -10,7 +10,7 @@ export const decorationItems = [
     className: "absolute top-[18px] left-[23px] z-50",
   },
   {
-    id: 28,
+    id: 26,
     itemId: 5,
     src: "/assets/inventory/cap.svg",
     alt: "Cap",
@@ -19,9 +19,8 @@ export const decorationItems = [
     className: "absolute top-[0px] left-[42px] z-50 transform -translate-y-1/3",
   },
   {
-    id: 24,
+    id: 25,
     itemId: 6,
-
     src: "/assets/inventory/necklace.svg",
     alt: "Necklace",
     width: 40,
@@ -32,9 +31,8 @@ export const decorationItems = [
 
 export const interiorItems = [
   {
-    id: 27,
+    id: 28,
     itemId: 7,
-
     src: "/assets/inventory/bed.svg",
     alt: "Bed",
     width: 200,
