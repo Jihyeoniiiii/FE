@@ -1,33 +1,65 @@
-import { createReview, CreateReviewData } from "@/lib/api/review";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import {
+  createReview,
+  CreateReviewData,
+  fetchReview,
+  fetchReviewList,
+  ReviewDetailData,
+  ReviewListData,
+} from "@/lib/api/review";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from "@tanstack/react-query";
 
-interface CreateReviewPayload {
+type CreateReviewParams = {
   fundingId?: number;
   reviewData: CreateReviewData;
+};
+
+interface UseReviewListOptions {
+  cursor?: number;
+  limit?: number;
 }
 
-interface UseReviewResult {
-  createReviewMutation: UseMutationResult<
-    CreateReviewData,
-    Error,
-    CreateReviewPayload,
-    unknown
-  >;
-}
+export const useCreateReview = (): UseMutationResult<
+  void,
+  Error,
+  CreateReviewParams,
+  unknown
+> => {
+  return useMutation({
+    mutationFn: ({ fundingId, reviewData }: CreateReviewParams) =>
+      createReview(reviewData, fundingId),
+    onSuccess: () => {
+      console.log("후기 생성 성공:");
+    },
+    onError: (error: Error) => {
+      console.error("후기 생성 실패:", error);
+    },
+  });
+};
 
-export const useReview = () => { 
-  const createReviewMutation: UseReviewResult['createReviewMutation'] =
-    useMutation({
-      mutationFn: ({ fundingId, reviewData }: CreateReviewPayload) =>
-        createReview(reviewData, fundingId),
-      onSuccess: (data: CreateReviewData) => {
-        console.log("리뷰 생성 성공:", data);
-      },
-      onError: (error: Error) => {
-        console.error("리뷰 생성 실패:", error);
-      },
-    });
-  return {
-    createReviewMutation,
-  };
+export const useReviewList = (
+  options: UseReviewListOptions = {}
+): UseQueryResult<ReviewListData | undefined, Error> => {
+  return useQuery({
+    queryKey: ["reviewList", options],
+    queryFn: () => fetchReviewList(options.cursor, options.limit),
+    enabled: true,
+  });
+};
+
+export const useReviewDetail = (
+  fundingId?: number
+): UseQueryResult<ReviewDetailData | null, Error> => {
+  return useQuery({
+    queryKey: ["reviewDetail", fundingId],
+    queryFn: async () => {
+      if (!fundingId) return null;
+      return await fetchReview(fundingId);
+    },
+    enabled: !!fundingId,
+  });
 };

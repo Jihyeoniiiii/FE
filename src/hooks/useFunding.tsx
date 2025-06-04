@@ -19,10 +19,7 @@ export const useFundingDetail = (
 ): UseQueryResult<FundingData | null, Error> => {
   return useQuery({
     queryKey: ["funding", fundingId],
-    queryFn: async () => {
-      if (!fundingId) return null;
-      return await fetchFunding(fundingId);
-    },
+    queryFn: () => fetchFunding(fundingId!),
     enabled: !!fundingId,
   });
 };
