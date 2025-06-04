@@ -36,6 +36,7 @@
   body {
     background-color: var(--color-background);
     overflow-x: hidden;
+    overflow-y: hidden;
     overscroll-behavior: none;
   }
 
