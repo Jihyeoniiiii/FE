@@ -1,41 +1,41 @@
 import withPWAInit from "next-pwa";
-import { type NextConfig } from "next"; // NextConfig 타입을 임포트합니다.
 
-const nextConfig: NextConfig = { // nextConfig 변수에 직접 NextConfig 타입을 적용합니다.
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // nextConfig 변수에 직접 NextConfig 타입을 적용합니다.
   reactStrictMode: false,
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: "https"as const,
         hostname: "s3.ap-northeast-2.amazonaws.com",
         port: "",
         pathname: "/**",
       },
       {
-        protocol: "https",
+        protocol: "https"as const,
         hostname: "*.s3.ap-northeast-2.amazonaws.com",
         port: "",
         pathname: "/**",
       },
       {
-        protocol: "https",
+        protocol: "https"as const,
         hostname: "phinf.pstatic.net",
         port: "",
         pathname: "/**",
       },
       {
-        protocol: "http", // 카카오 이미지 CDN을 위한 설정: http와 https 프로토콜 모두 허용
+        protocol: "http"as const, // 카카오 이미지 CDN을 위한 설정: http와 https 프로토콜 모두 허용
         hostname: "img1.kakaocdn.net",
         port: "",
         pathname: "/**",
       },
       {
-        protocol: "https",
+        protocol: "https"as const,
         hostname: "img1.kakaocdn.net",
         port: "",
         pathname: "/**",
       },
-
     ],
   },
   async rewrites() {

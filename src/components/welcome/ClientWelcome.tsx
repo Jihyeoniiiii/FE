@@ -30,7 +30,7 @@ const ClientWelcome = () => {
       clearInterval(blinkIntervalId);
       clearTimeout(redirectTimerId);
     };
-  }, []);
+  }, [router]);
 
   if (!userData) {
     return (
