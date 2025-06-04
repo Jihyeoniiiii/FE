@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateFundingData } from "@/lib/api/funding";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react"; // useRef 훅 추가
+import { MdDateRange } from "react-icons/md";
 
 const FundingWritePage = () => {
   const [formData, setFormData] = useState<CreateFundingData>({
@@ -20,6 +21,9 @@ const FundingWritePage = () => {
     endDate: new Date().toISOString().slice(0, 10),
   });
   const [isRegister, setIsRegister] = useState(false);
+
+  // endDate Input에 접근하기 위한 ref 생성
+  const endDateInputRef = useRef<HTMLInputElement>(null);
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -59,7 +63,9 @@ const FundingWritePage = () => {
       formData.goalAmount <= 0 ||
       !formData.endDate
     ) {
-      alert("모든 입력칸을 채워주세요!");
+      // alert 대신 커스텀 모달 또는 메시지 박스 사용을 권장합니다.
+      // alert("모든 입력칸을 채워주세요!");
+      console.warn("모든 입력칸을 채워주세요!"); // 임시로 console.warn 사용
       return;
     }
 
@@ -119,14 +125,21 @@ const FundingWritePage = () => {
         <div className="flex justify-center items-center gap-2 text-xs text-secondary opacity-80">
           <div className="flex flex-col gap-1 w-40">
             <span className="flex px-1">펀딩 마감일</span>
-            <div className="flex justify-center items-center">
+            {/* Input과 아이콘을 감싸는 div에 relative를 추가하고, Input에 pr-8을 추가하여 아이콘 공간을 확보합니다. */}
+            <div className="relative flex items-center">
               <Input
                 type="date"
                 id="endDate"
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleFormChange}
-                className="h-10"
+                className="h-10 pr-8" // 아이콘 공간 확보를 위한 padding-right
+                ref={endDateInputRef} // Input에 ref 연결
+              />
+              <MdDateRange
+                className="absolute right-2 cursor-pointer text-gray-500" // 아이콘 위치 및 스타일
+                size={24} // 아이콘 크기
+                onClick={() => endDateInputRef.current?.showPicker()} // 아이콘 클릭 시 날짜 선택기 열기
               />
             </div>
           </div>

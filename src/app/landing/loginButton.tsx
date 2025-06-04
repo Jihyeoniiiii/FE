@@ -30,7 +30,7 @@ export default function LoginButtons() {
   }
 
   return (
-    <div className={buttonWrapperStyle}>
+    <div className="absolute bottom-35 flex flex-col space-y-4">
       <Button
         className={clsx(
           loginButtonStyles,
@@ -63,5 +63,3 @@ export default function LoginButtons() {
     </div>
   );
 }
-
-const buttonWrapperStyle = "absolute bottom-24 flex flex-col space-y-4 ";

@@ -11,16 +11,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="ko">
       <body>
-        <Providers>
-          <IamportSDKLoader />
-          {children}
-          <ToastContainer position="top-right" autoClose={3000} />
-          <NavigationBarWrapper />
-        </Providers>
+        <div className="mx-auto min-h-dvh max-w-[390px] sm:max-w-[480px] md:max-w-[640px] relative">
+          <Providers>
+            <IamportSDKLoader />
+            {children}
+            <ToastContainer position="top-right" autoClose={3000} />
+            <NavigationBarWrapper />
+          </Providers>
+        </div>
       </body>
     </html>
   );

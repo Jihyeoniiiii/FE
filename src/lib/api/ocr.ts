@@ -27,8 +27,4 @@ export const recipientRegister = async (data: OcrRequestData) => {
 const axiosOcr = axios.create({
   baseURL: "http://211.188.50.163:8080",
   withCredentials: true,
-  headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJjYXRlZ29yeSI6ImFjY2VzcyIsImVtYWlsIjoiZG9mbDg1NDlAbmF2ZXIuY29tIiwibWVtYmVySWQiOjYsInJvbGUiOiJET05PUiIsImlhdCI6MTc0OTAyNzE1NiwiZXhwIjoxNzQ5MDMwNzU2fQ.xaoXVTDwSUcOp8MD88f8G5jX-qL_YNmjDk_imXtPViJOAQmz96QxvPinlgSVKdixhE5bNIh_lC5eSUF0EB8Dlw",
-  },
 });

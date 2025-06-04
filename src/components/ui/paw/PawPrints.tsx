@@ -7,23 +7,23 @@ import paw from "@assets/images/paw.png";
 
 // 발자국 위치 데이터 (x, y 좌표와 회전 각도)
 const pawPositions = [
-  { x: 100, y: 100, rotate: 40 },
-  { x: 130, y: 120, rotate: 45 },
-  { x: 150, y: 100, rotate: 35 },
-  { x: 185, y: 112, rotate: 25 },
-  { x: 195, y: 80, rotate: 25 },
-  { x: 230, y: 90, rotate: 25 },
-  { x: 240, y: 50, rotate: 25 },
-  { x: 275, y: 60, rotate: 25 },
-  { x: 290, y: 25, rotate: 50 },
-  { x: 320, y: 55, rotate: 50 },
-  { x: 340, y: 35, rotate: 50 },
-  { x: 370, y: 65, rotate: 50 },
-  { x: 390, y: 45, rotate: 50 },
-  { x: 420, y: 75, rotate: 50 },
-  { x: 430, y: 30, rotate: 15 },
-  { x: 465, y: 40, rotate: 15 },
-  { x: 470, y: 10, rotate: 50 },
+  { x: 100, y: 100, rotate: 78 },
+  { x: 135, y: 125, rotate: 83 }, 
+  { x: 160, y: 100, rotate: 73 },
+  { x: 200, y: 115, rotate: 63 },
+  { x: 215, y: 80, rotate: 63 },
+  { x: 255, y: 95, rotate: 63 },
+  { x: 270, y: 50, rotate: 63 },
+  { x: 310, y: 65, rotate: 63 },
+  { x: 330, y: 25, rotate: 88 },
+  { x: 365, y: 60, rotate: 88 },
+  { x: 390, y: 35, rotate: 88 },
+  { x: 425, y: 70, rotate: 88 },
+  { x: 450, y: 45, rotate: 88 },
+  { x: 485, y: 80, rotate: 88 },
+  { x: 500, y: 30, rotate: 53 },
+  { x: 540, y: 45, rotate: 53 },
+  { x: 550, y: 10, rotate: 88 },
 ];
 
 export default function PawPrints() {
@@ -37,7 +37,7 @@ export default function PawPrints() {
     }
 
     // 발자국 나타나는 간격 (밀리초)
-    const appearInterval = 200;
+    const appearInterval = 130;
 
     // 다음 발자국을 나타나게 하는 타이머
     const timer = setTimeout(() => {

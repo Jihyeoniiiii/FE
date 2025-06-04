@@ -9,7 +9,7 @@ const NavigateToWriteButton = () => {
   return (
     <Button
       size="none"
-      className="px-6 py-1.5 text-white text-base font-semibold rounded-2xl"
+      className="px-6 py-1.5 mt-0.5 text-white text-base font-semibold rounded-2xl "
       onClick={() => {
         router.push("/funding/write");
       }}>

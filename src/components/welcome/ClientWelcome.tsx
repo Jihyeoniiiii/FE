@@ -7,36 +7,47 @@ import { centerImageStyles, mainStyles } from "@/styles/styles";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
 
+const BLINK_INTERVAL = 700;
+const REDIRECT_DELAY = 1000;
+
 const ClientWelcome = () => {
   const [isVisible, setIsVisible] = useState(true);
   const router = useRouter();
   const userData = userStore((state) => state.userData);
-  useEffect(() => {
-    // 200ms마다 텍스트 표시 상태를 토글하는 인터벌 설정
-    const interval = setInterval(() => {
-      setIsVisible((prev) => !prev);
-    }, 700);
 
-    // 컴포넌트 언마운트 시 인터벌 정리
-    return () => clearInterval(interval);
+  useEffect(() => {
+    router.prefetch("/");
+
+    const blinkIntervalId = setInterval(() => {
+      setIsVisible((prev) => !prev);
+    }, BLINK_INTERVAL);
+
+    const redirectTimerId = setTimeout(() => {
+      router.push("/");
+    }, REDIRECT_DELAY);
+
+    return () => {
+      clearInterval(blinkIntervalId);
+      clearTimeout(redirectTimerId);
+    };
   }, []);
+
   if (!userData) {
-    return <div>Loading...</div>; // 데이터가 없을 경우 로딩 상태 표시
+    return (
+      <main className="flex items-center justify-center min-h-screen bg-background">
+        <div className="text-secondary text-lg font-semibold">Loading...</div>
+      </main>
+    );
   }
+
   return (
     <main
       className={mainStyles}
       onClick={() => {
-        router.prefetch("/");
         router.push("/");
       }}>
       <div className={centerImageStyles}>
-        <Image
-          src={cat || "/placeholder.svg"}
-          alt="Cat"
-          width={180}
-          height={180}
-        />
+        <Image src={cat} alt="Cat" width={180} height={180} priority />
         <h2
           className={`${textStyle} transition-opacity duration-100`}
           style={{ opacity: isVisible ? 1 : 0 }}>
@@ -48,4 +59,5 @@ const ClientWelcome = () => {
 };
 
 export default ClientWelcome;
+
 const textStyle = "text-sky-950 text-2xl font-semibold tracking-wide";

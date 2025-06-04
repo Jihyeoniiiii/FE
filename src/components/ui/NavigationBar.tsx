@@ -19,7 +19,7 @@ const NavigationBar = () => {
         alt: "Funding",
         label: "펀딩",
         width: 24,
-        height: 25,
+        height: 24,
         address: "/funding",
       },
       {
@@ -74,7 +74,13 @@ const NavigationBar = () => {
       <div
         className="absolute top-[5px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full flex items-center justify-center cursor-pointer bg-primary"
         onClick={() => handleMenuClick(0, "/")}>
-        <Image src="/assets/icons/home.svg" alt="Home" width={25} height={26} />
+        <Image
+          src="/assets/icons/home.svg"
+          alt="Home"
+          width={25}
+          height={26}
+          className="object-contain"
+        />
       </div>
       <div className="flex w-full">
         <div className="flex w-[45%] pl-8 pt-2.5 justify-between">
@@ -92,6 +98,7 @@ const NavigationBar = () => {
                   alt={item.alt}
                   width={item.width}
                   height={item.height}
+                  className="object-contain"
                 />
                 <span className="font-semibold text-xs text-primary">
                   {item.label}
@@ -116,6 +123,7 @@ const NavigationBar = () => {
                     alt={item.alt}
                     width={item.width}
                     height={item.height}
+                    className="object-contain"
                   />
                   <span className="font-semibold text-xs text-primary">
                     {item.label}
