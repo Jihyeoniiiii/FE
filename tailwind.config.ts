@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss";
+/** @type {import('tailwindcss').Config} */
 
-const config: Config = {
+const config = { 
   content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -33,6 +33,7 @@ const config: Config = {
     },
   },
   plugins: [],
+  safelist:['scrollbar-none',], //PurgeCSS가 "사용되지 않는 것"으로 간주하고 제거했을수도있으므로 강제로 적용 시킴킴
 };
 
 export default config;

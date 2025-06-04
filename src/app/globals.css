@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #8863E4; /* 보라색 */
-  --color-secondary: #03174D; /* 글자색 */
-  --color-accent: #FF0303; /* 빨간색 */
-  --color-background: #E2E3FC; /* 연보라색 */
-  --color-white: #FFFFFF;
+  --color-primary: #8863e4; /* 보라색 */
+  --color-secondary: #03174d; /* 글자색 */
+  --color-accent: #ff0303; /* 빨간색 */
+  --color-background: #e2e3fc; /* 연보라색 */
+  --color-white: #ffffff;
   --color-black: #000000;
-  --color-gray: #A39FB9;
+  --color-gray: #a39fb9;
   --color-white-0: rgba(255, 255, 255, 0.1); /* 흰색 10% 투명도 */
   --color-white-50: rgba(255, 255, 255, 0.5); /* 흰색 50% 투명도 */
   --font-myfont: "Pretendard", sans-serif;
@@ -36,6 +36,7 @@
   body {
     background-color: var(--color-background);
     overflow-x: hidden;
+    overscroll-behavior: none;
   }
 
   body {
