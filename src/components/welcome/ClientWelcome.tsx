@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
 
 const BLINK_INTERVAL = 700;
-const REDIRECT_DELAY = 1000;
+const REDIRECT_DELAY = 2000;
 
 const ClientWelcome = () => {
   const [isVisible, setIsVisible] = useState(true);

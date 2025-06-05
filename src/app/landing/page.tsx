@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Randing() {
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex min-h-screen flex-col items-center justify-center relative">
         {/* 발자국 이미지 */}
         <div className="absolute top-0 left-[-150] transform -rotate-30">
           <Paw />
@@ -30,7 +30,9 @@ export default function Randing() {
       </div>
       {/* Copyright */}
       <div className="flex flex-col items-center justify-center  ">
-        <div className="absolute bottom-13 inset-x-0 text-center text-gray-500 text-base font-bold ">
+        <div
+          className="absolute bottom-20 inset-x-0 text-center text-gray-500 text-base font-bold "
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
           © Copyright Chaeum Team
           {/* kakao-logo&네이버 로그인버튼 */}
         </div>
