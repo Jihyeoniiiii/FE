@@ -7,8 +7,6 @@ const FundingRegisterPage = () => {
       <div className="flex flex-col justify-center items-center text-lg text-secondary font-semibold">
         <span>기부 요청이 정상적으로 </span>
         <span>제출되었습니다.</span>
-        <span>관리자가 검토한 후에 빠른 시일 내에</span>
-        <span>심사 결과를 알려드리겠습니다.</span>
       </div>
       <ConfirmButton />
     </div>
