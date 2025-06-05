@@ -122,20 +122,20 @@ const FundingWritePage = () => {
         <div className="flex justify-center items-center gap-2 text-xs text-secondary opacity-80">
           <div className="flex flex-col gap-1 w-40">
             <span className="flex px-1">펀딩 마감일</span>
-            <div className="relative flex items-center">
+            <div className="relative flex items-center bg-white rounded-lg p-0">
               <Input
                 type="date"
                 id="endDate"
                 name="endDate"
                 value={formData.endDate}
                 onChange={handleFormChange}
-                className="h-10 pr-8" 
-                ref={endDateInputRef} 
+                className="h-10 pr-8"
+                ref={endDateInputRef}
               />
               <MdDateRange
-                className="absolute right-2 cursor-pointer text-gray-500" 
+                className="absolute right-2 cursor-pointer text-gray-500"
                 size={25} // 아이콘 크기
-                onClick={() => endDateInputRef.current?.showPicker()} 
+                onClick={() => endDateInputRef.current?.showPicker()}
               />
             </div>
           </div>

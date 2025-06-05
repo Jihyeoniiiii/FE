@@ -58,20 +58,19 @@ export default function FundingListPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col px-6 py-5 relative">
-      <div className="flex w-full justify-between">
-        <div>
-          <FilterButtons
-            onSortConditionChange={handleSortConditionChange}
-            currentSortCondition={sortCondition}
-          />
-        </div>
-        <div className="absolute top-[2.8vh] right-8">
-          {triggerRegistration && <NavigateToWriteButton />}
-        </div>
+    <div className="flex min-h-[100dvh] flex-col px-6 pb-10 relative">
+      <div className="flex w-full justify-between top-5 mt-7">
+        <FilterButtons
+          onSortConditionChange={handleSortConditionChange}
+          currentSortCondition={sortCondition}
+        />
+
+        {triggerRegistration && <NavigateToWriteButton />}
       </div>
 
-      <div style={{ height: "calc(100dvh - 9rem)" }} className="relative top-[6vh] mt-[10px] overflow-y-auto scrollbar-none flex flex-col gap-4">
+      <div
+        style={{ height: "calc(100dvh - 9rem)" }}
+        className="relative top-[3vh]  overflow-y-auto scrollbar-none flex flex-col gap-4">
         {!campaigns || campaigns.length === 0 ? (
           <div className="text-center text-gray-500">
             표시할 캠페인이 없습니다.
@@ -82,8 +81,7 @@ export default function FundingListPage() {
               {pair.map((campaign) => (
                 <div
                   key={campaign.id}
-                  className="border-2 border-white-50 rounded-lg py-2 px-4 bg-white-50"
-                >
+                  className="border-2 border-white-50 rounded-lg py-2 px-4 bg-white-50">
                   <CampaignCard campaign={campaign} />
                 </div>
               ))}
@@ -94,4 +92,3 @@ export default function FundingListPage() {
     </div>
   );
 }
-

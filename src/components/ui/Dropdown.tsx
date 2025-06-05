@@ -27,8 +27,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, children, onSelect }) => {
     <div>
       <Button
         variant="soft"
-        size="none"
-        className="flex justify-between w-full px-4 py-1.5 rounded-lg text-sm font-semibold opacity-70"
+        size="none" 
+        className="flex justify-between w-full px-4 py-1.5 rounded-lg text-base font-semibold opacity-70"
         onClick={toggleDropdown}
       >
         {selectedValue || children || "선택하세요"}

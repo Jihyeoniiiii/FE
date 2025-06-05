@@ -17,14 +17,12 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({ onSortConditionChange, cu
   };
 
   return (
-    <div className="absolute top-[3vh] flex gap-2 ">
       <Dropdown
         options={conditionOptions}
         onSelect={handleConditionTypeSelect}
       >
         {conditionType}
       </Dropdown>
-    </div>
   );
 };
 

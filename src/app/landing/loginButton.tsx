@@ -30,7 +30,7 @@ export default function LoginButtons() {
   }
 
   return (
-    <div className="absolute bottom-45 flex flex-col space-y-4">
+    <div className="absolute bottom-50 flex flex-col space-y-4">
       <Button
         className={clsx(
           loginButtonStyles,

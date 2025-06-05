@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <BodyBackgroundHandler />
         <div
-          className="mx-auto min-h-dvh max-w-[393px] sm:max-w-[480px] md:max-w-[640px] relative"
+          className="mx-auto min-h-dvh max-w-[400px] sm:max-w-[480px] md:max-w-[640px] relative"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
           <Providers>
             <IamportSDKLoader />
