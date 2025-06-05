@@ -79,7 +79,7 @@ export default function FundingDetailCard() {
                     <Image
                       width="50"
                       height="50"
-                      src={userData.profileImage}
+                      src={fundingDetail.memberProfileImageUrl}
                       alt="프로필"
                     />
                   ) : (
@@ -93,7 +93,7 @@ export default function FundingDetailCard() {
                 </div>
               </Avatar>
               <span className="font-medium text-secondary">
-                {fundingDetail.name}
+                {fundingDetail.memberName}
               </span>
             </div>
             <div

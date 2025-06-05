@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import cat from "@assets/images/cat.svg";
-import { centerImageStyles, mainStyles } from "@/styles/styles";
+import { centerImageStyles } from "@/styles/styles";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/store/userStore";
 
@@ -34,7 +34,7 @@ const ClientWelcome = () => {
 
   if (!userData) {
     return (
-      <main className="flex items-center justify-center min-h-screen bg-background">
+      <main className="flex items-center justify-center min-h-scree ">
         <div className="text-secondary text-lg font-semibold">Loading...</div>
       </main>
     );
@@ -42,7 +42,7 @@ const ClientWelcome = () => {
 
   return (
     <main
-      className={mainStyles}
+      className="flex min-h-[100dvh] flex-col items-center justify-center"
       onClick={() => {
         router.push("/");
       }}>

@@ -20,7 +20,7 @@ export default function ReviewListPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col px-6 py-6 relative">
+    <div className="flex min-h-[100dvh] flex-col px-6 py-6 relative">
       <div className="absolute top-[3vh] flex">
         <Dropdown
           options={["최신순"]}
@@ -32,7 +32,8 @@ export default function ReviewListPage() {
         </Dropdown>
       </div>
       {/* Projects grid */}
-      <div className="relative top-[6vh] mt-[10px] grid grid-cols-2 max-h-[calc(100vh-8vh-4rem)] overflow-y-scroll scrollbar-none">
+      <div style={{ height: "calc(100dvh - 9rem)" }} className="relative top-[6vh] mt-[10px]overflow-y-auto scrollbar-none">
+        <div className="grid grid-cols-2 gap-2">
         {reviewListData?.data?.values.map((review) => (
           <div
             key={review.id}
@@ -41,6 +42,7 @@ export default function ReviewListPage() {
             <ReviewCardWithData data={review} type="review" />
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

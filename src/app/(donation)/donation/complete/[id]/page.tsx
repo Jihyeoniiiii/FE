@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import { useFundingDetail } from "@/hooks/useFunding";
@@ -20,6 +20,15 @@ const DonationCompletePage = () => {
   } = useFundingDetail(fundingId);
 
   const router = useRouter();
+
+  useEffect(() => {
+  document.body.style.overflowY = "auto";
+
+  return () => {
+    document.body.style.overflowY = "hidden";
+  };
+}, []);
+
 
   if (isPending) return <div>로딩 중...</div>;
   if (isError || !fundingDetail) {

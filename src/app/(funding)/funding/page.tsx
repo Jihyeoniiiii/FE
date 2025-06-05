@@ -58,7 +58,7 @@ export default function FundingListPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col px-6 py-6 relative">
+    <div className="flex min-h-[100dvh] flex-col px-6 py-4 relative">
       <div className="flex w-full justify-between">
         <div>
           <FilterButtons
@@ -71,7 +71,7 @@ export default function FundingListPage() {
         </div>
       </div>
 
-      <div className="relative top-[6vh] mt-[10px] max-h-[78vh] overflow-y-scroll scrollbar-none flex flex-col gap-4">
+      <div style={{ height: "calc(100dvh - 9rem)" }} className="relative top-[6vh] mt-[10px] overflow-y-auto scrollbar-none flex flex-col gap-4">
         {!campaigns || campaigns.length === 0 ? (
           <div className="text-center text-gray-500">
             표시할 캠페인이 없습니다.
