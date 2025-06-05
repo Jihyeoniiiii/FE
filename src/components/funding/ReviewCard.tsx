@@ -18,14 +18,25 @@ type ReviewCardWithDataProps = {
   data?: ReviewDetailItem | FundingData | ReviewItem | null;
 };
 
-export const ReviewCardWithId = ({ type, fundingId }: ReviewCardWithIdProps) => {
-  const reviewDetailQuery = useReviewDetail(type === "review" ? fundingId : undefined);
-  const fundingDetailQuery = useFundingDetail(type === "funding" ? fundingId : undefined);
+export const ReviewCardWithId = ({
+  type,
+  fundingId,
+}: ReviewCardWithIdProps) => {
+  const reviewDetailQuery = useReviewDetail(
+    type === "review" ? fundingId : undefined
+  );
+  const fundingDetailQuery = useFundingDetail(
+    type === "funding" ? fundingId : undefined
+  );
 
   const isPending =
-    type === "review" ? reviewDetailQuery.isPending : fundingDetailQuery.isPending;
-  const isError = type === "review" ? reviewDetailQuery.isError : fundingDetailQuery.isError;
-  const data = type === "review" ? reviewDetailQuery.data?.data : fundingDetailQuery.data;
+    type === "review"
+      ? reviewDetailQuery.isPending
+      : fundingDetailQuery.isPending;
+  const isError =
+    type === "review" ? reviewDetailQuery.isError : fundingDetailQuery.isError;
+  const data =
+    type === "review" ? reviewDetailQuery.data?.data : fundingDetailQuery.data;
 
   return (
     <ReviewCardBase
@@ -62,7 +73,13 @@ type ReviewCardBaseProps = {
   fundingId?: number;
 };
 
-const ReviewCardBase = ({ type, isPending, isError, data, fundingId }: ReviewCardBaseProps) => {
+const ReviewCardBase = ({
+  type,
+  isPending,
+  isError,
+  data,
+  fundingId,
+}: ReviewCardBaseProps) => {
   const title = data?.title ?? "제목 없음";
   const imageUrl =
     type === "review"
@@ -83,7 +100,9 @@ const ReviewCardBase = ({ type, isPending, isError, data, fundingId }: ReviewCar
     return (
       <div className="flex flex-col pt-6">
         <div className="w-full h-[100px] bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-          {type === "review" ? "리뷰 데이터를 불러올 수 없습니다." : "펀딩 데이터를 불러올 수 없습니다."}
+          {type === "review"
+            ? "리뷰 데이터를 불러올 수 없습니다."
+            : "펀딩 데이터를 불러올 수 없습니다."}
         </div>
         <p className="text-sm text-secondary mt-4 text-left">제목 없음</p>
       </div>
@@ -92,24 +111,25 @@ const ReviewCardBase = ({ type, isPending, isError, data, fundingId }: ReviewCar
 
   return (
     <Link href={`/review/${data.id}?fundingId=${fundingId}`}>
-    <div className="flex flex-col pt-6">
-      {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={150}
-          height={100}
-          className="w-full h-auto rounded-lg object-cover"
-        />
-      ) : (
-        <div className="w-full h-[100px] bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-          리뷰 이미지가 없습니다.
+      <div className="flex flex-col pt-6 transition-opacity duration-300 hover:opacity-40">
+        <div className="relative w-full h-[120px] rounded-lg overflow-hidden">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={title}
+              fill
+              className="w-full h-auto rounded-lg object-cover"
+            />
+          ) : (
+            <div className="w-full h-[100px] bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+              리뷰 이미지가 없습니다.
+            </div>
+          )}{" "}
         </div>
-      )}
-      <p className="text-sm text-secondary mt-4 text-left">
-        {title.length > 13 ? title.slice(0, 13) + ".." : title}
-      </p>
-    </div>
+        <p className="text-sm text-secondary mt-4 text-left truncate">
+          {title}
+        </p>
+      </div>
     </Link>
   );
 };

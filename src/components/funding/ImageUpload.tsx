@@ -114,20 +114,21 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         <span className="text-sm text-secondary opacity-80">{text}</span>
       )}
       {localImageUrl ? (
-        <div className="w-45 h-30 overflow-hidden relative">
-          <Image
-            src={localImageUrl}
-            alt="Uploaded Image"
-            width={180}
-            height={120}
-            objectFit="contain"
-          />
-          {isUploading && (
-            <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
-              <span className="text-white animate-spin">⏳</span>{" "}
-            </div>
-          )}
+        <div className="flex justify-center items-center rounded-xl overflow-hidden py-2 w-[180px] h-[120px]">
+    <div className="relative w-full h-full rounded-lg overflow-hidden">
+      <Image
+        src={localImageUrl}
+        alt="Uploaded Image"
+        fill
+        className="object-contain"
+      />
+      {isUploading && (
+        <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
+          <span className="text-white animate-spin">⏳</span>
         </div>
+      )}
+    </div>
+  </div>
       ) : (
         <label
           htmlFor="picture"

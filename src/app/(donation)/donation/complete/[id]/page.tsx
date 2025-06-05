@@ -30,7 +30,7 @@ const DonationCompletePage = () => {
   return (
     <>
       <BackButton />
-      <div className="flex flex-col h-[78vh] justify-center items-center text-secondary gap-8">
+      <div className="flex flex-col justify-center items-center text-secondary gap-8 pt-12">
         <Image
           src="/assets/images/heart.png"
           alt="Heart"
@@ -42,17 +42,19 @@ const DonationCompletePage = () => {
           <span>당신의 소중한 마음이</span>
           <span>잘 전달되었습니다.</span>
         </div>
+        
         <div className="flex flex-col items-center gap-5">
+          <div className="relative w-[300px] h-[200px] rounded-lg overflow-hidden mx-1.5">
           <Image
             src={
               fundingDetail?.fundingImages?.[0]?.fileUrl ??
               "/assets/images/study.png"
             }
             alt={fundingDetail?.title || "펀딩 이미지"}
-            width={300}
-            height={150}
-            className="rounded-xl"
+            fill
+            className="object-cover"
           />
+          </div>
           <span>{fundingDetail?.title || "제목 없음"}</span>
         </div>
         <Button

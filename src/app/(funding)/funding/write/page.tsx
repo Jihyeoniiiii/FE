@@ -144,10 +144,11 @@ const FundingWritePage = () => {
             <div className="flex justify-center items-center">
               <Input
                 type="number"
+                inputMode="numeric"
                 size="sm"
-                placeholder="가격"
+                placeholder="0"
                 name="goalAmount"
-                value={formData.goalAmount}
+                value={formData.goalAmount === 0 ? "" : formData.goalAmount}
                 onChange={handleFormChange}
                 className="h-10"
               />

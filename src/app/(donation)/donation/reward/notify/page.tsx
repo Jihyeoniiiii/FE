@@ -94,7 +94,7 @@ export default function NotifyPage() {
 
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-start"
+      className="flex min-h-screen flex-col items-center justify-start bg-white"
       onClick={handleNotifyClick}>
       <div className="relative top-30 text-2xl text-primary">기부 혜택</div>
       {interactionRewards && interactionRewards.length > 0 && (

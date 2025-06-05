@@ -56,7 +56,7 @@ export default function ReviewDetailPage() {
       <BackButton />
       <div className="flex flex-col items-center px-2 text-secondary space-y-8">
         {/* 리뷰 카드 */}
-        <div className="w-80 rounded-xl bg-white p-3 flex flex-col items-center my-6 shadow-md gap-y-2">
+        <div className="w-80 rounded-xl bg-white opacity-80 p-3 flex flex-col items-center my-6 shadow-md gap-y-2">
           <p className="text-center text-sm mb-3">
             이 게시글에 대한 리뷰입니다.
           </p>
@@ -78,22 +78,21 @@ export default function ReviewDetailPage() {
 
         {/* 펀딩 후기 섹션 */}
         <div className="flex flex-col items-center w-80 space-y-8">
-          {/* 제목 */}
-          <div className="w-full border-b-2 border-gray-500 pb-2">
-            <p className="text-lg text-secondary text-center">
+          {/* 제목 */}  
+            <p className="text-md text-secondary text-center">
               {reviewDetailData?.data.title}
             </p>
-          </div>
 
           {/* 이미지 */}
           {reviewDetailData?.data.reviewImages?.[0]?.fileUrl ? (
+             <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
             <Image
               src={reviewDetailData.data.reviewImages[0].fileUrl}
               alt="리뷰 이미지"
-              width={350}
-              height={200}
+              fill
               className="w-full h-48 object-cover rounded-xl shadow-sm"
             />
+            </div>
           ) : (
             <div className="w-full h-48 bg-gray-200 rounded-xl flex items-center justify-center text-gray-400">
               이미지가 없습니다.
@@ -101,7 +100,7 @@ export default function ReviewDetailPage() {
           )}
 
           {/* 메시지 박스 */}
-          <div className="bg-white p-5 rounded-xl shadow-md w-full h-auto text-center">
+          <div className="bg-white opacity-80 p-5 rounded-xl shadow-md w-full h-auto text-center">
             <p>{reviewDetailData?.data.content}</p>
           </div>
         </div>

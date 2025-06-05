@@ -20,8 +20,8 @@ export default function RewardPage() {
     <div className={mainStyles}>
       <div className="text-xl text-secondary ">과연 어떤 혜택이 나올까요?</div>
       <Image
-        height={400}
-        width={400}
+        height={360}
+        width={360}
         src="/assets/images/randombox.gif"
         alt="랜덤박스"></Image>
     </div>
