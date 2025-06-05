@@ -31,7 +31,7 @@ const BottomMenu = () => {
   ];
 
   return (
-    <div className="fixed bottom-35 w-full flex py-4 px-8 sm:p-13 md:py-15 md:px-22 justify-between">
+    <div className="fixed bottom-30 w-full flex py-4 px-8 sm:p-13 md:py-15 md:px-22 justify-between">
       {menuItems.map((item) => (
         <Button
           variant="soft"

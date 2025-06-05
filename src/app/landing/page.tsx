@@ -24,7 +24,7 @@ export default function Randing() {
             alt="Chaeum logo"
             width={250}
             height={300}
-            className="absolute transform translate-y-[-80%] "
+            className="absolute transform translate-y-[-100%] "
           />
         </div>
       </div>

@@ -70,7 +70,7 @@ const NavigationBar = () => {
   };
 
   return (
-    <div className="w-full h-[5rem] fixed bottom-0 bg-white">
+    <div className="w-full h-[5.5rem] fixed bottom-0 bg-white">
       <div
         className="absolute top-[5px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full flex items-center justify-center cursor-pointer bg-primary"
         onClick={() => handleMenuClick(0, "/")}>
