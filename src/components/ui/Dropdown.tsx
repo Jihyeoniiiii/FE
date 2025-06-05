@@ -24,7 +24,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, children, onSelect }) => {
   };
 
   return (
-    <div>
+    <div className="relative inline-block text-left w-[100px]"> 
       <Button
         variant="soft"
         size="none" 

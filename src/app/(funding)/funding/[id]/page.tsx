@@ -55,7 +55,7 @@ export default function FundingDetailCard() {
     <>
       <BackButton />
       <div className="flex flex-col px-2">
-        <div className="p-6 space-y-2">
+        <div className="px-6 py-4 space-y-2">
           {/* Header */}
           <div className="flex justify-center items-center">
             <div className="flex justify-center items-center w-90 h-10 bg-white opacity-80 rounded-2xl">
