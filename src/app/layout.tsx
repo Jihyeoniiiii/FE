@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Providers from "@/components/Providers";
 import IamportSDKLoader from "@/components/IamportSDKLoader";
+import BodyBackgroundHandler from "@/components/BodyBackgroundHandler";
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <BodyBackgroundHandler />
         <div className="mx-auto min-h-dvh max-w-[390px] sm:max-w-[480px] md:max-w-[640px] relative">
           <Providers>
             <IamportSDKLoader />

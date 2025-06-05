@@ -20,7 +20,7 @@ export default function ReviewListPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col px-6 py-6 relative">
+    <div className="flex min-h-[100dvh] flex-col px-6 py-7.5 relative">
       <div className="absolute top-[3vh] flex">
         <Dropdown
           options={["최신순"]}
