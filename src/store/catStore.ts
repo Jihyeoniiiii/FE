@@ -2,7 +2,7 @@ import { decorationItems, interiorItems } from "@/lib/inventoryItems";
 import { CombinedInventoryItem, ItemType } from "@/types/itemTypes";
 import { create } from "zustand";
 
-interface CatDataProps {
+export interface CatDataProps {
   id: number;
   level: number;
   experiencePoint: number;

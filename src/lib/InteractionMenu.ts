@@ -1,6 +1,6 @@
 export const InteractionMenu = [
   {
-    id: 1,
+    itemId: 1,
     src: "/assets/icons/feed.svg",
     alt: "Feed",
     label: "사료주기",
@@ -8,7 +8,7 @@ export const InteractionMenu = [
     height: 45,
   },
   {
-    id: 2,
+    itemId: 2,
     src: "/assets/icons/play.svg",
     alt: "Play",
     label: "놀아주기",
@@ -16,7 +16,7 @@ export const InteractionMenu = [
     height: 45,
   },
   {
-    id: 3,
+    itemId: 3,
     src: "/assets/icons/stroke.svg",
     alt: "Stroke",
     label: "쓰다듬기",

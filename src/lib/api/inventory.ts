@@ -38,7 +38,7 @@ export const fetchInventoryByCategory = async (
 export const toggleInventory = async (id: number) => {
   try {
     const response = await axiosInstance.post(`/api/v1/inventory/${id}/toggle`);
-    console.log("/api/v1/inventory/${id}/toggle에 대한 결과과", response.data);
+    console.log("/api/v1/inventory/${id}/toggle에 대한 결과", response.data);
 
     return response.data;
   } catch (error) {

@@ -5,10 +5,12 @@ import { useCat } from "@/hooks/useCat";
 import { useWearingInventory } from "@/hooks/useInventory";
 import { useMemberData } from "@/lib/userData";
 import { catStore } from "@/store/catStore";
+import { InteractionStore } from "@/store/interactionStore";
 import { userStore } from "@/store/userStore";
 import { useEffect } from "react";
 
 export default function WelcomePage() {
+  const setInteraction = InteractionStore((state) => state.setInteraction);
   const setUserData = userStore((state) => state.setUserData);
   const setRecipientData = userStore((state) => state.setRecipientData);
   const setCatData = catStore((state) => state.setCatData);
@@ -19,12 +21,6 @@ export default function WelcomePage() {
     isPending: isUserDataPending,
     isError: isUserDataError,
   } = useMemberData();
-
-  const {
-    data: catInfo,
-    isPending: isCatPending,
-    isError: isCatError,
-  } = useCat();
 
   const {
     data: InventoryData, // itemId 배열 (예: [9])
@@ -47,17 +43,11 @@ export default function WelcomePage() {
 
     if (
       !isUserDataPending &&
-      !isCatPending &&
-      catInfo &&
-      !isCatError &&
       !isInventoryPending &&
       InventoryData &&
       !isUserDataError &&
       !inventoryError
     ) {
-      setCatData({
-        ...catInfo,
-      });
       if (Array.isArray(InventoryData)) {
         setInventory(InventoryData);
       } else {
@@ -74,14 +64,12 @@ export default function WelcomePage() {
     setCatData,
     setInventory,
     userInfo,
-    catInfo,
     InventoryData, // InventoryData 변경 시 useEffect 재실행
     isUserDataPending,
-    isCatPending,
     isInventoryPending,
     isUserDataError,
-    isCatError,
     inventoryError,
+    setInteraction,
   ]);
 
   return <ClientWelcome />;
