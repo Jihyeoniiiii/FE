@@ -23,12 +23,12 @@ const MyDonationList = ({ donation }: DonationProps) => {
   return (
     <div className="flex items-center gap-3 overflow-hidden">
       <Image
-        height={30}
+        height={60}
         width={60}
         alt={`donation-${donation.title}`}
         src={donation.image.fileUrl}
-        style={{ objectFit: "cover" }}
-        className="rounded-xl flex-shrink-0"
+        style={{ objectFit: "fill" }}
+        className="rounded-xl flex-shrink-0 w-[70px] h-[70px]"
       />
       <div className="flex justify-between w-full items-center">
         <div className="truncate">

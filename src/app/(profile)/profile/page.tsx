@@ -96,7 +96,8 @@ export default function DonatorProfilePage() {
     debounce(() => {}, 2000, timerIdRef);
   };
 
-  const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => { // 사진 받아서 상태관리리하는 함수 
+  const handleTempFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 사진 받아서 상태관리리하는 함수
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -113,7 +114,8 @@ export default function DonatorProfilePage() {
     reader.readAsDataURL(file);
   };
 
-  const handleConfirm = () => { //모달 안에 있는 전송 버튼누르면 api 통신하는 함수수
+  const handleConfirm = () => {
+    //모달 안에 있는 전송 버튼누르면 api 통신하는 함수수
     UploadImage(tempForm.file);
 
     setUserData({
@@ -131,7 +133,8 @@ export default function DonatorProfilePage() {
     setIsOpen(false);
   };
 
-  const handleCancel = () => { // 모달안에 있는 취소 버튼 
+  const handleCancel = () => {
+    // 모달안에 있는 취소 버튼
     setProfileForm({
       name: "",
       selectedFile: "",
@@ -152,10 +155,13 @@ export default function DonatorProfilePage() {
     };
   }, []);
 
-  const handleToRecipientButton = () => {// 수혜자 권한 허가를 기다리는 중인지 체크
-    if (!waiting) {  // 아니라면 원래대로 수혜자 등록하는 페이지로 이동
+  const handleToRecipientButton = () => {
+    // 수혜자 권한 허가를 기다리는 중인지 체크
+    if (!waiting) {
+      // 아니라면 원래대로 수혜자 등록하는 페이지로 이동
       router.push("/profile/recipient/register");
-    } else { // 기다리는 중이라면 수혜자 등록 완료 페이지로 이동하도록 
+    } else {
+      // 기다리는 중이라면 수혜자 등록 완료 페이지로 이동하도록
       router.push("/profile/recipient/complete");
     }
   };
@@ -230,11 +236,11 @@ export default function DonatorProfilePage() {
         <div className="space-y-5 my-2">
           <PaymentCard
             text="이번 달 총 기부 금액"
-            payment={userInfo.monthlyAmount || 0}
+            payment={userInfo.monthlyAmount}
           />
           <PaymentCard
             text="올해 총 기부 금액"
-            payment={userInfo.yearlyAmount || 0}
+            payment={userInfo.yearlyAmount}
           />
         </div>
 
@@ -252,10 +258,15 @@ export default function DonatorProfilePage() {
             </Link>
           </div>
           <div className="space-y-3">
-            {userInfo.donations &&
+            {userInfo.donations.length !== 0 ? (
               userInfo.donations.map((myDonation: Donation) => (
                 <MyDonationList donation={myDonation} key={myDonation.id} />
-              ))}
+              ))
+            ) : (
+              <p className="text-start text-gray-500">
+                진행중인 펀드가 없습니다.
+              </p>
+            )}
           </div>
         </div>
       </div>
