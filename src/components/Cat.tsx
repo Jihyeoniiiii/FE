@@ -2,18 +2,11 @@
 
 import { useWearingInventory } from "@/hooks/useInventory";
 import { catStore } from "@/store/catStore";
+import { ItemType } from "@/types/itemTypes";
 import Image from "next/image";
 import React, { useEffect } from "react";
 
-type ItemType = {
-  id: number;
-  itemId?: number;
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className: string;
-};
+
 
 const Cat = () => {
   const inventoryList = catStore((state) => state.combinedInventoryList);
@@ -59,7 +52,7 @@ const Cat = () => {
       {inventoryList &&
         inventoryList.map((item: ItemType) => (
           <Image
-            key={item.id}
+            key={item.itemId}
             src={item.src}
             alt={item.alt}
             width={item.width}

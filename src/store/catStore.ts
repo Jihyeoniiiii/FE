@@ -1,32 +1,25 @@
 import { decorationItems, interiorItems } from "@/lib/inventoryItems";
+import { CombinedInventoryItem, ItemType } from "@/types/itemTypes";
 import { create } from "zustand";
 
-type ItemType = {
-  id: number;
-  itemId?: number;
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className: string;
-};
-
-type CatDataProps = {
+interface CatDataProps {
   id: number;
   level: number;
   experiencePoint: number;
   levelUpPercentage: number;
-};
+}
 
 type CatStore = {
   catData: CatDataProps;
   setCatData: (catData: CatDataProps) => void;
 
   inventory: number[]; // 아이템 ID 배열
-  setInventory: (inventory: number[]) => void;
+  setInventory: (inventory: number[]) => void; // itemId만 있음
 
-  combinedInventoryList: ItemType[];
-  toggleItemInDisplay: (id: number) => void;
+  acquiredItem: CombinedInventoryItem[]; // 보유한 inventory 
+  setAcquiredItem: (responseItemData: CombinedInventoryItem[]) => void; 
+  combinedInventoryList: ItemType[]; // 착용하고있는 inventory
+  toggleItemInDisplay: (id: number) => void; 
 };
 
 export const catStore = create<CatStore>()((set, get) => ({
@@ -38,6 +31,11 @@ export const catStore = create<CatStore>()((set, get) => ({
   },
   inventory: [],
   combinedInventoryList: [],
+
+  acquiredItem: [],
+  setAcquiredItem: (responseItemData: CombinedInventoryItem[]) => {
+    set({ acquiredItem: responseItemData });
+  },
 
   setCatData: (newCatData) => {
     set({ catData: newCatData });

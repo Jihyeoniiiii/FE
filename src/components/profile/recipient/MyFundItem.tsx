@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FundingData } from "@/lib/api/funding";
-
+import defaultPicture from "@assets/images/chaeum.svg";
 interface MyFundItemProps {
   type: "ongoing" | "completed";
   fundingItem: FundingData;
@@ -57,10 +57,7 @@ const MyFundItem: React.FC<MyFundItemProps> = ({ type, fundingItem }) => {
       {type === "completed" && (
         <div className="flex justify-between items-center text-xs text-secondary gap-3">
           <Image
-            src={
-              fundingItem.fundingImages?.[0]?.fileUrl ||
-              "/assets/images/study.png"
-            }
+            src={fundingItem.fundingImages?.[0].fileUrl! || defaultPicture}
             alt={fundingItem.title}
             width={70}
             height={30}

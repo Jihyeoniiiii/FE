@@ -1,12 +1,5 @@
+import { InventoryResponse } from "@/types/itemTypes";
 import axiosInstance from "./axios";
-
-interface InventoryResponse {
-  id: number;
-  itemId: number;
-  isWearing: boolean;
-  quantity: number;
-  createdAt: string;
-}
 
 export const fetchInventoryByCategory = async (
   category: string,
@@ -23,7 +16,10 @@ export const fetchInventoryByCategory = async (
     });
 
     const searchCategoryData = response?.data?.data; // 응답 데이터에서 values 속성 추출
-    console.log("/api/v1/inventory/${id}/toggle에 대한 결과: ", searchCategoryData.values);
+    console.log(
+      "/api/v1/inventory/category에 대한 결과: ",
+      searchCategoryData.values
+    );
 
     if ("values" in searchCategoryData) {
       // values가 배열이고 비어있지 않은 경우

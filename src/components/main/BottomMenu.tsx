@@ -1,44 +1,39 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useInteractionSearch } from "@/hooks/useInteraction";
+import { InteractionMenu } from "@/lib/InteractionMenu";
+import { InteractionStore } from "@/store/interactionStore";
 
 const BottomMenu = () => {
-  const menuItems = [
-    {
-      id: 1,
-      src: "/assets/icons/feed.svg",
-      alt: "Feed",
-      label: "사료주기",
-      width: 50,
-      height: 45,
-    },
-    {
-      id: 2,
-      src: "/assets/icons/play.svg",
-      alt: "Play",
-      label: "놀아주기",
-      width: 44,
-      height: 45,
-    },
-    {
-      id: 3,
-      src: "/assets/icons/stroke.svg",
-      alt: "Stroke",
-      label: "쓰다듬기",
-      width: 50,
-      height: 45,
-    },
-  ];
-
+  const { feed, play, touch, setInteraction } = InteractionStore(
+    (state) => state
+  );
+  const [interactionState, setInteractionState] = useState<number[]>([]);
+  const {
+    data: InteractionData, // itemId 배열 (예: [9])
+    isPending: isInteractionPending,
+    isError: InteractionError,
+  } = useInteractionSearch();
+  useEffect(() => {
+    if (InteractionData) {
+      const quantityOfInteraction = InteractionData!.map(
+        (item) => item.quantity
+      );
+      setInteractionState(quantityOfInteraction);
+      setInteraction(quantityOfInteraction);
+    }
+  }, [InteractionData, isInteractionPending, InteractionError]);
   return (
     <div className="fixed bottom-30 w-full flex py-4 px-8 sm:p-13 md:py-15 md:px-22 justify-between">
-      {menuItems.map((item) => (
+      {InteractionMenu.map((item) => (
         <Button
           variant="soft"
           size="lg"
           className="flex flex-col px-4 py-3 gap-2"
-          key={item.id}
-        >
+          key={item.id}>
           <Image
             src={item.src}
             alt={item.alt}
@@ -50,7 +45,14 @@ const BottomMenu = () => {
               {item.label}
             </span>
 
-            <span className="font-semibold text-xs text-accent">0/3</span>
+            <span className="font-semibold text-xs text-accent">
+              {item.id === 1
+                ? feed || interactionState[0]
+                : item.id === 2
+                ? play || interactionState[1]
+                : touch || interactionState[2]}
+              개
+            </span>
           </div>
         </Button>
       ))}
