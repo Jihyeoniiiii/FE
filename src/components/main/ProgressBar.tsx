@@ -28,7 +28,16 @@ const ProgressBar = () => {
       const percentage = Math.trunc(catInfo?.levelUpPercentage);
       setWidthPercent(percentage);
     }
-  }, [catInfo, setInteraction, setCatData]);
+  }, [
+    catInfo,
+    setInteraction,
+    setCatData,
+    isCatError,
+    isCatPending,
+    feed,
+    play,
+    touch,
+  ]);
 
   if (isCatPending) {
     <div>데이터를 불러오는 중입니다.</div>;

@@ -1,6 +1,5 @@
 import {
   CombinedInteractiveItem,
-  InteractionResponse,
 } from "@/types/itemTypes";
 import { create } from "zustand";
 

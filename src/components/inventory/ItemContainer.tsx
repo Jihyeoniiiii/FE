@@ -24,7 +24,8 @@ const SkeletonBox = () => (
   </div>
 );
 
-const combineInventoryAndItem = ( // api data 와 정적데이터를 합쳐서 한 배열을 만듬
+const combineInventoryAndItem = (
+  // api data 와 정적데이터를 합쳐서 한 배열을 만듬
   inventoryResponses: InventoryResponse[],
   itemTypes: ItemType[]
 ): CombinedInventoryItem[] => {
@@ -158,10 +159,12 @@ const ItemContainer = () => {
       </div>
     );
   }
-  const isItemCurrentlyOwned = (itemId: number) => // 매개 변수로 들어오는 itemId가 내가 가지고 있는 인벤토리에 있는 지 체크
-    ownedInventory.some((item) => item.itemId === itemId);
+  const isItemCurrentlyOwned = (
+    itemId: number // 매개 변수로 들어오는 itemId가 내가 가지고 있는 인벤토리에 있는 지 체크
+  ) => ownedInventory.some((item) => item.itemId === itemId);
 
-  const renderItemsByCategory = (categoryItems: ItemType[]) => { // isItemCurrentlyOwned로 체크해서 있었으면 정적데이터에서 가져와서 UI 출력
+  const renderItemsByCategory = (categoryItems: ItemType[]) => {
+    // isItemCurrentlyOwned로 체크해서 있었으면 정적데이터에서 가져와서 UI 출력
     return categoryItems.map((item) => (
       <div
         key={item.itemId}

@@ -1,7 +1,6 @@
 "use client";
 
 import ClientWelcome from "@/components/welcome/ClientWelcome";
-import { useCat } from "@/hooks/useCat";
 import { useWearingInventory } from "@/hooks/useInventory";
 import { useMemberData } from "@/lib/userData";
 import { catStore } from "@/store/catStore";

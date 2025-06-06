@@ -15,7 +15,7 @@ import {
   InventoryResponse,
 } from "@/types/itemTypes";
 
- const combineInventoryAndItem = (
+const combineInventoryAndItem = (
   // api data 와 정적데이터를 합쳐서 한 배열을 만듬
   inventoryResponses: InventoryResponse[],
   itemTypes: InteractionMenuProps[]
@@ -66,7 +66,7 @@ const BottomMenu = () => {
       setInteractionState(finalInventoryList);
       setInteraction(finalInventoryList);
     }
-  }, [interactionData, isInteractionPending, interactionError]);
+  }, [interactionData, isInteractionPending, interactionError, setInteraction]);
 
   const handleInterativeItemUsing = (id: number) => {
     const newList = interactionState.map((item) => {
