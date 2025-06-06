@@ -57,7 +57,7 @@ const MyFundItem: React.FC<MyFundItemProps> = ({ type, fundingItem }) => {
       {type === "completed" && (
         <div className="flex justify-between items-center text-xs text-secondary gap-3">
           <Image
-            src={fundingItem.fundingImages?.[0].fileUrl! || defaultPicture}
+            src={fundingItem.fundingImages?.[0]?.fileUrl || defaultPicture}
             alt={fundingItem.title}
             width={70}
             height={30}
