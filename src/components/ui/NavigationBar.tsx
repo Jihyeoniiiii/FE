@@ -70,7 +70,7 @@ const NavigationBar = () => {
   };
 
   return (
-    <div className="w-full h-[5.5rem] fixed bottom-0 bg-white">
+    <div className="w-full h-[5.5rem] fixed bottom-0 bg-white md:w-[640px]">
       <div
         className="absolute top-[5px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full flex items-center justify-center cursor-pointer bg-primary"
         onClick={() => handleMenuClick(0, "/")}>
@@ -83,7 +83,7 @@ const NavigationBar = () => {
         />
       </div>
       <div className="flex w-full">
-        <div className="flex w-[45%] pl-8 pt-2.5 justify-between">
+        <div className="flex w-[45%] pl-8 pt-2.5 md:pl-16 md:pt-6 justify-between">
           {navItems.slice(0, 2).map((item) => (
             <div
               key={item.id}
@@ -98,7 +98,7 @@ const NavigationBar = () => {
                   alt={item.alt}
                   width={item.width}
                   height={item.height}
-                  className="object-contain"
+                  className="object-contain "
                 />
                 <span className="font-semibold text-xs text-primary">
                   {item.label}

@@ -28,6 +28,7 @@ const TopMenu = () => {
                   alt={item.alt}
                   width={item.width}
                   height={item.height}
+                  style={{ width: "auto" }}
                 />
               </Button>
               <span className="font-semibold text-xs text-secondary">

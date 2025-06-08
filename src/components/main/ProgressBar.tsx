@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 const ProgressBar = () => {
   const [widthPercent, setWidthPercent] = useState<number>(0);
-  const { feed, play, touch, setInteraction } = InteractionStore(
+  const { feed, play, touch, setFeed, setPlay, setTouch } = InteractionStore(
     (state) => state
   );
   const setCatData = catStore((state) => state.setCatData);
@@ -30,13 +30,15 @@ const ProgressBar = () => {
     }
   }, [
     catInfo,
-    setInteraction,
     setCatData,
     isCatError,
     isCatPending,
     feed,
     play,
     touch,
+    setFeed,
+    setPlay,
+    setTouch,
   ]);
 
   if (isCatPending) {

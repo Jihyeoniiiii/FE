@@ -4,12 +4,10 @@ import ClientWelcome from "@/components/welcome/ClientWelcome";
 import { useWearingInventory } from "@/hooks/useInventory";
 import { useMemberData } from "@/lib/userData";
 import { catStore } from "@/store/catStore";
-import { InteractionStore } from "@/store/interactionStore";
 import { userStore } from "@/store/userStore";
 import { useEffect } from "react";
 
 export default function WelcomePage() {
-  const setInteraction = InteractionStore((state) => state.setInteraction);
   const setUserData = userStore((state) => state.setUserData);
   const setRecipientData = userStore((state) => state.setRecipientData);
   const setCatData = catStore((state) => state.setCatData);
@@ -68,7 +66,6 @@ export default function WelcomePage() {
     isInventoryPending,
     isUserDataError,
     inventoryError,
-    setInteraction,
   ]);
 
   return <ClientWelcome />;

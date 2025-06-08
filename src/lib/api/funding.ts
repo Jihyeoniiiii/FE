@@ -8,8 +8,8 @@ export interface FundingImage {
 
 export interface FundingData {
   id: number;
-  memberName: string,
-  memberProfileImageUrl: string,
+  memberName: string;
+  memberProfileImageUrl: string;
   title: string;
   content: string;
   fundingImages?: FundingImage[];
@@ -78,6 +78,8 @@ export const fetchFundingByRecommend = async (
   const response = await axiosInstance.get(
     `/api/v1/funding/recommend?${params.toString()}`
   );
+
+  console.log("추천순 펀딩 :", response.data);
   return response.data;
 };
 
