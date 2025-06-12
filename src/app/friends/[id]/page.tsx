@@ -52,7 +52,7 @@ export default function FriendCatPage() {
           height={180}
         />
       </div>
-      <BottomMenu />
+      <BottomMenu onTriggerConfetti={() => false} />
     </div>
   );
 }

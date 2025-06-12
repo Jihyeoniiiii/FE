@@ -14,7 +14,6 @@ import {
   InteractionMenuProps,
   InventoryResponse,
 } from "@/types/itemTypes";
-// import confetti from "@assets/images/itemBomb.png"; // 이 줄은 사용되지 않으므로 제거합니다.
 
 // `combineInventoryAndItem` 함수는 컴포넌트 외부에 정의하여 불필요한 재생성을 방지
 const combineInventoryAndItem = (
@@ -41,11 +40,13 @@ const combineInventoryAndItem = (
   });
 };
 
-const BottomMenu = () => {
-  // 애니메이션 활성화 상태 (전체 애니메이션 표시 여부)
-  const [animationState, setAnimationState] = useState<boolean>(false);
-  // 축소 애니메이션 상태 (ConfettiShrink 애니메이션 적용 여부)
-  const [shrinking, setShrinking] = useState<boolean>(false);
+// BottomMenu 컴포넌트의 props에 onTriggerConfetti를 추가
+type BottomMenuProps = {
+  onTriggerConfetti: () => void;
+}
+
+const BottomMenu = ({ onTriggerConfetti }: BottomMenuProps) => { // props 추가
+
 
   const { feed, play, touch, setFeed, setPlay, setTouch } = InteractionStore(
     (state) => state
@@ -104,37 +105,11 @@ const BottomMenu = () => {
     setTouch,
   ]);
 
-  useEffect(() => {
-    let shrinkDelayTimer: NodeJS.Timeout;
-    let hideTimer: NodeJS.Timeout;
-
-    if (animationState) {
-      // 컨페티가 나타난 후, 0.5초 동안 대기하다가 축소 애니메이션 시작
-      setShrinking(false);
-
-      shrinkDelayTimer = setTimeout(() => {
-        setShrinking(true); // 0.5초 후 confettiShrink 애니메이션 트리거
-      }, 500); // 0.5초 대기
-
-      // 총 1초 후 (0.5초 대기 + confettiShrink 애니메이션 0.5초) 컨페티 숨김
-      hideTimer = setTimeout(() => {
-        setAnimationState(false); // 전체 애니메이션 숨기기
-        setShrinking(false); // 축소 상태 리셋
-      }, 1000); // 총 1초 후
-
-      return () => {
-        clearTimeout(shrinkDelayTimer);
-        clearTimeout(hideTimer);
-      };
-    }
-  }, [animationState]);
-
   const handleInterativeItemUsing = useCallback(
     (clickedItemId: number) => {
-      if (animationState) return;
-
       // 애니메이션 시작 상태로 설정
-      setAnimationState(true);
+      // onTriggerConfetti 함수를 호출하여 Home 컴포넌트에서 애니메이션을 트리거
+      onTriggerConfetti();
 
       let currentItemState;
       let setSpecificItem;
@@ -157,7 +132,7 @@ const BottomMenu = () => {
         currentItemState?.quantity === undefined ||
         currentItemState.quantity <= 0
       ) {
-        console.log("해당 아이템이 없습니다. 기부하고 보상으로 받아보세요!"); // alert() 대체
+        console.log("해당 아이템이 없습니다. 기부하고 보상으로 받아보세요!");
         return;
       }
 
@@ -174,7 +149,6 @@ const BottomMenu = () => {
         );
       });
 
-      // API 호출 (유효한 아이템 ID가 있을 경우)
       if (currentItemState && currentItemState.id !== 0) {
         usinginteractiveItemMutate(currentItemState.id);
         console.log("API에 같이 보내는 ID:", currentItemState.id);
@@ -193,7 +167,7 @@ const BottomMenu = () => {
       setPlay,
       setTouch,
       usinginteractiveItemMutate,
-      animationState,
+      onTriggerConfetti, 
     ]
   );
 
@@ -219,7 +193,6 @@ const BottomMenu = () => {
 
   return (
     <div className="fixed bottom-30 w-full flex py-4 px-8 sm:p-13 md:w-[640px] justify-between">
-      {/* 하단 메뉴 아이템 렌더링 */}
       {interactionState.map((item) => (
         <Button
           variant="soft"
@@ -246,26 +219,6 @@ const BottomMenu = () => {
           </div>
         </Button>
       ))}
-      {/* 컨페티 애니메이션 */}
-      {animationState && (
-        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
-          <div
-            className={`relative w-full h-full max-w-[390px] -translate-x-12 -translate-y-[-40%] ${
-              shrinking ? "animate-confettiShrink" : ""
-            }`}
-            style={{
-              transformOrigin: "center center",
-            }}>
-            <Image
-              height={300}
-              width={300}
-              src="/assets/images/congratulations.gif"
-              alt="축하 컨페티"
-              className="object-contain"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -53,7 +53,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       })(); // 즉시 함수 실행
 
       const formData = new FormData();
-      formData.append("multipartFile", file);
+      formData.append("multipartFile", compressedFile);
 
       const endpoint = `/api/v1/file/${module}`;
 
