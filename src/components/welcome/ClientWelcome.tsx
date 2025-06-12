@@ -32,14 +32,6 @@ const ClientWelcome = () => {
     };
   }, [router]);
 
-  if (!userData) {
-    return (
-      <main className="flex items-center justify-center min-h-scree ">
-        <div className="text-secondary text-lg font-semibold">Loading...</div>
-      </main>
-    );
-  }
-
   return (
     <main
       className="flex min-h-[100dvh] flex-col items-center justify-center"
@@ -51,7 +43,7 @@ const ClientWelcome = () => {
         <h2
           className={`${textStyle} transition-opacity duration-100`}
           style={{ opacity: isVisible ? 1 : 0 }}>
-          {userData.name}님, 반가워요!
+          {userData?.name}님, 반가워요!
         </h2>
       </div>
     </main>
