@@ -11,6 +11,8 @@ export default function ReviewListPage() {
     isError: isReviewListError,
   } = useReviewList({ limit: 8 });
 
+  console.log(reviewListData)
+
   if (isReviewListPending) {
     return <div>리뷰를 불러오는 중...</div>;
   }
@@ -21,7 +23,7 @@ export default function ReviewListPage() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col px-6 py-7.5 relative">
-      <div className="absolute top-[3vh] flex">
+      <div className="absolute top-[3.45vh] flex">
         <Dropdown
           options={["최신순"]}
           onSelect={(value) => {

@@ -32,7 +32,8 @@ const MyFundItem: React.FC<MyFundItemProps> = ({ type, fundingItem }) => {
       {type === "ongoing" && (
         <div
           className="flex justify-between items-center text-xs text-secondary gap-3 cursor-pointer"
-          onClick={() => router.push(`/funding/${fundingItem.id}`)}>
+          onClick={() => router.push(`/funding/${fundingItem.id}`)}
+        >
           <Image
             src={
               fundingItem.fundingImages?.[0]?.fileUrl ||
@@ -75,10 +76,22 @@ const MyFundItem: React.FC<MyFundItemProps> = ({ type, fundingItem }) => {
           <Button
             variant="soft"
             className="p-2.5 border-1 border-primary text-primary text-[11px]"
-            onClick={() => handleReviewWrite(fundingItem.id)}>
-            후기
-            <br />
-            작성
+            onClick={() => handleReviewWrite(fundingItem.id)}
+            disabled={fundingItem.isReviewed}
+          >
+            {fundingItem.isReviewed ? (
+              <>
+                작성
+                <br />
+                완료
+              </>
+            ) : (
+              <>
+                후기
+                <br />
+                작성
+              </>
+            )}
           </Button>
         </div>
       )}
