@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import axiosInstance from "@/lib/api/axios";
-import imageCompression from "browser-image-compression";
+// import imageCompression from "browser-image-compression";
 
 interface ImageUploadProps {
   setImageUrl: (url: string) => void;
@@ -23,37 +23,37 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const uploadFile = async (file: File): Promise<string | null> => {
     setIsUploading(true);
     try {
-      const options = {
-        maxSizeMB: 1, // 최대 파일 크기 (메가바이트) 예: 1MB
-        maxWidthOrHeight: 1920, // 최대 너비 또는 높이 (픽셀)
-        useWebWorker: true, // 웹 워커를 사용하여 성능 향상
-      };
+      // const options = {
+      //   maxSizeMB: 1, // 최대 파일 크기 (메가바이트) 예: 1MB
+      //   maxWidthOrHeight: 1920, // 최대 너비 또는 높이 (픽셀)
+      //   useWebWorker: true, // 웹 워커를 사용하여 성능 향상
+      // };
 
-      const compressedFile: File = await (async () => {
-        try {
-          if (file.size / (1024 * 1024) > options.maxSizeMB) {
-            const compressed = await imageCompression(file, options);
-            console.log("원본 파일 크기:", file.size / 1024 / 1024, "MB");
-            console.log(
-              "압축된 파일 크기:",
-              compressed.size / 1024 / 1024,
-              "MB"
-            );
-            const fileNameParts = compressed.name.split(".");
-            const fileExtension = fileNameParts[fileNameParts.length - 1];
-            console.log("압축된 파일 확장자:", fileExtension);
-            return compressed; // 압축된 파일 반환
-          } else {
-            return file; // 압축 불필요 시 원본 파일 반환
-          }
-        } catch (error) {
-          console.error("이미지 압축 중 오류 발생:", error);
-          return file; // 오류 발생 시 원본 파일 반환 (폴백)
-        }
-      })(); // 즉시 함수 실행
+      // const compressedFile: File = await (async () => {
+      //   try {
+      //     if (file.size / (1024 * 1024) > options.maxSizeMB) {
+      //       const compressed = await imageCompression(file, options);
+      //       console.log("원본 파일 크기:", file.size / 1024 / 1024, "MB");
+      //       console.log(
+      //         "압축된 파일 크기:",
+      //         compressed.size / 1024 / 1024,
+      //         "MB"
+      //       );
+      //       const fileNameParts = compressed.name.split(".");
+      //       const fileExtension = fileNameParts[fileNameParts.length - 1];
+      //       console.log("압축된 파일 확장자:", fileExtension);
+      //       return compressed; // 압축된 파일 반환
+      //     } else {
+      //       return file; // 압축 불필요 시 원본 파일 반환
+      //     }
+      //   } catch (error) {
+      //     console.error("이미지 압축 중 오류 발생:", error);
+      //     return file; // 오류 발생 시 원본 파일 반환 (폴백)
+      //   }
+      // })(); // 즉시 함수 실행
 
       const formData = new FormData();
-      formData.append("multipartFile", compressedFile);
+      formData.append("multipartFile", file);
 
       const endpoint = `/api/v1/file/${module}`;
 
@@ -115,25 +115,24 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       )}
       {localImageUrl ? (
         <div className="flex justify-center items-center rounded-xl overflow-hidden py-2 w-[180px] h-[120px]">
-    <div className="relative w-full h-full rounded-lg overflow-hidden">
-      <Image
-        src={localImageUrl}
-        alt="Uploaded Image"
-        fill
-        className="object-contain"
-      />
-      {isUploading && (
-        <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
-          <span className="text-white animate-spin">⏳</span>
+          <div className="relative w-full h-full rounded-lg overflow-hidden">
+            <Image
+              src={localImageUrl}
+              alt="Uploaded Image"
+              fill
+              className="object-contain"
+            />
+            {isUploading && (
+              <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
+                <span className="text-white animate-spin">⏳</span>
+              </div>
+            )}
+          </div>
         </div>
-      )}
-    </div>
-  </div>
       ) : (
         <label
           htmlFor="picture"
-          className="flex inline-flex items-center cursor-pointer"
-        >
+          className="flex inline-flex items-center cursor-pointer">
           {type === "primary" && (
             <div className="flex w-45 h-30 bg-background rounded-2xl justify-center items-center">
               <div className="flex w-13 h-13 bg-primary rounded-4xl justify-center items-center opacity-90">
