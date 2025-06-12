@@ -2,14 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import { useReviewDetail } from "@/hooks/useReview";
 import { useFundingDetail } from "@/hooks/useFunding";
 import { ReviewDetailItem, ReviewItem } from "@/lib/api/review";
 import { FundingData } from "@/lib/api/funding";
 import Link from "next/link";
 
 type ReviewCardWithIdProps = {
-  type: "review" | "funding";
   fundingId?: number;
 };
 
@@ -18,34 +16,14 @@ type ReviewCardWithDataProps = {
   data?: ReviewDetailItem | FundingData | ReviewItem | null;
 };
 
-export const ReviewCardWithId = ({
-  type,
-  fundingId,
-}: ReviewCardWithIdProps) => {
-  const reviewDetailQuery = useReviewDetail(
-    type === "review" ? fundingId : undefined
-  );
-  const fundingDetailQuery = useFundingDetail(
-    type === "funding" ? fundingId : undefined
-  );
+export const ReviewCardWithId = ({ fundingId }: ReviewCardWithIdProps) => {
+  const fundingDetailQuery = useFundingDetail(fundingId);
 
-  const isPending =
-    type === "review"
-      ? reviewDetailQuery.isPending
-      : fundingDetailQuery.isPending;
-  const isError =
-    type === "review" ? reviewDetailQuery.isError : fundingDetailQuery.isError;
-  const data =
-    type === "review" ? reviewDetailQuery.data?.data : fundingDetailQuery.data;
+  const isPending = fundingDetailQuery.isPending;
+  const isError = fundingDetailQuery.isError;
+  const data = fundingDetailQuery.data;
 
-  return (
-    <ReviewCardBase
-      type={type}
-      isPending={isPending}
-      isError={isError}
-      data={data}
-    />
-  );
+  return <ReviewCardBase isPending={isPending} isError={isError} data={data} />;
 };
 
 export const ReviewCardWithData = ({ type, data }: ReviewCardWithDataProps) => {
@@ -66,7 +44,7 @@ export const ReviewCardWithData = ({ type, data }: ReviewCardWithDataProps) => {
 };
 
 type ReviewCardBaseProps = {
-  type: "review" | "funding";
+  type?: "review" | "funding";
   isPending: boolean;
   isError: boolean;
   data?: ReviewDetailItem | FundingData | ReviewItem | null;

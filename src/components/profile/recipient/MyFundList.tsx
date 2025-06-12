@@ -25,7 +25,7 @@ const MyFundList = () => {
 
   if (isLoadingOngoing || isLoadingCompleted) {
     return (
-      <ListContainer>
+      <ListContainer type="profile">
         <div className="flex justify-center items-center h-40">로딩 중...</div>
       </ListContainer>
     );
@@ -33,7 +33,7 @@ const MyFundList = () => {
 
   if (isErrorOngoing || isErrorCompleted) {
     return (
-      <ListContainer>
+      <ListContainer type="profile">
         <div className="flex justify-center items-center h-40 text-red-500">
           펀딩 정보를 불러오는데 실패했습니다.
         </div>
@@ -45,7 +45,7 @@ const MyFundList = () => {
   const completedCampaigns = completedFundsData?.data?.values || [];;
 
   return (
-    <ListContainer>
+    <ListContainer type="profile">
       <div className="flex justify-around border-b border-gray-300">
         <button
           className={`py-2 px-4 focus:outline-none ${

@@ -69,10 +69,10 @@ const ReviewWritePage = () => {
     <>
       <BackButton>후기 작성</BackButton>
       <div className="justify-center px-25 sm:px-35 md:px-55 py-1">
-        <ReviewCardWithId type={"review"} fundingId={fundingId} />
+        <ReviewCardWithId fundingId={fundingId} />
       </div>
 
-      <ListContainer>
+      <ListContainer type="review">
         <div className="flex flex-col gap-5">
           <div>
             <Input
