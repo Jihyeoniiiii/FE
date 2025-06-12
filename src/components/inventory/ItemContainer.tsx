@@ -182,17 +182,17 @@ const ItemContainer = () => {
   };
 
   return (
-    <div className="flex flex-col fixed bottom-[3rem] w-full h-110 p-8 bg-white rounded-2xl gap-4">
+    <div className="flex flex-col fixed bottom-[3rem] w-full h-110 p-8 bg-white rounded-2xl gap-4 md:w-[640px]">
       <div className="flex flex-col">
         <span className="text-secondary font-semibold text-lg">장식</span>
-        <div className="flex py-3 gap-4 overflow-x-auto touch-manipulation scrollbar-none">
+        <div className="flex py-3 gap-4 overflow-x-auto touch-manipulation scrollbar-none md:gap-10 md:justify-center">
           {renderItemsByCategory(decorationItems)}
         </div>
       </div>
 
       <div className="flex flex-col">
         <span className="text-secondary font-semibold text-lg">인테리어</span>
-        <div className="flex py-3 gap-4 overflow-x-auto touch-manipulation scrollbar-none">
+        <div className="flex py-3 gap-4 overflow-x-auto touch-manipulation scrollbar-none md:gap-10 md:justify-center">
           {renderItemsByCategory(interiorItems)}
         </div>
       </div>

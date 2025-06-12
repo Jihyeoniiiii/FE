@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-
 const config = {
-  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./public/**/*.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       keyframes: {
@@ -9,10 +15,10 @@ const config = {
           "0%, 100%": {
             transform: "scale(1)",
             opacity: "0.8",
-            boxShadow: "0 0 0px 10px rgba(0, 0, 0, 0.5)", // gold
+            boxShadow: "0 0 0px 10px rgba(0, 0, 0, 0.5)",
           },
           "50%": {
-            transform: "scale(1.4)",
+            transform: "scale(5.0)",
             opacity: "0",
             boxShadow: "0 0 40px 30px rgba(0, 0, 0, 0)",
           },
@@ -25,15 +31,26 @@ const config = {
             opacity: "0",
           },
         },
+
+        confettiShrink: {
+          "0%": { transform: "scale(1) rotate(0deg)" },
+          "100%": { transform: "scale(0) rotate(180deg)" },
+        },
       },
       animation: {
         levelUpGlow: "glowCircle 1.5s ease-out",
         levelText: "levelText 1s ease-out",
+        confettiShrink: "confettiShrink 0.5s ease-in forwards",
       },
     },
   },
+  // Add Tailwind plugins
   plugins: [require("tailwind-scrollbar")],
-  safelist: ["scrollbar-none"], //PurgeCSS가 "사용되지 않는 것"으로 간주하고 제거했을수도있으므로 강제로 적용 시킴킴
+  safelist: [
+    "scrollbar-none",
+    "animate-confettiGrow",
+    "animate-confettiShrink",
+  ],
 };
 
-export default config;
+module.exports = config;

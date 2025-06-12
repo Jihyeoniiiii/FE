@@ -1,21 +1,25 @@
 "use client";
 
-import { useCat } from "@/hooks/useCat";
-import { catStore } from "@/store/catStore";
+import { CatDataProps, catStore } from "@/store/catStore";
 import { InteractionStore } from "@/store/interactionStore";
 import React, { useEffect, useState } from "react";
 
-const ProgressBar = () => {
+interface ProgressBarProps {
+  catInfo: CatDataProps | undefined;
+  isCatPending: boolean;
+  isCatError: boolean;
+}
+
+const ProgressBar = ({
+  catInfo,
+  isCatPending,
+  isCatError,
+}: ProgressBarProps) => {
   const [widthPercent, setWidthPercent] = useState<number>(0);
   const { feed, play, touch, setFeed, setPlay, setTouch } = InteractionStore(
     (state) => state
   );
   const setCatData = catStore((state) => state.setCatData);
-  const {
-    data: catInfo,
-    isPending: isCatPending,
-    isError: isCatError,
-  } = useCat();
 
   useEffect(() => {
     console.log("ProgressBar useEffect 실행", { catInfo, feed, play, touch }); // 의존성 배열 값 확인

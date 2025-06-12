@@ -6,7 +6,7 @@ export const decorationItems = [
     alt: "Sunglasses",
     width: 115,
     height: 50,
-    className: "absolute top-[18px] left-[23px] z-50",
+    className: "absolute top-[18px] left-[23px] z-100",
   },
   {
     itemId: 5,
@@ -14,7 +14,7 @@ export const decorationItems = [
     alt: "Cap",
     width: 90,
     height: 50,
-    className: "absolute top-[0px] left-[42px] z-50 transform -translate-y-1/3",
+    className: "absolute top-[0px] left-[42px] z-100 transform -translate-y-1/3",
   },
   {
     itemId: 6,
@@ -22,7 +22,7 @@ export const decorationItems = [
     alt: "Necklace",
     width: 40,
     height: 50,
-    className: "absolute top-[115px] left-[70px] z-50 ",
+    className: "absolute top-[115px] left-[70px] z-100 ",
   },
 ];
 
