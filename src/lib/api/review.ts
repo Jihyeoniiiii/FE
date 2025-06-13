@@ -1,5 +1,7 @@
 import axiosInstance from "./axios";
 
+type ReviewImageType = ReviewImage | ReviewImage[];
+
 export interface ReviewListData {
   success: boolean;
   data: {
@@ -18,7 +20,7 @@ export interface ReviewDetailItem {
   id: number;
   title: string;
   content: string;
-  reviewImages: ReviewImage[];
+  reviewImages?: ReviewImageType;
   createdAt: string;
 }
 
@@ -26,7 +28,7 @@ export interface ReviewItem {
   id: number;
   fundingId: number;
   title: string;
-  reviewImage?: ReviewImage;
+  reviewImage: ReviewImageType;
   createdAt: string;
 }
 

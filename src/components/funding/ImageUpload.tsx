@@ -68,16 +68,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         ) {
           const fileUrlFromServer = response.data.data[0].fileUrl;
 
-          // review일 때만 도메인 변경
-          const finalUrl =
-            module === "review"
-              ? fileUrlFromServer.replace(
-                  "https://chaeum-bucket.s3.ap-northeast-2.amazonaws.com",
-                  "https://s3.ap-northeast-2.amazonaws.com"
-                )
-              : fileUrlFromServer;
-
-          return finalUrl;
+          return fileUrlFromServer;
         } else {
           console.error("데이터 형식이 다릅니다:", response.data);
           return null;

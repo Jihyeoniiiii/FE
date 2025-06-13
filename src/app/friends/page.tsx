@@ -28,7 +28,7 @@ export default function FriendsPage() {
           setIsCommonDonationListOpen={setIsCommonDonationListOpen}
         />
 
-        <div className="h-[58vh] bg-background border-3 border-white rounded-2xl p-2 overflow-y-scroll scrollbar-none mx-4 md:mx-10">
+        <div className="h-[58vh] bg-background border-3 border-white rounded-2xl p-2 mx-4 md:mx-10">
           {isFriendsListOpen &&
             friendsList.map((friend) => (
               <FriendListCard

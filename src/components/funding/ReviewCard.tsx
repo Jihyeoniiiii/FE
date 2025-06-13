@@ -59,10 +59,16 @@ const ReviewCardBase = ({
   fundingId,
 }: ReviewCardBaseProps) => {
   const title = data?.title ?? "제목 없음";
-  const imageUrl =
-    type === "review"
-      ? (data as ReviewDetailItem)?.reviewImages?.[0]?.fileUrl ?? null
-      : (data as FundingData)?.fundingImages?.[0]?.fileUrl ?? null;
+  let imageUrl: string | null = null;
+
+  if (type === "review") {
+    const imageData = (data as ReviewItem)?.reviewImage;
+    imageUrl = Array.isArray(imageData)
+      ? imageData[0]?.fileUrl ?? null
+      : imageData?.fileUrl ?? null;
+  } else if (type === "funding") {
+    imageUrl = (data as FundingData)?.fundingImages?.[0]?.fileUrl ?? null;
+  }
 
   if (isPending) {
     return (
@@ -89,7 +95,7 @@ const ReviewCardBase = ({
 
   return (
     <Link href={`/review/${data.id}?fundingId=${fundingId}`}>
-      <div className="flex flex-col pt-6 transition-opacity duration-300 hover:opacity-40">
+      <div className="flex flex-col pt-3 transition-opacity duration-300 hover:opacity-40">
         <div className="relative w-full h-[120px] rounded-lg overflow-hidden">
           {imageUrl ? (
             <Image

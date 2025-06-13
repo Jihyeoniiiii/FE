@@ -34,7 +34,7 @@ export default function ReviewListPage() {
         </Dropdown>
       </div>
       {/* Projects grid */}
-      <div style={{ height: "calc(100dvh - 9rem)" }} className="relative top-[6vh] mt-[10px]overflow-y-auto scrollbar-none">
+      <div style={{ height: "calc(100dvh - 9rem)" }} className="relative top-[6vh] mt-[10px] overflow-y-auto scrollbar-none">
         <div className="grid grid-cols-2 gap-2">
         {reviewListData?.data?.values.map((review) => (
           <div

@@ -4,7 +4,7 @@ export const InteractionMenu = [
     src: "/assets/icons/feed.svg",
     alt: "Feed",
     label: "사료주기",
-    width: 50,
+    width: 55,
     height: 45,
   },
   {
@@ -12,7 +12,7 @@ export const InteractionMenu = [
     src: "/assets/icons/stroke.svg",
     alt: "Stroke",
     label: "쓰다듬기",
-    width: 50,
+    width: 46,
     height: 45,
   },
   {
@@ -20,7 +20,7 @@ export const InteractionMenu = [
     src: "/assets/icons/play.svg",
     alt: "Play",
     label: "놀아주기",
-    width: 44,
+    width: 55,
     height: 45,
   },
 ];
