@@ -5,15 +5,17 @@ import Image from "next/image";
 import cat from "@assets/images/cat.svg";
 import { centerImageStyles } from "@/styles/styles";
 import { useRouter } from "next/navigation";
-import { userStore } from "@/store/userStore";
+
+interface ClientWelcomeProps {
+  username: String;
+}
 
 const BLINK_INTERVAL = 700;
 const REDIRECT_DELAY = 3000;
 
-const ClientWelcome = () => {
+const ClientWelcome = ({ username }: ClientWelcomeProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const router = useRouter();
-  const userData = userStore((state) => state.userData);
 
   useEffect(() => {
     router.prefetch("/");
@@ -30,9 +32,9 @@ const ClientWelcome = () => {
       clearInterval(blinkIntervalId);
       clearTimeout(redirectTimerId);
     };
-  }, [router]);
+  }, [router,username]);
 
-  if (!userData) {
+  if (!username) {
     return (
       <main className="flex items-center justify-center min-h-scree ">
         <div className="text-secondary text-lg font-semibold">Loading...</div>
@@ -51,7 +53,7 @@ const ClientWelcome = () => {
         <h2
           className={`${textStyle} transition-opacity duration-100`}
           style={{ opacity: isVisible ? 1 : 0 }}>
-          {userData.name}님, 반가워요!
+          {username}님, 반가워요!
         </h2>
       </div>
     </main>

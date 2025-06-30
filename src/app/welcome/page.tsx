@@ -68,5 +68,5 @@ export default function WelcomePage() {
     inventoryError,
   ]);
 
-  return <ClientWelcome />;
+  return <ClientWelcome username={userInfo?.name} />;
 }
